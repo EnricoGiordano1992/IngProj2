@@ -18,7 +18,7 @@ public class ScenarioGraphic {
 		cars = new ArrayList<CarGraphic>();
 		
 		wall.setSize(800, 600);
-		wall.setLocationRelativeTo( null ); 
+//		wall.setLocationRelativeTo( null ); 
 		
 		
 		wall.setVisible(true); 
@@ -26,8 +26,9 @@ public class ScenarioGraphic {
 		station = new StationGraphic();
 		
 		wall.add(station);
-		station.setVisible(true);
 		wall.setComponentZOrder(station, 0);
+
+		station.setVisible(true);
 
 	}
 	

@@ -27,6 +27,9 @@ public class CarGraphic extends JLabel implements Runnable{
 
 		setBounds(xPos, yPos, 176, 88);
 		setLocation(xPos, yPos);
+		setOpaque(false);
+		setDoubleBuffered(false);
+		validate();
 	}
 
 
@@ -55,6 +58,8 @@ public class CarGraphic extends JLabel implements Runnable{
 
 		int sleep = 10;
 		
+		setLocation(720, 220);
+
 
 		while(true)
 		{
@@ -66,8 +71,8 @@ public class CarGraphic extends JLabel implements Runnable{
 			 */
 			while(xPos >= 636)
 			{
-				setLocation(xPos--, yPos);
-//				setBounds(xPos--, yPos, 176, 88);
+//				setLocation(xPos--, yPos);
+				setBounds(xPos--, yPos, getWidth(), getHeight());
 				
 				try{
 					Thread.sleep(sleep);
