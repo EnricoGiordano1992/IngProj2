@@ -10,13 +10,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class StationGraphic extends JLabel{
-	
+
+	private static int width = 180;
+	private static int heigth = 300;
 
 	public StationGraphic(){
 		
 		super(newCarImage("radio.gif"));
 
-		setBounds(0, 0, 80, 200);
+		setBounds(300, -10, width, heigth);
+		
+		setBounds(300, -10, width, heigth);
+		
+		System.out.println(getWidth() + " " + getHeight());
 
 	}
 	
@@ -30,7 +36,7 @@ public class StationGraphic extends JLabel{
 			e.printStackTrace();
 		}
 
-		Image dimg = img.getScaledInstance(80, 200,
+		Image dimg = img.getScaledInstance(width, heigth,
 				Image.SCALE_SMOOTH);
 
 		ImageIcon imageIcon = new ImageIcon(dimg);

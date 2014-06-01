@@ -15,6 +15,8 @@ public class Simulator extends JFrame{
 	{
 		ScenarioGraphic g = new ScenarioGraphic();
 
+		g.addStation();
+		
 		while(true){
 			g.addCar();
 

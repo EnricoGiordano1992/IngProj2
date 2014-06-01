@@ -19,24 +19,27 @@ public class ScenarioGraphic {
 		wall.setSize(800, 600);
 		wall.setLocationRelativeTo( null ); 
 		
+		wall.setVisible(true);
 		
-		
-		wall.setVisible(true); 
 
+	}
+	
+	
+	public void addStation(){
+		
 		station = new StationGraphic();
 		
-		wall.add(station);
+		wall.add(station, 0);
 		station.setVisible(true);
-		wall.setComponentZOrder(station, 0);
-
+		wall.repaint();
+		
 	}
 	
 	public void addCar(){
 		
 		cars.add(new CarGraphic(cars.size()));
-		wall.add(cars.get(cars.size()-1));
+		wall.add(cars.get(cars.size()-1), 1);
 		cars.get(cars.size()-1).setVisible(true);
-		wall.setComponentZOrder(cars.get(cars.size()-1), 0);
 		wall.repaint();
 		
 		Thread t;

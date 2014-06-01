@@ -15,15 +15,12 @@ public class CarGraphic extends JLabel implements Runnable{
 
 	int ID;
 	int xPos = 720;
-	int yPos = 220;
+	int yPos = 190;
 
 	public CarGraphic(int ID){
 
 		super(newCarImage("car.png"));
 		this.ID = ID;
-
-		xPos = 720;
-		yPos = 220;
 
 		setBounds(xPos, yPos, 176, 88);
 	}
@@ -83,7 +80,7 @@ public class CarGraphic extends JLabel implements Runnable{
 				setBounds(xPos--, yPos-= 2, 176, 88);
 
 				try{
-					Thread.sleep(sleep);
+					Thread.sleep(sleep+10);
 				}catch(Exception e){}
 				repaint();
 
@@ -127,7 +124,7 @@ public class CarGraphic extends JLabel implements Runnable{
 				setBounds(xPos--, yPos+= 2, 176, 88);
 
 				try{
-					Thread.sleep(sleep);
+					Thread.sleep(sleep+10);
 				}catch(Exception e){}
 				repaint();
 
@@ -144,7 +141,7 @@ public class CarGraphic extends JLabel implements Runnable{
 
 
 				try{
-					Thread.sleep(sleep);
+					Thread.sleep(sleep+10);
 				}catch(Exception e){}
 				repaint();
 
@@ -197,14 +194,14 @@ public class CarGraphic extends JLabel implements Runnable{
 				setBounds(xPos++, yPos-= 2, 176, 88);
 
 				try{
-					Thread.sleep(sleep);
+					Thread.sleep(sleep+10);
 				}catch(Exception e){}
 				repaint();
 
 			}
 
 			xPos = 636;
-			yPos = 220;
+			yPos = 190;
 			setBounds(xPos, yPos, 176, 88);
 
 			setIcon(newCarImage("car.png"));
