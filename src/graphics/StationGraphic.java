@@ -17,6 +17,7 @@ public class StationGraphic extends JLabel{
 		super(newCarImage("radio.gif"));
 
 		setBounds(0, 0, 80, 200);
+		setLocation(0,0);
 
 	}
 	
