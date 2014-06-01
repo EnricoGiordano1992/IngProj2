@@ -11,6 +11,10 @@ import javax.swing.JLabel;
 
 public class StationGraphic extends JLabel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static int width = 180;
 	private static int heigth = 300;
 

@@ -1,12 +1,15 @@
 package graphics;
 
-import java.awt.event.*; 
 import javax.swing.*; 
 
 import java.awt.*; 
 
 public class WallGraphic extends JFrame 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ImageIcon icon; 
 	Image image; 
 

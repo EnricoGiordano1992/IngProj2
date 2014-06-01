@@ -13,6 +13,10 @@ import javax.swing.JLabel;
 
 public class CarGraphic extends JLabel implements Runnable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int ID;
 	int xPos = 720;
 	int yPos = 190;

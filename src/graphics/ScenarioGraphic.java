@@ -1,8 +1,6 @@
 package graphics;
 
 import java.util.ArrayList;
-import java.awt.*;
-import java.awt.image.ImageProducer;
 
 public class ScenarioGraphic {
 
