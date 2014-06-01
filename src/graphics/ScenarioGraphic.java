@@ -2,6 +2,7 @@ package graphics;
 
 import java.util.ArrayList;
 import java.awt.*;
+import java.awt.image.ImageProducer;
 
 public class ScenarioGraphic {
 
@@ -14,11 +15,19 @@ public class ScenarioGraphic {
 		wall = new WallGraphic();
 		
 		cars = new ArrayList<CarGraphic>();
+		
+		wall.setSize(800, 600);
+		wall.setLocationRelativeTo( null ); 
+		
+		
+		
+		wall.setVisible(true); 
+
 		station = new StationGraphic();
 		
-		wall.setSize(800, 600); 
-		wall.setLocationRelativeTo( null ); 
-		wall.setVisible(true); 
+		wall.add(station);
+		station.setVisible(true);
+		wall.setComponentZOrder(station, 0);
 
 	}
 	

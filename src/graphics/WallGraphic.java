@@ -2,6 +2,7 @@ package graphics;
 
 import java.awt.event.*; 
 import javax.swing.*; 
+
 import java.awt.*; 
 
 public class WallGraphic extends JFrame 
@@ -13,9 +14,15 @@ public class WallGraphic extends JFrame
 	{ 
 		getContentPane().setSize(1000, 1000);
 		icon = new ImageIcon("wall.png"); 
-
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		JPanel panel = new JPanel() 
 		{ 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			protected void paintComponent(Graphics g) 
 			{ 
 				g.drawImage(icon.getImage(), 0, 0, null); 
