@@ -3,7 +3,6 @@ package graphics;
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.image.ImageProducer;
-import java.awt.*;
 
 public class ScenarioGraphic {
 
@@ -18,7 +17,8 @@ public class ScenarioGraphic {
 		cars = new ArrayList<CarGraphic>();
 		
 		wall.setSize(800, 600);
-//		wall.setLocationRelativeTo( null ); 
+		wall.setLocationRelativeTo( null ); 
+		
 		
 		
 		wall.setVisible(true); 
@@ -26,9 +26,8 @@ public class ScenarioGraphic {
 		station = new StationGraphic();
 		
 		wall.add(station);
-		wall.setComponentZOrder(station, 0);
-
 		station.setVisible(true);
+		wall.setComponentZOrder(station, 0);
 
 	}
 	
@@ -38,7 +37,7 @@ public class ScenarioGraphic {
 		wall.add(cars.get(cars.size()-1));
 		cars.get(cars.size()-1).setVisible(true);
 		wall.setComponentZOrder(cars.get(cars.size()-1), 0);
-		//wall.repaint();
+		wall.repaint();
 		
 		Thread t;
 		t = new Thread(cars.get(cars.size()-1));

@@ -26,10 +26,6 @@ public class CarGraphic extends JLabel implements Runnable{
 		yPos = 220;
 
 		setBounds(xPos, yPos, 176, 88);
-		setLocation(xPos, yPos);
-		setOpaque(false);
-		setDoubleBuffered(false);
-		validate();
 	}
 
 
@@ -58,8 +54,6 @@ public class CarGraphic extends JLabel implements Runnable{
 
 		int sleep = 10;
 		
-		setLocation(720, 220);
-
 
 		while(true)
 		{
@@ -71,13 +65,12 @@ public class CarGraphic extends JLabel implements Runnable{
 			 */
 			while(xPos >= 636)
 			{
-//				setLocation(xPos--, yPos);
-				setBounds(xPos--, yPos, getWidth(), getHeight());
+				setBounds(xPos--, yPos, 176, 88);
 				
 				try{
 					Thread.sleep(sleep);
 				}catch(Exception e){}
-				//repaint();
+				repaint();
 
 			}
 			/*
@@ -87,61 +80,56 @@ public class CarGraphic extends JLabel implements Runnable{
 
 			while(xPos >= 580)
 			{
-				setLocation(xPos--, yPos-=2);
-//				setBounds(xPos--, yPos-= 2, 176, 88);
+				setBounds(xPos--, yPos-= 2, 176, 88);
 
 				try{
 					Thread.sleep(sleep);
 				}catch(Exception e){}
-				//repaint();
+				repaint();
 
 			}
 
 			while(xPos >= 400){
 				if(xPos % 2 == 0)
 					yPos--;
-				setLocation(xPos--, yPos);
-//				setBounds(xPos--, yPos, 176, 88);
+				setBounds(xPos--, yPos, 176, 88);
 
 				try{
 					Thread.sleep(sleep);
 				}catch(Exception e){}
-				//repaint();
+				repaint();
 
 			}					
 			while(xPos >= 200)
 			{
-				setLocation(xPos--, yPos);
-//				setBounds(xPos--, yPos, 176, 88);
+				setBounds(xPos--, yPos, 176, 88);
 
 				try{
 					Thread.sleep(sleep);
 				}catch(Exception e){}
-				//repaint();
+				repaint();
 			}
 
 			while(xPos >= 10){
 				if(xPos % 2 == 0)
 					yPos++;
-				setLocation(xPos--, yPos);
-//				setBounds(xPos--, yPos, 176, 88);
+				setBounds(xPos--, yPos, 176, 88);
 
 
 				try{
 					Thread.sleep(sleep);
 				}catch(Exception e){}
-				//repaint();
+				repaint();
 
 			}
 			while(xPos >= -35)
 			{
-				setLocation(xPos--, yPos+=2);
-//				setBounds(xPos--, yPos+= 2, 176, 88);
+				setBounds(xPos--, yPos+= 2, 176, 88);
 
 				try{
 					Thread.sleep(sleep);
 				}catch(Exception e){}
-				//repaint();
+				repaint();
 
 			}
 
@@ -152,14 +140,13 @@ public class CarGraphic extends JLabel implements Runnable{
 			setIcon(newCarImage("car2.png"));
 			while(xPos <= 30)
 			{
-				setLocation(xPos++, yPos+=2);
-//				setBounds(xPos++, yPos+= 2, 176, 88);
+				setBounds(xPos++, yPos+= 2, 176, 88);
 
 
 				try{
 					Thread.sleep(sleep);
 				}catch(Exception e){}
-				//repaint();
+				repaint();
 
 			}
 
@@ -173,7 +160,7 @@ public class CarGraphic extends JLabel implements Runnable{
 				try{
 					Thread.sleep(sleep);
 				}catch(Exception e){}
-				//repaint();
+				repaint();
 
 
 			}
@@ -186,7 +173,7 @@ public class CarGraphic extends JLabel implements Runnable{
 				try{
 					Thread.sleep(sleep);
 				}catch(Exception e){}
-				//repaint();
+				repaint();
 
 			}
 			
@@ -201,7 +188,7 @@ public class CarGraphic extends JLabel implements Runnable{
 				try{
 					Thread.sleep(sleep);
 				}catch(Exception e){}
-				//repaint();
+				repaint();
 
 			}
 
@@ -212,7 +199,7 @@ public class CarGraphic extends JLabel implements Runnable{
 				try{
 					Thread.sleep(sleep);
 				}catch(Exception e){}
-				//repaint();
+				repaint();
 
 			}
 
@@ -222,7 +209,7 @@ public class CarGraphic extends JLabel implements Runnable{
 
 			setIcon(newCarImage("car.png"));
 			
-			//repaint();
+			repaint();
 
 
 
