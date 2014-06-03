@@ -2,12 +2,12 @@ package comunication;
 
 import java.util.Vector;
 
-import car.Cars;
+import car.Car;
 
 public class Comunication {
 
 	private int pps;
-	private Cars car;
+	private Car car;
 	Vector<Comunication> observers;
 
 	/**
@@ -21,12 +21,12 @@ public class Comunication {
 	private int id;
 	private int channel;
 	
-	public Comunication( int pps, Cars car, Net net )
+	public Comunication( int pps, Car car, Net net )
 	{
 		this.pps = pps;
 		this.car = car;
 		net.join(this);
-		dataReceived = new Vector<>();
+		dataReceived = new Vector<Message>();
 	}
 	public boolean join( Net net )
 	{

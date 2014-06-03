@@ -14,7 +14,7 @@ public class Net {
 	public Net( int capacity, int maxChannels )
 	{
 		this.capacity = capacity;
-		bandwidth  = new ArrayList<>(maxChannels);
+		bandwidth  = new ArrayList<Integer>(maxChannels);
 	}
 	/**
 	 * Funzione per connettersi alla rete
