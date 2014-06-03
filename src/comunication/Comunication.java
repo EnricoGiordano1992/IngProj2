@@ -71,10 +71,10 @@ public class Comunication {
 	 * Leggo il primo messaggio che è stato ricevuto
 	 * @return
 	 */
-	public String read()
+	public Message read()
 	{
 		if ( dataReceived.size() > 0)
-			return dataReceived.firstElement().getData();
+			return dataReceived.firstElement();
 		else
 			return null;
 	}
