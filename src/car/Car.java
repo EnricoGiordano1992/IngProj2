@@ -1,10 +1,13 @@
 package car;
 
+import comunication.Comunication;
+
 public class Car {
 
 	private int speed_meter;
 	private String display;
 	private int p_rate;
+	private Comunication com;
 	
 	public Car(int p_rate){
 		p_rate = 0;
@@ -38,8 +41,10 @@ public class Car {
 		
 	}
 	
-	
 	public void receiveMessage(){
+		
+	}
+	public void update(){
 		
 	}
 	
