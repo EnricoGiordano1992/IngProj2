@@ -20,7 +20,7 @@ public class Net {
 	 * Funzione per connettersi alla rete
 	 * @return Id univo per l'identificazione sulla rete
 	 */
-	public int join( Comunication c)
+	public int join( Comunication c )
 	{
 		int ret = -1;
 		synchronized(lock){
