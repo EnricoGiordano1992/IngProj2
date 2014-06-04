@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
 
+import station.Station;
+
 public class Net {
 
 	private int capacity;
@@ -12,11 +14,13 @@ public class Net {
 	private ArrayList<Integer> bandwidth;
 	private static Random ran;
 	private final Object lock = new Object();
+	private Station station;
 	
-	public Net( int capacity, int maxChannels )
+	public Net( int capacity, int maxChannels, Station station )
 	{
 		this.capacity = capacity;
 		bandwidth  = new ArrayList<Integer>(maxChannels);
+		this.station = station;
 	}
 	/**
 	 * Funzione per connettersi alla rete
@@ -44,8 +48,7 @@ public class Net {
 	{
 		synchronized(lock){
 			broadcastDevices.add(c);
-//			station.sendBroadcast( Comunication c )
-			c.receive(new Packet(0, c.getId(), "JOIN"));
+			station.sendBroadcast( c );
 		}
 	}
 	public void sendBroadcast( Packet p )
