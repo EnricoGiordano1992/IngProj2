@@ -2,11 +2,13 @@ package comunication;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 
 public class Net {
 
 	private int capacity;
 	private ArrayList<Comunication> devices = new ArrayList<Comunication>();
+	private Vector<Comunication> broadcastDevices = new Vector<Comunication>();
 	private ArrayList<Integer> bandwidth;
 	private static Random ran;
 	private final Object lock = new Object();
@@ -38,12 +40,28 @@ public class Net {
 		}
 		return ret;
 	}
+	public void joinBroadcast( Comunication c )
+	{
+		synchronized(lock){
+			broadcastDevices.add(c);
+//			station.sendBroadcast( Comunication c )
+			c.receive(new Packet(0, c.getId(), "JOIN"));
+		}
+	}
+	public void sendBroadcast( Packet p )
+	{
+		synchronized(lock){
+			for ( Comunication c : broadcastDevices )
+				c.receive(p);
+		}
+	}
 	public void leave( Comunication c )
 	{
 		synchronized(lock)
 		{
 			bandwidth.set(c.getChannel(), bandwidth.get(c.getChannel()) - c.getPps());
 			devices.remove(c);
+			broadcastDevices.remove(c);
 		}
 	}
 	public void sendToAll( Packet p )
