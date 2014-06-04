@@ -31,12 +31,8 @@ public class WallGraphic extends JFrame
 				g.drawImage(icon.getImage(), 0, 0, null); 
 
 				// Scale image to size of component 
-				//	 Dimension d = getSize(); 
-				//	 g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null); 
-
-				// Fix the image position in the scroll pane 
-				//	 Point p = scrollPane.getViewport().getViewPosition... 
-				//	 g.drawImage(icon.getImage(), p.x, p.y, null); 
+					 Dimension d = getSize(); 
+					 g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null); 
 
 				super.paintComponent(g); 
 			} 

@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
@@ -21,7 +22,7 @@ public class Simulator extends JFrame{
 			g.addCar();
 
 			try{
-				Thread.sleep(1000);
+				Thread.sleep(new Random().nextInt(3000));
 			}catch(Exception p){}
 		}
 	} 
