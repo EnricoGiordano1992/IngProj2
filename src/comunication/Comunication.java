@@ -20,6 +20,7 @@ public class Comunication {
 	private Packet toSend;
 	private int id;
 	private int channel;
+	private final Object lock = new Object();
 	
 	public Comunication( int pps, Car car, Net net )
 	{
@@ -63,7 +64,9 @@ public class Comunication {
 	{
 		if ( p.getFrom() != id && p.isForMe(id) )
 		{	
-			dataReceived.add(new Message ( p.getFrom(), p.getData(id)));
+			synchronized(lock){
+				dataReceived.add(new Message ( p.getFrom(), p.getData(id)));
+			}
 			car.update();
 		}
 	}
@@ -71,10 +74,22 @@ public class Comunication {
 	 * Leggo il primo messaggio che è stato ricevuto
 	 * @return
 	 */
-	public Message read()
+	public Message readMessages()
+	{
+
+		if ( dataReceived.size() > 0)
+			return dataReceived.remove(0);
+		else
+			return null;
+	}
+	/**
+	 * Leggo tutti i messaggi nella coda 
+	 * @return
+	 */
+	public Vector<Message> readAllMessages()
 	{
 		if ( dataReceived.size() > 0)
-			return dataReceived.firstElement();
+			return new Vector<Message>(dataReceived);
 		else
 			return null;
 	}
