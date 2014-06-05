@@ -35,16 +35,16 @@ public class Station implements Runnable{
 		{
 			// leggo tutti i messaggi che ci sono in coda
 			messages = com.readAllMessages();
-			//threshold: 50 km/h
-	
-			// creo il pacchetto per la risposta
-			packet = new Packet(0);
-			while(true){
+			if( messages != null )
+			{
+				packet = new Packet(0);
+				
 				for(Message me : messages){
 					from=me.getFrom();
 					mex=me.getData();
 					
-					String[] split = mex.split(" ");
+//					String[] split = mex.split(" ");
+					packet.addMessage(from, ideal);
 					
 					//i = position of speed 
 	//				if(Integer.parseInt(split[i]) > 50)
@@ -52,16 +52,14 @@ public class Station implements Runnable{
 	//				else
 	//					packet.addMessage(from, ideal);
 				}
-				
 				//sends a broadcasting packet to all cars on the road asking them to join it
 				com.sendBroadcast(packet);
-				
-				try {
-					Thread.sleep(1000/pps);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			}
+			try {
+				Thread.sleep(1000/pps);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
