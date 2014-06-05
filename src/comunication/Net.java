@@ -21,13 +21,15 @@ public class Net {
 	private boolean joined = false;
 	private int i=0;
 	
-	public Net( int capacity, int maxChannels, Station station )
+	public Net( int capacity, int maxChannels )
 	{
 		this.capacity = capacity;
 		bandwidth  = new ArrayList<Integer>(maxChannels);
 		bandwidth.add(new Integer(0));
-		this.station = station;
 		this.maxChannels = maxChannels;
+	}
+	public void setStation( Station s ){
+		this.station = s;
 	}
 	/**
 	 * Metodo chiamato dalle macchine quando entrano nella rete

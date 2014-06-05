@@ -7,57 +7,61 @@ import comunication.Message;
 import comunication.Net;
 import comunication.Packet;
 
-public class Station {
+public class Station implements Runnable{
 
+	static final String ideal = "IDEAL";
+	static final String decrease = "DECREASE THE SPEED";
+	
 	private int pps;
-	private int id = 0;
+	private int id;
 	private Comunication com;
 	private int from=0;
 	private String mex;
 	private Packet packet;
 	private Net net;
 
+	Vector<Message> messages;
+	
 	public Station( int pps, Net net )
 	{
 		this.pps = pps;
 		this.net = net;
 		this.com = new Comunication(pps, null, net);
+		id = net.join(this.com);
 	}
 	public void run()
-	{
+	{		
+		while(true)
+		{
+			// leggo tutti i messaggi che ci sono in coda
+			messages = com.readAllMessages();
+			//threshold: 50 km/h
 	
-		String ideal = "IDEAL";
-		String decrease = "DECREASE THE SPEED";
-		
-		Net net = new Net(100,5, this);
-		net.join(com);
-		
-		Vector<Message> Messages = com.readAllMessages();
-		//threshold: 50 km/h
-
-		packet = new Packet(0);
-		while(true){
-			for(Message me : Messages){
-				from=me.getFrom();
-				mex=me.getData();
+			// creo il pacchetto per la risposta
+			packet = new Packet(0);
+			while(true){
+				for(Message me : messages){
+					from=me.getFrom();
+					mex=me.getData();
+					
+					String[] split = mex.split(" ");
+					
+					//i = position of speed 
+	//				if(Integer.parseInt(split[i]) > 50)
+	//					packet.addMessage(from, decrease);
+	//				else
+	//					packet.addMessage(from, ideal);
+				}
 				
-				String[] split = mex.split(" ");
+				//sends a broadcasting packet to all cars on the road asking them to join it
+				com.sendBroadcast(packet);
 				
-				//i = position of speed 
-//				if(Integer.parseInt(split[i]) > 50)
-//					packet.addMessage(from, decrease);
-//				else
-//					packet.addMessage(from, ideal);
-			}
-			
-			//sends a broadcasting packet to all cars on the road asking them to join it
-			com.sendBroadcast(packet);
-			
-			try {
-				Thread.sleep(1000/pps);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				try {
+					Thread.sleep(1000/pps);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
