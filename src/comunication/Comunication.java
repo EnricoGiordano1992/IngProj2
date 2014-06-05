@@ -28,7 +28,6 @@ public class Comunication {
 		this.pps = pps;
 		this.car = car;
 		this.net = net;
-		net.join(this);
 		dataReceived = new Vector<Message>();
 	}
 	public boolean join( Net net )

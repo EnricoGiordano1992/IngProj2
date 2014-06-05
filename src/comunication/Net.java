@@ -27,6 +27,7 @@ public class Net {
 		bandwidth  = new ArrayList<Integer>(maxChannels);
 		bandwidth.add(new Integer(0));
 		this.maxChannels = maxChannels;
+		ran = new Random();
 	}
 	public void setStation( Station s ){
 		this.station = s;
