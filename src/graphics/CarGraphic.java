@@ -116,7 +116,8 @@ public class CarGraphic implements Runnable{
 		 * entra nel parcheggio?
 		 */
 		if(new Random().nextBoolean()){
-			while(yPos <= 375){
+			
+			while(yPos <= (375 + new Random().nextInt(300))){
 				car.setBounds(xPos, yPos+=2, 176, 88);
 				display.setBounds(xPos, yPos+=2, dimX, dimY);
 				try{

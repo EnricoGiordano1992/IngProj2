@@ -1,10 +1,10 @@
 package graphics;
 
-import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import car.Car;
 
 public class ScenarioGraphic {
 
@@ -25,7 +25,36 @@ public class ScenarioGraphic {
 
 		wall.setVisible(true);
 
+	}
 
+
+	public void setDeadCars() {
+
+		final int constant = 25;
+		final int numCar = 6;
+		ArrayList<DeadCar> c = new ArrayList<DeadCar>();
+
+		for(int i = 0; i < numCar; i ++){
+			c.add(new DeadCar());
+			c.get(c.size()-1).setBounds(590, 510-(constant*i), 176, 88);
+			wall.add(c.get(c.size()-1), 1);
+		}
+
+		for(int i = 0; i < numCar; i ++){
+			c.add(new DeadCar());
+			c.get(c.size()-1).setBounds(630, 510-(constant*i), 176, 88);
+			wall.add(c.get(c.size()-1), 1);
+		}
+
+		for(int i = 0; i < numCar; i ++){
+			c.add(new DeadCar());
+			c.get(c.size()-1).setBounds(670, 510-(constant*i), 176, 88);
+			wall.add(c.get(c.size()-1), 1);
+			
+			
+		}
+
+		
 	}
 
 
@@ -39,15 +68,15 @@ public class ScenarioGraphic {
 
 	}
 
-	public void addCar(){
+	public void addCar(Car newCar){
 
 
-		cars.add(new CarGraphic(cars.size()));
+		cars.add(newCar.getMyCarGraphic());
 
 		/*
 		 * aggiungo la macchinina
 		 */
-		wall.add(cars.get(cars.size()-1).getCar(), 1);
+		wall.add(cars.get(cars.size()-1).getCar(), 2);
 		cars.get(cars.size()-1).getCar().setVisible(true);
 
 		wall.repaint();
@@ -55,7 +84,7 @@ public class ScenarioGraphic {
 		/*
 		 * aggiungo il display della macchinina
 		 */
-		wall.add(cars.get(cars.size()-1).getDisplay(), 1);
+		wall.add(cars.get(cars.size()-1).getDisplay(), 2);
 		cars.get(cars.size()-1).getDisplay().setVisible(true);
 		wall.repaint();
 

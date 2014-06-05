@@ -21,13 +21,13 @@ public class Station {
 
 	public void run()
 	{
-	
+
 		String ideal = "IDEAL";
 		String decrease = "DECREASE THE SPEED";
-		
+
 		Net net = new Net(100,5, this);
 		net.join(com);
-		
+
 		Vector<Message> Messages = com.readAllMessages();
 		//threshold: 50 km/h
 
@@ -36,35 +36,37 @@ public class Station {
 			for(Message me : Messages){
 				from=me.getFrom();
 				mex=me.getData();
-				
+
 				String[] split = mex.split(" ");
-				
-				//i = position of speed 
-				if(Integer.parseInt(split[i]) > 50)
+
+				//i = position of speed in the message
+				if(Integer.parseInt(split[1]) > 50)
 					packet.addMessage(from, decrease);
 				else
 					packet.addMessage(from, ideal);
-				
+
 			}
-			
+
 			//sends a broadcasting packet to all cars on the road asking them to join it
 			comB.write(packet);
-			
-			Thread.sleep(100);
+
+			try{
+				Thread.sleep(100);
+			}catch(Exception e){}
 		}
 	}
 	public void sendBroadcast( Comunication c){
 		c.receive(new Packet(0, c.getId(), "JOIN"));
 	}
 	public void sendMessage(){
-		
+
 	}
-	
+
 	public void receiveMessage(){
-		
+
 	}
-	
+
 	public void update(){
-		
+
 	}
 }

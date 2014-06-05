@@ -7,6 +7,8 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import car.Car;
+
 import graphics.*;
 
 public class Simulator extends JFrame{
@@ -17,9 +19,13 @@ public class Simulator extends JFrame{
 		ScenarioGraphic g = new ScenarioGraphic();
 
 		g.addStation();
+
+		g.setDeadCars();
+
+		
 		
 		while(true){
-			g.addCar();
+			g.addCar(new Car(10));
 
 			try{
 				Thread.sleep(new Random().nextInt(3000));
