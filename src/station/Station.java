@@ -6,19 +6,23 @@ import comunication.Comunication;
 import comunication.Message;
 import comunication.Net;
 import comunication.Packet;
-import comunication.ComunicationBroadcast;
-
 
 public class Station {
 
 	private int pps;
 	private int id = 0;
-	private static Comunication com;
-	public static ComunicationBroadcast comB;
+	private Comunication com;
 	private int from=0;
 	private String mex;
 	private Packet packet;
+	private Net net;
 
+	public Station( int pps, Net net )
+	{
+		this.pps = pps;
+		this.net = net;
+		this.com = new Comunication(pps, null, net);
+	}
 	public void run()
 	{
 	
@@ -40,17 +44,21 @@ public class Station {
 				String[] split = mex.split(" ");
 				
 				//i = position of speed 
-				if(Integer.parseInt(split[i]) > 50)
-					packet.addMessage(from, decrease);
-				else
-					packet.addMessage(from, ideal);
-				
+//				if(Integer.parseInt(split[i]) > 50)
+//					packet.addMessage(from, decrease);
+//				else
+//					packet.addMessage(from, ideal);
 			}
 			
 			//sends a broadcasting packet to all cars on the road asking them to join it
-			comB.write(packet);
+			com.sendBroadcast(packet);
 			
-			Thread.sleep(100);
+			try {
+				Thread.sleep(1000/pps);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	public void sendBroadcast( Comunication c){
