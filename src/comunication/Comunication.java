@@ -9,6 +9,7 @@ public class Comunication {
 	private int pps;
 	private Car car;
 	Vector<Comunication> observers;
+	private Net net;
 
 	/**
 	 * Vettore contenente i messaggi in arrivo
@@ -26,7 +27,7 @@ public class Comunication {
 	{
 		this.pps = pps;
 		this.car = car;
-		net.join(this);
+		this.net = net;
 		dataReceived = new Vector<Message>();
 	}
 	public boolean join( Net net )
@@ -114,5 +115,8 @@ public class Comunication {
 	}
 	public void setChannel(int channel) {
 		this.channel = channel;
+	}
+	public void sendBroadcast( Packet p ){
+		net.sendBroadcast(p);
 	}
 }
