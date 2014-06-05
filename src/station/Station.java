@@ -9,28 +9,28 @@ import comunication.Packet;
 import comunication.ComunicationBroadcast;
 
 
-public class station {
+public class Station {
 
 	private int pps;
 	private int id = 0;
 	private static Comunication com;
 	public static ComunicationBroadcast comB;
+	private int from=0;
+	private String mex;
+	private Packet packet;
 
-	public static void main (String[] args){
+	public void run()
+	{
 	
 		String ideal = "IDEAL";
 		String decrease = "DECREASE THE SPEED";
 		
-		Net net = new Net(100,5);
+		Net net = new Net(100,5, this);
 		net.join(com);
 		
 		Vector<Message> Messages = com.readAllMessages();
 		//threshold: 50 km/h
-		
-		private int from=0;
-		private String mex;
-		private Packet packet;
-		
+
 		packet = new Packet(0);
 		while(true){
 			for(Message me : Messages){
@@ -52,18 +52,19 @@ public class station {
 			
 			Thread.sleep(100);
 		}
+	}
+	public void sendBroadcast( Comunication c){
+		c.receive(new Packet(0, c.getId(), "JOIN"));
+	}
+	public void sendMessage(){
 		
-		public void sendMessage(){
-			
-		}
+	}
+	
+	public void receiveMessage(){
 		
-		public void receiveMessage(){
-			
-		}
+	}
+	
+	public void update(){
 		
-		public void update(){
-			
-		}
-
 	}
 }
