@@ -14,7 +14,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class CarGraphic implements Runnable{
+public class CarGraphic{
 
 	/**
 	 * 
@@ -56,6 +56,14 @@ public class CarGraphic implements Runnable{
 
 		display.setBounds(xPos, yPos, dimX, dimY);
 	}
+	
+	public int getXPos(){
+		return xPos;
+	}
+	
+	public int getYPos(){
+		return yPos;
+	}
 
 	public JLabel getCar(){
 		return car;
@@ -69,7 +77,7 @@ public class CarGraphic implements Runnable{
 		display.setText(s);
 	}
 
-	private static ImageIcon newCarImage(String name){
+	public static ImageIcon newCarImage(String name){
 
 		BufferedImage img = null;
 		try {
@@ -86,256 +94,4 @@ public class CarGraphic implements Runnable{
 		return imageIcon;
 	}
 
-	public void run(){
-		move();
-	}
-
-	public void move(){
-
-		final int sleep = 10;
-		final int sleep_curve = 10;
-		boolean restart = true;
-
-		/*
-		 * entra nella pista
-		 * 
-		 */
-		
-		while(xPos >= 630)
-		{
-			car.setBounds(xPos--, yPos, 176, 88);
-			display.setBounds(xPos--, yPos, dimX, dimY);
-
-			try{
-				Thread.sleep(sleep+50);
-			}catch(Exception e){}
-
-		}
-		
-		/*
-		 * entra nel parcheggio?
-		 */
-		if(new Random().nextBoolean()){
-			
-			while(yPos <= (375 + new Random().nextInt(300))){
-				car.setBounds(xPos, yPos+=2, 176, 88);
-				display.setBounds(xPos, yPos+=2, dimX, dimY);
-				try{
-					Thread.sleep(sleep+sleep_curve);
-				}catch(Exception e){}
-
-			}
-
-			try{
-				Thread.sleep(5000);
-			}catch(Exception e){}
-
-			while(new Random().nextBoolean())
-				try{
-					Thread.sleep(5000);
-				}catch(Exception e){}
-
-			while(yPos >= init_yPos){
-				car.setBounds(xPos, yPos-=2, 176, 88);
-				display.setBounds(xPos, yPos-=2, dimX, dimY);
-				try{
-					Thread.sleep(sleep+sleep_curve);
-				}catch(Exception e){}
-			}
-				xPos = 636;
-				yPos = init_yPos;
-				car.setBounds(xPos, yPos, 176, 88);
-				display.setBounds(xPos, yPos, dimX, dimY);
-
-
-		}
-
-		
-		/*
-		 * comincia a girare
-		 * 
-		 */
-		while(restart)
-		{
-
-			while(xPos >= 590)
-			{
-				car.setBounds(xPos--, yPos-= 2, 176, 88);
-				display.setBounds(xPos--, yPos-=2, dimX, dimY);
-
-				try{
-					Thread.sleep(sleep+sleep_curve);
-				}catch(Exception e){}
-
-			}
-
-			while(xPos >= 410){
-				if(xPos % 2 == 0)
-					yPos--;
-				car.setBounds(xPos--, yPos, 176, 88);
-				display.setBounds(xPos--, yPos, dimX, dimY);
-
-				try{
-					Thread.sleep(sleep);
-				}catch(Exception e){}
-
-			}					
-			while(xPos >= 150)
-			{
-				car.setBounds(xPos--, yPos, 176, 88);
-				display.setBounds(xPos--, yPos, dimX, dimY);
-
-				try{
-					Thread.sleep(sleep);
-				}catch(Exception e){}
-			}
-
-			while(xPos >= 10){
-				if(xPos % 2 == 0)
-					yPos++;
-				car.setBounds(xPos--, yPos, 176, 88);
-				display.setBounds(xPos--, yPos, dimX, dimY);
-
-				try{
-					Thread.sleep(sleep);
-				}catch(Exception e){}
-
-			}
-			while(xPos >= -25)
-			{
-				car.setBounds(xPos--, yPos+= 2, 176, 88);
-				display.setBounds(xPos--, yPos+=2, dimX, dimY);
-
-				try{
-					Thread.sleep(sleep+sleep_curve);
-				}catch(Exception e){}
-
-			}
-
-			/*
-			 * 
-			 * ora torna indietro
-			 */
-			car.setIcon(newCarImage("car2.png"));
-			while(xPos <= 30)
-			{
-				car.setBounds(xPos++, yPos+= 2, 176, 88);
-				display.setBounds(xPos++, yPos+=2, dimX, dimY);
-
-				try{
-					Thread.sleep(sleep+sleep_curve);
-				}catch(Exception e){}
-
-			}
-
-
-			while(xPos <= 180){
-				if(xPos % 2 == 0)
-					yPos++;
-				car.setBounds(xPos++, yPos, 176, 88);
-				display.setBounds(xPos++, yPos, dimX, dimY);
-
-				try{
-					Thread.sleep(sleep);
-				}catch(Exception e){}
-
-
-			}
-
-			while(xPos <= 400 )
-			{
-				car.setBounds(xPos++, yPos, 176, 88);
-				display.setBounds(xPos++, yPos, dimX, dimY);
-
-				try{
-					Thread.sleep(sleep);
-				}catch(Exception e){}
-
-			}
-
-
-			while(xPos <= 580 )
-			{
-				if(xPos % 2 == 0)
-					yPos--;
-				car.setBounds(xPos++, yPos, 176, 88);
-				display.setBounds(xPos++, yPos, dimX, dimY);
-
-				try{
-					Thread.sleep(sleep);
-				}catch(Exception e){}
-
-			}
-
-			while(xPos <= 600)
-			{
-				car.setBounds(xPos++, yPos-= 2, 176, 88);
-				display.setBounds(xPos++, yPos-=2, dimX, dimY);
-				try{
-					Thread.sleep(sleep+sleep_curve);
-				}catch(Exception e){}
-
-			}
-
-
-			/*
-			 * decido a random se deve uscire dal circuito o no
-			 */
-
-			if(new Random().nextBoolean())
-			{
-				/*
-				 * esce dal circuito
-				 */
-				xPos = 636;
-				yPos = 260;
-				car.setBounds(xPos, yPos, 176, 88);
-				display.setBounds(xPos, yPos, dimX, dimY);
-
-				while(xPos < 720)
-				{
-					car.setBounds(xPos++, yPos, 176, 88);
-					display.setBounds(xPos++, yPos, dimX, dimY);
-					try{
-						Thread.sleep(sleep);
-					}catch(Exception e){}
-					car.repaint();
-				}
-				restart = false;
-				//				this.car.setIcon(null);
-				//				car.setVisible(false);
-				//				display.setVisible(false);
-				display.setBounds(0,0,0,0);
-				car.setBounds(0,0,0,0);
-				//				display.setBounds(1000, 1000, 0, 0);
-				//				car.repaint();
-
-			}
-
-			else
-			{
-
-				while(xPos <= 610)
-				{
-					car.setBounds(xPos++, yPos-= 2, 176, 88);
-					display.setBounds(xPos++, yPos-=2, dimX, dimY);
-					try{
-						Thread.sleep(sleep+sleep_curve);
-					}catch(Exception e){}
-
-				}
-
-
-				xPos = 636;
-				yPos = init_yPos;
-				car.setBounds(xPos, yPos, 176, 88);
-				display.setBounds(xPos, yPos, dimX, dimY);
-
-				car.setIcon(newCarImage("car.png"));
-
-				car.repaint();
-			}
-		}
-
-	}
 }

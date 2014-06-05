@@ -90,7 +90,7 @@ public class ScenarioGraphic {
 
 
 		Thread t;
-		t = new Thread(cars.get(cars.size()-1));
+		t = new Thread(newCar);
 		t.start();
 
 	}
