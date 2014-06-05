@@ -9,52 +9,78 @@ import station.Station;
 public class Net {
 
 	private int capacity;
+	/**
+	 * 
+	 */
 	private ArrayList<Comunication> devices = new ArrayList<Comunication>();
-	private Vector<Comunication> broadcastDevices = new Vector<Comunication>();
 	private ArrayList<Integer> bandwidth;
 	private static Random ran;
 	private final Object lock = new Object();
 	private Station station;
+	private int maxChannels = 1;
+	private boolean joined = false;
+	private int i=0;
 	
 	public Net( int capacity, int maxChannels, Station station )
 	{
 		this.capacity = capacity;
 		bandwidth  = new ArrayList<Integer>(maxChannels);
+		bandwidth.add(new Integer(0));
 		this.station = station;
+		this.maxChannels = maxChannels;
 	}
 	/**
-	 * Funzione per connettersi alla rete
-	 * @return Id univo per l'identificazione sulla rete
+	 * Metodo chiamato dalle macchine quando entrano nella rete
+	 * @param c L'oggetto Comunication
+	 */
+	public void joinBroadcast( Comunication c )
+	{
+			station.sendBroadcast( c );
+	}
+	/**
+	 * Funzione per connettersi alla rete, dopo aver ricevuto il pacchetto
+	 * JOIN da parte della stazione
+	 * @return Id univo per l'identificazione sulla rete, se ritorna -1 allora la rete è piena
 	 */
 	public int join( Comunication c )
 	{
 		int ret = -1;
 		synchronized(lock){
-			for ( Integer cap : bandwidth )
+			joined = false;
+			for( i=0 ; i < bandwidth.size() ; i++ )
 			{
-				if ( cap + c.getPps() <= capacity )
+				if ( bandwidth.get(i) + c.getPps() <= capacity )
 				{
-					cap+=c.getPps();
+					bandwidth.set(i, bandwidth.get(i) + c.getPps());
 					devices.add(c);
-					c.setChannel(bandwidth.indexOf(cap));
+					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
 					ret = ran.nextInt();
+					joined = true;
 					break;
+				}
+			}
+			if( ! joined )
+			{
+				if ( i++ < maxChannels )
+				{
+					bandwidth.add(new Integer(0));
+					bandwidth.set(i, bandwidth.get(i) + c.getPps());
+					devices.add(c);
+					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
+					ret = ran.nextInt();
 				}
 			}
 		}
 		return ret;
 	}
-	public void joinBroadcast( Comunication c )
-	{
-		synchronized(lock){
-			broadcastDevices.add(c);
-			station.sendBroadcast( c );
-		}
-	}
+	/**
+	 * Invia un pacchetto a tutta la rete
+	 * @param p Pacchetto da inviare in broadcast
+	 */
 	public void sendBroadcast( Packet p )
 	{
 		synchronized(lock){
-			for ( Comunication c : broadcastDevices )
+			for ( Comunication c : devices )
 				c.receive(p);
 		}
 	}
@@ -64,14 +90,6 @@ public class Net {
 		{
 			bandwidth.set(c.getChannel(), bandwidth.get(c.getChannel()) - c.getPps());
 			devices.remove(c);
-			broadcastDevices.remove(c);
-		}
-	}
-	public void sendToAll( Packet p )
-	{
-		for( Comunication com : devices )
-		{
-			com.receive(p);
 		}
 	}
 }

@@ -18,7 +18,7 @@ public class Comunication {
 	 * Pacchetto contenente i messsaggi da inviare
 	 */
 	private Packet toSend;
-	private int id;
+	private int id = 0;
 	private int channel;
 	private final Object lock = new Object();
 	
