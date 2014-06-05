@@ -36,11 +36,12 @@ public class WallGraphic extends JFrame
 
 				super.paintComponent(g); 
 			} 
-		}; 
+		};
+		
 		panel.setOpaque( false ); 
 		panel.setSize( new Dimension(1000, 1000) ); 
 		getContentPane().add( panel ); 
-
+		setResizable(false);
 	} 
 
 

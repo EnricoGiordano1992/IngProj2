@@ -17,6 +17,10 @@ public class Simulator extends JFrame{
 	public static void main(String [] args) 
 	{
 		ScenarioGraphic g = new ScenarioGraphic();
+		
+		try{
+		Thread.sleep(500);
+		}catch(Exception e){}
 		/**
 		 * Creo la rete
 		 */
