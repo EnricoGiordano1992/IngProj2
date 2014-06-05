@@ -5,17 +5,18 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 import car.Car;
-
 import comunication.Net;
-
 import station.Station;
 import graphics.*;
 
 public class Simulator extends JFrame{
 
 
+	
+	
 	public static void main(String [] args) 
 	{
+		Thread t;
 		ScenarioGraphic g = new ScenarioGraphic();
 		
 		try{
@@ -36,7 +37,8 @@ public class Simulator extends JFrame{
 		/**
 		 * Avvio la stazione
 		 */
-		station.run();
+		t = new Thread(station);
+		t.start();
 		/**
 		 * Disegno la stazione
 		 */
