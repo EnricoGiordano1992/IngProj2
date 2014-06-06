@@ -2,12 +2,14 @@ package comunication;
 
 import java.util.Vector;
 
+import station.Station;
 import car.Car;
 
 public class Comunication {
 
 	private int pps;
 	private Car car;
+	private Station station;
 	Vector<Comunication> observers;
 	private Net net;
 
@@ -27,7 +29,17 @@ public class Comunication {
 	{
 		this.pps = pps;
 		this.car = car;
+		this.station = null;
 		this.net = net;
+		dataReceived = new Vector<Message>();
+		observers = new Vector<Comunication>();
+	}
+	public Comunication( int pps, Station s, Net net )
+	{
+		this.pps = pps;
+		this.station = s;
+		this.net = net;
+		this.car = null;
 		dataReceived = new Vector<Message>();
 		observers = new Vector<Comunication>();
 	}
@@ -69,7 +81,10 @@ public class Comunication {
 			synchronized(lock){
 				dataReceived.add(new Message ( p.getFrom(), p.getData(id)));
 			}
-			car.update();
+			if ( car != null )
+				car.update();
+			else
+				station.update();
 		}
 	}
 	/**

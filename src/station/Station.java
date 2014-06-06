@@ -62,7 +62,7 @@ public class Station implements Runnable{
 	{
 		this.pps = pps;
 		this.net = net;
-		this.com = new Comunication(pps, null, net);
+		this.com = new Comunication(pps, this, net);
 		id = net.join(this.com);
 	}
 	@Override
@@ -108,7 +108,7 @@ public class Station implements Runnable{
 		return ret;
 	}
 	public void sendBroadcast( Comunication c){
-		c.register(c);
+		c.register(com);
 		c.receive(new Packet(0, c.getId(), "JOIN"));
 	}
 	public void sendMessage(){
