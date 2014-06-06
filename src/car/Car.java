@@ -40,6 +40,7 @@ public class Car implements Runnable{
 	public Car(int p_rate, Net net){
 		
 		com = new Comunication(p_rate, this, net);
+		
 		//ID in the comunication scenario
 		//at the first time, hasn't any ID
 		net.joinBroadcast(com);
@@ -47,8 +48,9 @@ public class Car implements Runnable{
 		p_rate = 0;
 		speed_meter = 0;
 		display = "";
-		roadFree = false;
+		roadFree = true;
 		myGraphic = new CarGraphic(ID);
+		
 	}
 	
 	
@@ -91,12 +93,22 @@ public class Car implements Runnable{
 		Message mex = com.readMessages();
 		System.out.println("Stringa ricevuta: " + mex.getData());
 		if ( mex.getData().compareTo("JOIN") == 0)
+		{
+			com.setId(ID);
+			com.write(mex.getFrom(), "OK");
+			com.send();
 			if( com.join() )
-				roadFree = true;
+				System.out.println("JOIN ESEGUITO");
+		}
+		if ( mex.getData().compareTo("BUSY") == 0)
+		{
+			roadFree = false;
+		}
 	}
 	@Override
 	public void run() {
-		move();	
+		move();
+		com.leave();
 	}
 	
 	public void move(){

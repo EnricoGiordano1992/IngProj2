@@ -47,6 +47,7 @@ public class Net {
 	public int join( Comunication c )
 	{
 		int ret = -1;
+		System.out.println("JOIN in NET");
 		synchronized(lock){
 			joined = false;
 			for( i=0 ; i < bandwidth.size() ; i++ )
@@ -59,6 +60,7 @@ public class Net {
 					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
 					ret = ran.nextInt();
 					joined = true;
+					System.out.println("banda : " + bandwidth.get(i) + " sul canale " + i);
 				}
 			}
 			if( ! joined )
@@ -71,9 +73,11 @@ public class Net {
 					devices.add(c);
 					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
 					ret = ran.nextInt();
+					System.out.println("banda : " + bandwidth.get(i) + " sul canale " + i);
 				}
 			}
 		}
+		
 		return ret;
 	}
 	/**
@@ -92,6 +96,7 @@ public class Net {
 		synchronized(lock)
 		{
 			bandwidth.set(c.getChannel(), bandwidth.get(c.getChannel()) - c.getPps());
+			System.out.println("Banda: " + bandwidth.get(c.getChannel()) + " sul canale " + c.getChannel());
 			devices.remove(c);
 		}
 	}

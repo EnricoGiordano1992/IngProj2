@@ -80,6 +80,7 @@ public class Station implements Runnable{
 					from=me.getFrom();
 					mex=me.getData();
 										
+					System.out.println("Pacchetto ricevuto " + mex + " da " + from);
 //					String[] split = mex.split(" ");
 					packet.addMessage(from, ideal);
 					
@@ -107,6 +108,7 @@ public class Station implements Runnable{
 		return ret;
 	}
 	public void sendBroadcast( Comunication c){
+		c.register(c);
 		c.receive(new Packet(0, c.getId(), "JOIN"));
 	}
 	public void sendMessage(){

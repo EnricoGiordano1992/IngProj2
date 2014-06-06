@@ -29,6 +29,7 @@ public class Comunication {
 		this.car = car;
 		this.net = net;
 		dataReceived = new Vector<Message>();
+		observers = new Vector<Comunication>();
 	}
 	public boolean join()
 	{
@@ -41,7 +42,7 @@ public class Comunication {
 		}
 		return false;
 	}
-	public void leave(  Net net  )
+	public void leave()
 	{
 		net.leave(this);
 	}
@@ -94,6 +95,10 @@ public class Comunication {
 		else
 			return null;
 	}
+	public void register ( Comunication c )
+	{
+		observers.add(c);
+	}
 	/**
 	 * Inserisco nel pacchetto i messaggi che voglio inviare
 	 * @param to Destinatario del messaggio
@@ -101,6 +106,8 @@ public class Comunication {
 	 */
 	public void write( int to, String data )
 	{
+		if ( toSend == null )
+			toSend = new Packet(id);
 		toSend.addMessage(to,data);
 	}
 	public int getId()
@@ -118,5 +125,8 @@ public class Comunication {
 	}
 	public void sendBroadcast( Packet p ){
 		net.sendBroadcast(p);
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 }
