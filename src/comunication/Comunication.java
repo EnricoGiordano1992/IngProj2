@@ -30,7 +30,7 @@ public class Comunication {
 		this.net = net;
 		dataReceived = new Vector<Message>();
 	}
-	public boolean join( Net net )
+	public boolean join()
 	{
 		int temp = net.join(this);
 		if ( temp > 0 )
@@ -63,7 +63,7 @@ public class Comunication {
 	 */
 	public void receive( Packet p )
 	{
-		if ( p.getFrom() != id && p.isForMe(id) )
+		if ( p.isForMe(id) )
 		{	
 			synchronized(lock){
 				dataReceived.add(new Message ( p.getFrom(), p.getData(id)));

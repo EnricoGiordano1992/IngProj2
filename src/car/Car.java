@@ -3,6 +3,8 @@ package car;
 import java.util.Random;
 
 import comunication.Comunication;
+import comunication.Message;
+import comunication.Net;
 import graphics.CarGraphic;
 
 public class Car implements Runnable{
@@ -13,6 +15,8 @@ public class Car implements Runnable{
 	private Comunication com;
 	private int ID;
 	private CarGraphic myGraphic;
+	private int netId;
+	private boolean roadFree;
 	
 	int xPos;
 	int yPos;
@@ -33,7 +37,19 @@ public class Car implements Runnable{
 		display = "";
 		myGraphic = new CarGraphic(ID);
 	}
-
+	public Car(int p_rate, Net net){
+		
+		com = new Comunication(p_rate, this, net);
+		//ID in the comunication scenario
+		//at the first time, hasn't any ID
+		net.joinBroadcast(com);
+		ID = 0;
+		p_rate = 0;
+		speed_meter = 0;
+		display = "";
+		roadFree = false;
+		myGraphic = new CarGraphic(ID);
+	}
 	
 	
 	public void setID(int ID){
@@ -62,11 +78,8 @@ public class Car implements Runnable{
 	}
 
 	public void setP_rate(int val){
-		
 		p_rate = val;
 	}
-	
-	
 	public void sendMessage(){
 		
 	}
@@ -75,16 +88,16 @@ public class Car implements Runnable{
 		
 	}
 	public void update(){
-		
+		Message mex = com.readMessages();
+		System.out.println("Stringa ricevuta: " + mex.getData());
+		if ( mex.getData().compareTo("JOIN") == 0)
+			if( com.join() )
+				roadFree = true;
 	}
-	
 	@Override
 	public void run() {
-
-		move();
-		
+		move();	
 	}
-	
 	
 	public void move(){
 
@@ -110,11 +123,10 @@ public class Car implements Runnable{
 			}catch(Exception e){}
 
 		}
-		
 		/*
 		 * entra nel parcheggio?
 		 */
-		if(new Random().nextBoolean()){
+		if( ! roadFree ){
 			
 			while(yPos <= (375 + new Random().nextInt(300))){
 				myGraphic.getCar().setBounds(xPos, yPos+=2, 176, 88);
@@ -122,7 +134,6 @@ public class Car implements Runnable{
 				try{
 					Thread.sleep(sleep+sleep_curve);
 				}catch(Exception e){}
-
 			}
 
 			try{

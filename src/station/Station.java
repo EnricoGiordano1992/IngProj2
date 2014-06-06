@@ -72,7 +72,6 @@ public class Station implements Runnable{
 		{
 			// leggo tutti i messaggi che ci sono in coda
 			messages = com.readAllMessages();
-			System.out.println("Leggo i messaggi");
 			if( messages != null )
 			{
 				packet = new Packet(0);
@@ -80,9 +79,7 @@ public class Station implements Runnable{
 				for(Message me : messages){
 					from=me.getFrom();
 					mex=me.getData();
-					
-					System.out.println("Messaggio: " + mex );
-					
+										
 //					String[] split = mex.split(" ");
 					packet.addMessage(from, ideal);
 					
@@ -102,6 +99,12 @@ public class Station implements Runnable{
 				e.printStackTrace();
 			}
 		}
+	}
+	public int join( Comunication c )
+	{
+		int ret =0;
+		
+		return ret;
 	}
 	public void sendBroadcast( Comunication c){
 		c.receive(new Packet(0, c.getId(), "JOIN"));

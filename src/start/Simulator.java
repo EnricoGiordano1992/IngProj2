@@ -49,7 +49,7 @@ public class Simulator extends JFrame{
 		
 		
 		while(true){
-			g.addCar(new Car(10));
+			g.addCar(new Car(10, net));
 
 			try{
 				Thread.sleep(new Random().nextInt(3000));

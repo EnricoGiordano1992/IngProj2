@@ -2,7 +2,6 @@ package comunication;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Vector;
 
 import station.Station;
 
@@ -52,19 +51,20 @@ public class Net {
 			joined = false;
 			for( i=0 ; i < bandwidth.size() ; i++ )
 			{
-				if ( bandwidth.get(i) + c.getPps() <= capacity )
+				if ( bandwidth.get(i) + c.getPps() <= capacity && !joined )
 				{
+					System.out.println("Aggiunta macchina con pps " + c.getPps());
 					bandwidth.set(i, bandwidth.get(i) + c.getPps());
 					devices.add(c);
 					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
 					ret = ran.nextInt();
 					joined = true;
-					break;
 				}
 			}
 			if( ! joined )
 			{
-				if ( i++ < maxChannels )
+				System.out.println("Nessuno spazio libero con i " + i);
+				if ( i < maxChannels )
 				{
 					bandwidth.add(new Integer(0));
 					bandwidth.set(i, bandwidth.get(i) + c.getPps());
