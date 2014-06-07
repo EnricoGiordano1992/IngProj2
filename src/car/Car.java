@@ -92,6 +92,7 @@ public class Car implements Runnable{
 	public void update(){
 		Message mex = com.readMessages();
 //		System.out.println("Stringa ricevuta: " + mex.getData());
+		
 		if ( mex.getData().compareTo("JOIN") == 0)
 		{
 			com.setId(ID);
@@ -122,7 +123,6 @@ public class Car implements Runnable{
 
 		/*
 		 * entra nella pista
-		 * 
 		 */
 		xPos = myGraphic.getXPos();
 		yPos = myGraphic.getYPos();
@@ -138,6 +138,9 @@ public class Car implements Runnable{
 			}catch(Exception e){}
 
 		}
+		/**
+		 * Setto l'ID della macchina da visualizzare sul display
+		 */
 		setDisplay("" + com.getId());
 		/*
 		 * entra nel parcheggio?
@@ -156,7 +159,12 @@ public class Car implements Runnable{
 				Thread.sleep(5000);
 			}catch(Exception e){}
 
-			while(new Random().nextBoolean())
+			/**
+			 * Aspetta di ricevere un messaggio di JOIN da parte della stazione 
+			 * per poter entrare in strada( quando è in questo stato può ricevere il messaggio?
+			 * Si può chiamare il metodo update() su un oggetto in questo stato o fallisce? )
+			 */
+			while( ! roadFree )
 				try{
 					Thread.sleep(5000);
 				}catch(Exception e){}
