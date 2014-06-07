@@ -80,7 +80,7 @@ public class Station implements Runnable{
 					from=me.getFrom();
 					mex=me.getData();
 										
-					System.out.println("Pacchetto ricevuto " + mex + " da " + from);
+//					System.out.println("Pacchetto ricevuto " + mex + " da " + from);
 //					String[] split = mex.split(" ");
 					packet.addMessage(from, ideal);
 					

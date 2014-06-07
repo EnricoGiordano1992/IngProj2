@@ -91,14 +91,17 @@ public class Car implements Runnable{
 	}
 	public void update(){
 		Message mex = com.readMessages();
-		System.out.println("Stringa ricevuta: " + mex.getData());
+//		System.out.println("Stringa ricevuta: " + mex.getData());
 		if ( mex.getData().compareTo("JOIN") == 0)
 		{
 			com.setId(ID);
 			com.write(mex.getFrom(), "OK");
 			com.send();
 			if( com.join() )
-				System.out.println("JOIN ESEGUITO");
+				{
+					System.out.println("JOIN ESEGUITO con id = " + com.getId());
+					this.setID(com.getId());
+				}
 		}
 		if ( mex.getData().compareTo("BUSY") == 0)
 		{
@@ -135,6 +138,7 @@ public class Car implements Runnable{
 			}catch(Exception e){}
 
 		}
+		setDisplay("" + com.getId());
 		/*
 		 * entra nel parcheggio?
 		 */

@@ -13,7 +13,8 @@ public class Net {
 	 */
 	private ArrayList<Comunication> devices = new ArrayList<Comunication>();
 	private ArrayList<Integer> bandwidth;
-	private static Random ran;
+	private final Random ran;
+	private int ids = 0;
 	private final Object lock = new Object();
 	private Station station;
 	private int maxChannels = 1;
@@ -58,7 +59,8 @@ public class Net {
 					bandwidth.set(i, bandwidth.get(i) + c.getPps());
 					devices.add(c);
 					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
-					ret = ran.nextInt();
+//					ret = ran.nextInt();
+					ret = ids++;
 					joined = true;
 					System.out.println("banda : " + bandwidth.get(i) + " sul canale " + i);
 				}
@@ -72,7 +74,8 @@ public class Net {
 					bandwidth.set(i, bandwidth.get(i) + c.getPps());
 					devices.add(c);
 					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
-					ret = ran.nextInt();
+//					ret = ran.nextInt();
+					ret = ids++;
 					System.out.println("banda : " + bandwidth.get(i) + " sul canale " + i);
 				}
 			}
