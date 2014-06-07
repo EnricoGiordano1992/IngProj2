@@ -19,43 +19,6 @@ public class Station implements Runnable{
 	private String mex;
 	private Packet packet;
 	private Net net;
-
-	
-//	@Override
-//	public void run()
-//	{
-//
-//		String ideal = "IDEAL";
-//		String decrease = "DECREASE THE SPEED";
-//
-//		Net net = new Net(100,5, this);
-//		net.join(com);
-//
-//		Vector<Message> Messages = com.readAllMessages();
-//		//threshold: 50 km/h
-//
-//		packet = new Packet(0);
-//		while(true){
-//			for(Message me : Messages){
-//				from=me.getFrom();
-//				mex=me.getData();
-//
-//				String[] split = mex.split(" ");
-//
-//				//i = position of speed in the message
-//				if(Integer.parseInt(split[1]) > 50)
-//					packet.addMessage(from, decrease);
-//				else
-//					packet.addMessage(from, ideal);
-//
-//			}
-//
-//			//sends a broadcasting packet to all cars on the road asking them to join it
-//			comB.write(packet);
-//
-//			try{
-//				Thread.sleep(100);
-//			}catch(Exception e){}
 	Vector<Message> messages;
 	
 	public Station( int pps, Net net )
@@ -63,7 +26,10 @@ public class Station implements Runnable{
 		this.pps = pps;
 		this.net = net;
 		this.com = new Comunication(pps, this, net);
-		id = net.join(this.com);
+		if( com.join() )
+			id = com.getId();
+		else
+			System.out.println("Errore fatale nella creazione della rete!");
 	}
 	@Override
 	public void run()
@@ -74,7 +40,7 @@ public class Station implements Runnable{
 			messages = com.readAllMessages();
 			if( messages != null )
 			{
-				packet = new Packet(0);
+				packet = new Packet(id);
 				
 				for(Message me : messages){
 					from=me.getFrom();

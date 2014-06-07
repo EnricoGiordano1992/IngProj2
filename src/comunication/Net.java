@@ -59,7 +59,6 @@ public class Net {
 					bandwidth.set(i, bandwidth.get(i) + c.getPps());
 					devices.add(c);
 					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
-//					ret = ran.nextInt();
 					ret = ids++;
 					joined = true;
 					System.out.println("banda : " + bandwidth.get(i) + " sul canale " + i);
@@ -74,7 +73,6 @@ public class Net {
 					bandwidth.set(i, bandwidth.get(i) + c.getPps());
 					devices.add(c);
 					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
-//					ret = ran.nextInt();
 					ret = ids++;
 					System.out.println("banda : " + bandwidth.get(i) + " sul canale " + i);
 				}
