@@ -26,7 +26,6 @@ public class StationGraphic extends JLabel{
 		
 		setBounds(300, -10, width, heigth);
 		
-		System.out.println(getWidth() + " " + getHeight());
 
 	}
 	

@@ -9,6 +9,8 @@ import car.Car;
 public class ScenarioGraphic {
 
 	WallGraphic wall;
+	DebugInterface debug;
+	
 	ArrayList<CarGraphic> cars;
 	ArrayList<JLabel> display;
 
@@ -18,6 +20,9 @@ public class ScenarioGraphic {
 
 		wall = new WallGraphic();
 
+		debug = new DebugInterface();
+		debug.setSize(500,500);
+		
 		cars = new ArrayList<CarGraphic>();
 
 		wall.setSize(800, 600);
@@ -27,6 +32,14 @@ public class ScenarioGraphic {
 
 	}
 
+	public DebugInterface getDebug(){
+		return this.debug;
+	}
+	
+	public void print(String s){
+		debug.print(s);
+		debug.setVisible(true);
+	}
 
 	public void setDeadCars() {
 

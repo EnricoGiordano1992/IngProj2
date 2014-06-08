@@ -23,14 +23,15 @@ public class Simulator extends JFrame{
 		try{
 		Thread.sleep(500);
 		}catch(Exception e){}
+		
 		/**
 		 * Creo la rete
 		 */
-		Net net = new Net(50, 1);
+		Net net = new Net(50, 1, g);
 		/**
 		 * Creo la stazione
 		 */
-		Station station = new Station(20, net);
+		Station station = new Station(20, net, g);
 		/**
 		 * Avvio la stazione
 		 */
@@ -46,7 +47,7 @@ public class Simulator extends JFrame{
 		
 		
 		while(true){
-			g.addCar(new Car(10, net, i++));
+			g.addCar(new Car(10, net, i++, g));
 
 			try{
 				Thread.sleep(new Random().nextInt(3000));

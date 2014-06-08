@@ -1,5 +1,7 @@
 package station;
 
+import graphics.ScenarioGraphic;
+
 import java.util.Vector;
 
 import comunication.Comunication;
@@ -22,9 +24,11 @@ public class Station implements Runnable{
 	private Net net;
 	Vector<Message> messages;
 	private boolean newMex = false;
+	private ScenarioGraphic g;
 	
-	public Station( int pps, Net net )
+	public Station( int pps, Net net, ScenarioGraphic g )
 	{
+		this.g = g;
 		this.pps = pps;
 		this.net = net;
 		net.setStation(this);
@@ -32,7 +36,7 @@ public class Station implements Runnable{
 		if( com.join() )
 			id = com.getId();
 		else
-			System.out.println("Errore fatale nella creazione della rete!");
+			g.print("Errore fatale nella creazione della rete!");
 	}
 	@Override
 	public void run()
@@ -59,7 +63,7 @@ public class Station implements Runnable{
 							// in s[1] è presente il pps
 							if( s.length > 1 && net.canIJoin(Integer.parseInt(s[1])))
 							{
-								System.out.println("Macchina " + from + " si può connettere ");
+								g.print("Macchina " + from + " si può connettere ");
 								packet.addMessage(from, "OK-JOIN");
 							}
 							else
@@ -70,7 +74,7 @@ public class Station implements Runnable{
 				if(newMex)
 				{
 					//sends a broadcasting packet to all cars on the road asking them to join it
-					System.out.println("Invio i pacchetti");
+					g.print("Invio i pacchetti");
 					com.sendBroadcast(packet);
 					newMex = false;
 				}

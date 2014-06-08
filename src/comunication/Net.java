@@ -1,5 +1,7 @@
 package comunication;
 
+import graphics.ScenarioGraphic;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -20,9 +22,11 @@ public class Net {
 	private int maxChannels = 1;
 	private boolean joined = false;
 	private int i=0;
+	private ScenarioGraphic g;
 	
-	public Net( int capacity, int maxChannels )
+	public Net( int capacity, int maxChannels, ScenarioGraphic g )
 	{
+		this.g = g;
 		this.capacity = capacity;
 		bandwidth  = new ArrayList<Integer>(maxChannels);
 		bandwidth.add(new Integer(0));
@@ -48,25 +52,25 @@ public class Net {
 	public int join( Comunication c )
 	{
 		int ret = -1;
-		System.out.println("JOIN in NET");
+		g.print("JOIN in NET");
 		synchronized(lock){
 			joined = false;
 			for( i=0 ; i < bandwidth.size() ; i++ )
 			{
 				if ( bandwidth.get(i) + c.getPps() <= capacity && !joined )
 				{
-					System.out.println("Aggiunta macchina con pps " + c.getPps());
+					g.print("Aggiunta macchina con pps " + c.getPps());
 					bandwidth.set(i, bandwidth.get(i) + c.getPps());
 					devices.add(c);
 					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
 					ret = ids++;
 					joined = true;
-					System.out.println("banda : " + bandwidth.get(i) + " sul canale " + i);
+					g.print("banda : " + bandwidth.get(i) + " sul canale " + i);
 				}
 			}
 			if( ! joined )
 			{
-				System.out.println("Nessuno spazio libero con i " + i);
+				g.print("Nessuno spazio libero con i " + i);
 				if ( i < maxChannels )
 				{
 					bandwidth.add(new Integer(0));
@@ -74,7 +78,7 @@ public class Net {
 					devices.add(c);
 					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
 					ret = ids++;
-					System.out.println("banda : " + bandwidth.get(i) + " sul canale " + i);
+					g.print("banda : " + bandwidth.get(i) + " sul canale " + i);
 				}
 			}
 		}
@@ -112,7 +116,7 @@ public class Net {
 		synchronized(lock)
 		{
 			bandwidth.set(c.getChannel(), bandwidth.get(c.getChannel()) - c.getPps());
-			System.out.println("Banda: " + bandwidth.get(c.getChannel()) + " sul canale " + c.getChannel());
+			g.print("Banda: " + bandwidth.get(c.getChannel()) + " sul canale " + c.getChannel());
 			devices.remove(c);
 		}
 	}
