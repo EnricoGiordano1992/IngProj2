@@ -8,6 +8,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -38,7 +40,13 @@ public class DebugInterface extends JFrame{
 		JScrollPane scrollpane = new JScrollPane(panel);
 		scrollpane.setBackground(Color.gray);
 		scrollpane.setBorder(BorderFactory.createLineBorder(Color.gray, 2));
-		scrollpane.setAutoscrolls(true);
+
+		scrollpane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {  
+	        public void adjustmentValueChanged(AdjustmentEvent e) {  
+	            e.getAdjustable().setValue(e.getAdjustable().getMaximum());  
+	        }
+	    });
+		
 		getContentPane().add(scrollpane, BorderLayout.CENTER);
 
 
