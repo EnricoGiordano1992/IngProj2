@@ -18,6 +18,7 @@ public class Simulator extends JFrame{
 	{
 		Thread t;
 		ScenarioGraphic g = new ScenarioGraphic();
+		int i = 1;
 		
 		try{
 		Thread.sleep(500);
@@ -25,7 +26,7 @@ public class Simulator extends JFrame{
 		/**
 		 * Creo la rete
 		 */
-		Net net = new Net(100, 5);
+		Net net = new Net(50, 1);
 		/**
 		 * Creo la stazione
 		 */
@@ -49,7 +50,7 @@ public class Simulator extends JFrame{
 		
 		
 		while(true){
-			g.addCar(new Car(10, net));
+			g.addCar(new Car(10, net, i++));
 
 			try{
 				Thread.sleep(new Random().nextInt(3000));

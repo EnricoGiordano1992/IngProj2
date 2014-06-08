@@ -43,7 +43,7 @@ public class Net {
 	/**
 	 * Funzione per connettersi alla rete, dopo aver ricevuto il pacchetto
 	 * JOIN da parte della stazione
-	 * @return Id univo per l'identificazione sulla rete, se ritorna -1 allora la rete è piena
+	 * @return Id univo per l'identificazione sulla rete, se ritorna -1 allora la rete ï¿½ piena
 	 */
 	public int join( Comunication c )
 	{
@@ -78,8 +78,25 @@ public class Net {
 				}
 			}
 		}
-		
 		return ret;
+	}
+	/**
+	 * Metodo per verificare se Ã¨ disponibile un posto dato un pps
+	 */
+	public boolean canIJoin( int pps )
+	{
+		boolean res = false;
+		System.out.println("SIZE: " + bandwidth.size());
+		System.out.println("CAP : " + bandwidth.get(bandwidth.size() - 1));
+		synchronized(lock){
+			if( bandwidth.size() < maxChannels && capacity <= pps )
+				res = true;
+			else if( bandwidth.size() <= maxChannels && bandwidth.get(bandwidth.size() - 1) + pps <= capacity )
+				res = true;
+			else
+				res = false;
+		}
+		return res;
 	}
 	/**
 	 * Invia un pacchetto a tutta la rete

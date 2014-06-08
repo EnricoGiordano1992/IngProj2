@@ -11,6 +11,7 @@ public class Station implements Runnable{
 
 	static final String ideal = "IDEAL";
 	static final String decrease = "DECREASE THE SPEED";
+	static final String busy = "BUSY";
 	
 	private int pps;
 	private int id;
@@ -36,6 +37,7 @@ public class Station implements Runnable{
 	{		
 		while(true)
 		{
+			this.sendBroadcast(com);
 			// leggo tutti i messaggi che ci sono in coda
 			messages = com.readAllMessages();
 			if( messages != null )
@@ -45,16 +47,23 @@ public class Station implements Runnable{
 				for(Message me : messages){
 					from=me.getFrom();
 					mex=me.getData();
-										
-//					System.out.println("Pacchetto ricevuto " + mex + " da " + from);
-//					String[] split = mex.split(" ");
-					packet.addMessage(from, ideal);
-					
-					//i = position of speed 
-	//				if(Integer.parseInt(split[i]) > 50)
-	//					packet.addMessage(from, decrease);
-	//				else
-	//					packet.addMessage(from, ideal);
+					// salto i pacchetti provenienti dalla stazione
+					if( from != 0 )
+					{
+						System.out.println("Data stazione: " + mex);	
+						System.out.println("Da           : " + from);
+						String[] s = mex.split(";");
+						if ( s[0].compareTo("OK") == 0)
+						{
+							// in s[1] è presente il pps
+							if( s.length > 1 && net.canIJoin(Integer.parseInt(s[1])))
+							{
+								packet.addMessage(from, "OK-JOIN");
+							}
+							else
+								packet.addMessage(from, busy);
+						}
+					}
 				}
 				//sends a broadcasting packet to all cars on the road asking them to join it
 				com.sendBroadcast(packet);
@@ -74,7 +83,14 @@ public class Station implements Runnable{
 		return ret;
 	}
 	public void sendBroadcast( Comunication c){
+		/**
+		 * Registro la stazione tra gli observers della macchina
+		 */
 		c.register(com);
+		/**
+		 * Registro la macchina tra gli observers della stazione
+		 */
+		com.register(c);
 		c.receive(new Packet(0, c.getId(), "JOIN"));
 	}
 	public void sendMessage(){

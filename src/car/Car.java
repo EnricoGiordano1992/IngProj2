@@ -26,33 +26,26 @@ public class Car implements Runnable{
 	final int dimX = 120;
 	final int dimY = 20;
 
-	
 	public Car(int p_rate){
 		
-		//ID in the comunication scenario
-		//at the first time, hasn't any ID
-		ID = 0;
-		p_rate = 0;
+		this.p_rate = p_rate;
 		speed_meter = 0;
 		display = "";
+		roadFree = false;
 		myGraphic = new CarGraphic(ID);
 	}
-	public Car(int p_rate, Net net){
+	public Car(int p_rate, Net net, int tempID){
 		
 		com = new Comunication(p_rate, this, net);
-		
-		//ID in the comunication scenario
-		//at the first time, hasn't any ID
+		com.setId(tempID);
+		ID = tempID;
 		net.joinBroadcast(com);
-		ID = 0;
-		p_rate = 0;
+		this.p_rate = p_rate;
 		speed_meter = 0;
 		display = "";
-		roadFree = true;
+		roadFree = false;
 		myGraphic = new CarGraphic(ID);
-		
 	}
-	
 	
 	public void setID(int ID){
 		this.ID = ID;
@@ -91,22 +84,33 @@ public class Car implements Runnable{
 	}
 	public void update(){
 		Message mex = com.readMessages();
-//		System.out.println("Stringa ricevuta: " + mex.getData());
-		
+	
+		if( mex == null )
+		{
+			System.out.println("NON ci sono messaggi");
+			return;
+		}
+		System.out.println("Data: " + mex.getData());
 		if ( mex.getData().compareTo("JOIN") == 0)
 		{
-			com.setId(ID);
-			com.write(mex.getFrom(), "OK");
+			com.write(mex.getFrom(), "OK;" + p_rate);
 			com.send();
-			if( com.join() )
-				{
-					System.out.println("JOIN ESEGUITO con id = " + com.getId());
-					this.setID(com.getId());
-				}
-		}
-		if ( mex.getData().compareTo("BUSY") == 0)
+		}			
+		else if ( mex.getData().compareTo("BUSY") == 0)
 		{
 			roadFree = false;
+			System.out.println("JOIN NON ESEGUITO");
+		}
+		else if( mex.getData().compareTo("OK-JOIN") == 0 )
+		{
+			com.join();
+			this.setID(com.getId());
+			roadFree = true;
+			System.out.println("[ " + this.ID + " ] JOIN ESEGUITO");
+		}
+		else
+		{
+			String[] s = mex.getData().split(";");
 		}
 	}
 	@Override
@@ -127,12 +131,13 @@ public class Car implements Runnable{
 		xPos = myGraphic.getXPos();
 		yPos = myGraphic.getYPos();
 		
-		
+		update();
 		while(xPos >= 630)
 		{
 			myGraphic.getCar().setBounds(xPos--, yPos, 176, 88);
 			myGraphic.getDisplay().setBounds(xPos--, yPos, dimX, dimY);
-
+			System.out.println("Chiamo update");
+			
 			try{
 				Thread.sleep(sleep+50);
 			}catch(Exception e){}
@@ -145,8 +150,9 @@ public class Car implements Runnable{
 		/*
 		 * entra nel parcheggio?
 		 */
+		System.out.println("["+ ID +"]" + "Controllo rete: " + roadFree);
 		if( ! roadFree ){
-			
+			System.out.println("["+ ID +"]" + "Entro nel parcheggio..");
 			while(yPos <= (375 + new Random().nextInt(300))){
 				myGraphic.getCar().setBounds(xPos, yPos+=2, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos, yPos+=2, dimX, dimY);
@@ -161,13 +167,17 @@ public class Car implements Runnable{
 
 			/**
 			 * Aspetta di ricevere un messaggio di JOIN da parte della stazione 
-			 * per poter entrare in strada( quando è in questo stato può ricevere il messaggio?
-			 * Si può chiamare il metodo update() su un oggetto in questo stato o fallisce? )
+			 * per poter entrare in strada( quando ï¿½ in questo stato puï¿½ ricevere il messaggio?
+			 * Si puï¿½ chiamare il metodo update() su un oggetto in questo stato o fallisce? )
 			 */
-			while( ! roadFree )
+			while( !roadFree )
+			{
 				try{
 					Thread.sleep(5000);
 				}catch(Exception e){}
+				System.out.println("Controllo se posso entrare");
+				update();
+			}
 
 			while(yPos >= init_yPos){
 				myGraphic.getCar().setBounds(xPos, yPos-=2, 176, 88);

@@ -46,7 +46,7 @@ public class Comunication {
 	public boolean join()
 	{
 		int temp = net.join(this);
-		if ( temp > 0 )
+		if ( temp >= 0 )
 		{
 			id = temp;
 			toSend = new Packet(id);
@@ -62,7 +62,7 @@ public class Comunication {
 		this.pps = pps;
 	}
 	/**
-	 * Invio il pacchetto creato, se il pacchetto è null non spedisco nulla
+	 * Invio il pacchetto creato, se il pacchetto ï¿½ null non spedisco nulla
 	 */
 	public void send()
 	{
@@ -71,7 +71,7 @@ public class Comunication {
 					com.receive(toSend);
 	}
 	/**
-	 * Controlla se nel pacchetto è presente un messaggio per questa macchina
+	 * Controlla se nel pacchetto ï¿½ presente un messaggio per questa macchina
 	 * @param p
 	 */
 	public void receive( Packet p )
@@ -88,7 +88,7 @@ public class Comunication {
 		}
 	}
 	/**
-	 * Leggo il primo messaggio che è stato ricevuto
+	 * Leggo il primo messaggio che ï¿½ stato ricevuto
 	 * @return
 	 */
 	public Message readMessages()
