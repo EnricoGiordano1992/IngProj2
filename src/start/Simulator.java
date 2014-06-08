@@ -32,10 +32,6 @@ public class Simulator extends JFrame{
 		 */
 		Station station = new Station(20, net);
 		/**
-		 * Agginungo alla rete la stazione creata
-		 */
-		net.setStation(station);
-		/**
 		 * Avvio la stazione
 		 */
 		t = new Thread(station);

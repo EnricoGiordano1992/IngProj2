@@ -86,8 +86,6 @@ public class Net {
 	public boolean canIJoin( int pps )
 	{
 		boolean res = false;
-		System.out.println("SIZE: " + bandwidth.size());
-		System.out.println("CAP : " + bandwidth.get(bandwidth.size() - 1));
 		synchronized(lock){
 			if( bandwidth.size() < maxChannels && capacity <= pps )
 				res = true;

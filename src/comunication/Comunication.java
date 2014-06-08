@@ -106,7 +106,11 @@ public class Comunication {
 	public Vector<Message> readAllMessages()
 	{
 		if ( dataReceived.size() > 0)
-			return new Vector<Message>(dataReceived);
+			{
+			Vector<Message> temp = new Vector<Message>(dataReceived);
+			dataReceived.clear();
+			return temp;
+			}
 		else
 			return null;
 	}
@@ -139,7 +143,8 @@ public class Comunication {
 		this.channel = channel;
 	}
 	public void sendBroadcast( Packet p ){
-		net.sendBroadcast(p);
+		toSend = p;
+		send();
 	}
 	public void setId(int id) {
 		this.id = id;

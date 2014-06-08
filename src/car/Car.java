@@ -39,12 +39,13 @@ public class Car implements Runnable{
 		com = new Comunication(p_rate, this, net);
 		com.setId(tempID);
 		ID = tempID;
-		net.joinBroadcast(com);
+		
 		this.p_rate = p_rate;
 		speed_meter = 0;
 		display = "";
 		roadFree = false;
 		myGraphic = new CarGraphic(ID);
+		net.joinBroadcast(com);
 	}
 	
 	public void setID(int ID){
@@ -90,7 +91,7 @@ public class Car implements Runnable{
 			System.out.println("NON ci sono messaggi");
 			return;
 		}
-		System.out.println("Data: " + mex.getData());
+		System.out.println("[" + ID +"]Data: " + mex.getData());
 		if ( mex.getData().compareTo("JOIN") == 0)
 		{
 			com.write(mex.getFrom(), "OK;" + p_rate);
@@ -103,6 +104,7 @@ public class Car implements Runnable{
 		}
 		else if( mex.getData().compareTo("OK-JOIN") == 0 )
 		{
+			System.out.println("Mi connetto");
 			com.join();
 			this.setID(com.getId());
 			roadFree = true;
@@ -130,14 +132,11 @@ public class Car implements Runnable{
 		 */
 		xPos = myGraphic.getXPos();
 		yPos = myGraphic.getYPos();
-		
-		update();
+
 		while(xPos >= 630)
 		{
 			myGraphic.getCar().setBounds(xPos--, yPos, 176, 88);
-			myGraphic.getDisplay().setBounds(xPos--, yPos, dimX, dimY);
-			System.out.println("Chiamo update");
-			
+			myGraphic.getDisplay().setBounds(xPos--, yPos, dimX, dimY);			
 			try{
 				Thread.sleep(sleep+50);
 			}catch(Exception e){}

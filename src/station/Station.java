@@ -21,11 +21,13 @@ public class Station implements Runnable{
 	private Packet packet;
 	private Net net;
 	Vector<Message> messages;
+	private boolean newMex = false;
 	
 	public Station( int pps, Net net )
 	{
 		this.pps = pps;
 		this.net = net;
+		net.setStation(this);
 		this.com = new Comunication(pps, this, net);
 		if( com.join() )
 			id = com.getId();
@@ -50,14 +52,14 @@ public class Station implements Runnable{
 					// salto i pacchetti provenienti dalla stazione
 					if( from != 0 )
 					{
-						System.out.println("Data stazione: " + mex);	
-						System.out.println("Da           : " + from);
+						newMex = true;
 						String[] s = mex.split(";");
 						if ( s[0].compareTo("OK") == 0)
 						{
 							// in s[1] è presente il pps
 							if( s.length > 1 && net.canIJoin(Integer.parseInt(s[1])))
 							{
+								System.out.println("Macchina " + from + " si può connettere ");
 								packet.addMessage(from, "OK-JOIN");
 							}
 							else
@@ -65,8 +67,13 @@ public class Station implements Runnable{
 						}
 					}
 				}
-				//sends a broadcasting packet to all cars on the road asking them to join it
-				com.sendBroadcast(packet);
+				if(newMex)
+				{
+					//sends a broadcasting packet to all cars on the road asking them to join it
+					System.out.println("Invio i pacchetti");
+					com.sendBroadcast(packet);
+					newMex = false;
+				}
 			}
 			try {
 				Thread.sleep(1000/pps);
