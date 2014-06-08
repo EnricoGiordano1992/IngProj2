@@ -172,9 +172,8 @@ public class Car implements Runnable{
 			while( !roadFree )
 			{
 				try{
-					Thread.sleep(5000);
+					Thread.sleep(500);
 				}catch(Exception e){}
-				System.out.println("Controllo se posso entrare");
 				update();
 			}
 
@@ -325,7 +324,7 @@ public class Car implements Runnable{
 			 * decido a random se deve uscire dal circuito o no
 			 */
 
-			if(new Random().nextBoolean())
+			if(true)
 			{
 				/*
 				 * esce dal circuito
