@@ -33,6 +33,10 @@ public class ScenarioGraphic {
 
 	}
 
+	public WallGraphic getFrame(){
+		return this.wall;
+	}
+	
 	public DebugInterface getDebug(){
 		return this.debug;
 	}

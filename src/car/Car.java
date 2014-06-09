@@ -7,7 +7,6 @@ import comunication.ComCar;
 import comunication.Comunication;
 import comunication.Message;
 import comunication.Net;
-import comunication.Packet;
 import graphics.CarGraphic;
 import graphics.ScenarioGraphic;
 
@@ -30,7 +29,7 @@ public class Car implements Runnable{
 
 	Color myColor;
 	
-	final int dimX = 120;
+	final int dimX = 100;
 	final int dimY = 20;
 	
 	final int sleep = 20;
@@ -121,19 +120,19 @@ public class Car implements Runnable{
 		else if ( mex.getData().compareTo("BUSY") == 0 && !connected )
 		{
 			roadFree = false;
-//			g.print("[ " + this.ID + " ] JOIN NON ESEGUITO", myColor);
+			g.print("[ " + this.ID + " ] JOIN NON ESEGUITO", myColor);
 		}
 		else if( mex.getData().compareTo("OK-JOIN") == 0 && !connected )
 		{
 			g.print("Mi connetto", myColor);
 			connected = com.join();
 			roadFree = true;
-//			g.print("[ " + this.ID + " ] JOIN ESEGUITO", myColor);
+			g.print("[ " + this.ID + " ] JOIN ESEGUITO", myColor);
 		}
 		else if ( mex.getData().compareTo("DECREASE THE SPEED") == 0 )
 		{
-//			System.out.println("Frena");
-			velocity--;
+			g.print("[ " + this.ID + "] Frena; v: " + (velocity+conversion), myColor);
+			velocity-=2;
 		}
 		if( connected )
 			roadFree = true;
@@ -186,7 +185,7 @@ public class Car implements Runnable{
 			}
 
 			try{
-				Thread.sleep(5000);
+				Thread.sleep(100);
 			}catch(Exception e){}
 
 			/**
@@ -383,6 +382,8 @@ public class Car implements Runnable{
 	private void setNewVelocity(){
 		
 		velocity = rand.nextInt(20);
+		g.print(display + "[ "+ this.ID + "] velocity: " + (velocity+conversion), myColor);
+
 		
 	}
 	
@@ -396,8 +397,6 @@ public class Car implements Runnable{
 				/*
 				 * la macchina invia questo:
 				 */
-//				g.print(display + "" + (velocity+conversion), myColor);
-				updateDisplay("" + (velocity+conversion));
 				com.write(0, "SPEED;"+velocity+conversion);
 				
 			}catch(Exception e){}
@@ -411,8 +410,6 @@ public class Car implements Runnable{
 				/*
 				 * la macchina invia questo:
 				 */
-//				g.print(display + "" + (velocity+conversion), myColor);
-				updateDisplay("" + (velocity+conversion));
 				com.write(0, "SPEED;"+velocity+conversion);
 			}catch(Exception e){}
 		}
