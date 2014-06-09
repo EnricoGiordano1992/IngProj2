@@ -30,6 +30,16 @@ public class Car implements Runnable{
 	
 	final int dimX = 120;
 	final int dimY = 20;
+	
+	final int sleep = 20;
+	final int sleep_curve = 10;
+
+	
+	Random rand = new Random();
+	int velocity;
+	
+	final int conversion = 40;
+
 
 	public Car(int p_rate){
 		
@@ -96,7 +106,6 @@ public class Car implements Runnable{
 	
 		if( mex == null )
 		{
-			g.print("NON ci sono messaggi", myColor);
 			return;
 		}
 		g.print("[" + ID +"]Data: " + mex.getData(), myColor);
@@ -131,8 +140,14 @@ public class Car implements Runnable{
 	
 	public void move(){
 
-		final int sleep = 10;
-		final int sleep_curve = 10;
+		/*
+		 * velocità = random - sleep
+		 * da inviare = random + sleep
+		 * 
+		 * random compreso tra 0 e 10 (ideale = 5)
+		 * se random > 5 decrementa fino a 5
+		 * altrimenti nextInt()
+		 */
 		boolean restart = true;
 
 		/*
@@ -143,6 +158,7 @@ public class Car implements Runnable{
 
 		while(xPos >= 630)
 		{
+			
 			myGraphic.getCar().setBounds(xPos--, yPos, 176, 88);
 			myGraphic.getDisplay().setBounds(xPos--, yPos, dimX, dimY);			
 			try{
@@ -204,37 +220,42 @@ public class Car implements Runnable{
 		while(restart)
 		{
 
+			setNewVelocity();
+			
 			while(xPos >= 590)
 			{
+				
 				myGraphic.getCar().setBounds(xPos--, yPos-= 2, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos--, yPos-=2, dimX, dimY);
 
-				try{
-					Thread.sleep(sleep+sleep_curve);
-				}catch(Exception e){}
+				setMoving(true);
+
 
 			}
 
+			setNewVelocity();
+			
 			while(xPos >= 410){
 				if(xPos % 2 == 0)
 					yPos--;
 				myGraphic.getCar().setBounds(xPos--, yPos, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos--, yPos, dimX, dimY);
 
-				try{
-					Thread.sleep(sleep);
-				}catch(Exception e){}
+				setMoving(false);
 
-			}					
+			}
+			
+			setNewVelocity();
+			
 			while(xPos >= 150)
 			{
 				myGraphic.getCar().setBounds(xPos--, yPos, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos--, yPos, dimX, dimY);
 
-				try{
-					Thread.sleep(sleep);
-				}catch(Exception e){}
+				setMoving(false);
 			}
+
+			setNewVelocity();
 
 			while(xPos >= 10){
 				if(xPos % 2 == 0)
@@ -242,19 +263,18 @@ public class Car implements Runnable{
 				myGraphic.getCar().setBounds(xPos--, yPos, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos--, yPos, dimX, dimY);
 
-				try{
-					Thread.sleep(sleep);
-				}catch(Exception e){}
+				setMoving(false);
 
 			}
+
+			setNewVelocity();
+
 			while(xPos >= -25)
 			{
 				myGraphic.getCar().setBounds(xPos--, yPos+= 2, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos--, yPos+=2, dimX, dimY);
 
-				try{
-					Thread.sleep(sleep+sleep_curve);
-				}catch(Exception e){}
+				setMoving(true);
 
 			}
 
@@ -263,17 +283,19 @@ public class Car implements Runnable{
 			 * ora torna indietro
 			 */
 			myGraphic.getCar().setIcon(CarGraphic.newCarImage("car2.png"));
+
+			setNewVelocity();
+
 			while(xPos <= 30)
 			{
 				myGraphic.getCar().setBounds(xPos++, yPos+= 2, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos++, yPos+=2, dimX, dimY);
 
-				try{
-					Thread.sleep(sleep+sleep_curve);
-				}catch(Exception e){}
+				setMoving(true);
 
 			}
 
+			setNewVelocity();
 
 			while(xPos <= 180){
 				if(xPos % 2 == 0)
@@ -281,24 +303,22 @@ public class Car implements Runnable{
 				myGraphic.getCar().setBounds(xPos++, yPos, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos++, yPos, dimX, dimY);
 
-				try{
-					Thread.sleep(sleep);
-				}catch(Exception e){}
-
+				setMoving(false);
 
 			}
 
+			setNewVelocity();
+			
 			while(xPos <= 400 )
 			{
 				myGraphic.getCar().setBounds(xPos++, yPos, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos++, yPos, dimX, dimY);
 
-				try{
-					Thread.sleep(sleep);
-				}catch(Exception e){}
+				setMoving(false);
 
 			}
 
+			setNewVelocity();
 
 			while(xPos <= 580 )
 			{
@@ -307,19 +327,18 @@ public class Car implements Runnable{
 				myGraphic.getCar().setBounds(xPos++, yPos, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos++, yPos, dimX, dimY);
 
-				try{
-					Thread.sleep(sleep);
-				}catch(Exception e){}
+				setMoving(false);
 
 			}
+
+			setNewVelocity();
 
 			while(xPos <= 600)
 			{
 				myGraphic.getCar().setBounds(xPos++, yPos-= 2, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos++, yPos-=2, dimX, dimY);
-				try{
-					Thread.sleep(sleep+sleep_curve);
-				}catch(Exception e){}
+
+				setMoving(true);
 
 			}
 
@@ -383,5 +402,38 @@ public class Car implements Runnable{
 			}
 		}
 
+	}
+	
+	private void setNewVelocity(){
+		
+		velocity = rand.nextInt(20);
+		
+	}
+	
+	private void setMoving(boolean isCurve){
+		
+		if(isCurve)
+		{
+			try{
+
+				Thread.sleep(sleep-velocity+sleep_curve);
+				/*
+				 * la macchina invia questo:
+				 */
+				g.print(display + "" + (velocity+conversion), myColor);
+			}catch(Exception e){}
+		}
+		
+		else{
+			
+			try{
+
+				Thread.sleep(sleep-velocity);
+				/*
+				 * la macchina invia questo:
+				 */
+				g.print(display + "" + (velocity+conversion), myColor);
+			}catch(Exception e){}
+		}
 	}
 }
