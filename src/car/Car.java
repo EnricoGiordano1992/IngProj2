@@ -3,6 +3,7 @@ package car;
 import java.awt.Color;
 import java.util.Random;
 
+import comunication.ComCar;
 import comunication.Comunication;
 import comunication.Message;
 import comunication.Net;
@@ -17,7 +18,7 @@ public class Car implements Runnable{
 	private Comunication com;
 	private int ID;
 	private CarGraphic myGraphic;
-	private int netId;
+	private boolean connected = false;
 	private boolean roadFree;
 	private ScenarioGraphic g;
 	
@@ -53,7 +54,8 @@ public class Car implements Runnable{
 	public Car(int p_rate, Net net, int tempID, ScenarioGraphic g){
 		
 		this.g = g;
-		com = new Comunication(p_rate, this, net);
+		com = new ComCar(p_rate, this, net);
+		System.out.println("ID : " + tempID);
 		com.setId(tempID);
 		ID = tempID;
 		
@@ -105,32 +107,27 @@ public class Car implements Runnable{
 		Message mex = com.readMessages();
 	
 		if( mex == null )
-		{
 			return;
-		}
-		g.print("[" + ID +"]Data: " + mex.getData(), myColor);
-		if ( mex.getData().compareTo("JOIN") == 0)
+		
+		if ( mex.getData().compareTo("JOIN") == 0 && !connected )
 		{
 			com.write(mex.getFrom(), "OK;" + p_rate);
 			com.send();
 		}			
-		else if ( mex.getData().compareTo("BUSY") == 0)
+		else if ( mex.getData().compareTo("BUSY") == 0 && !connected )
 		{
 			roadFree = false;
-			g.print("JOIN NON ESEGUITO", myColor);
+			g.print("[ " + this.ID + " ] JOIN NON ESEGUITO", myColor);
 		}
-		else if( mex.getData().compareTo("OK-JOIN") == 0 )
+		else if( mex.getData().compareTo("OK-JOIN") == 0 && !connected )
 		{
 			g.print("Mi connetto", myColor);
-			com.join();
-			this.setID(com.getId());
+			connected = com.join();
 			roadFree = true;
 			g.print("[ " + this.ID + " ] JOIN ESEGUITO", myColor);
 		}
-		else
-		{
-			String[] s = mex.getData().split(";");
-		}
+		if( connected )
+			roadFree = true;
 	}
 	@Override
 	public void run() {
@@ -169,9 +166,8 @@ public class Car implements Runnable{
 		/*
 		 * entra nel parcheggio?
 		 */
-		g.print("["+ ID +"]" + "Controllo rete: " + roadFree, myColor);
 		if( ! roadFree ){
-			g.print("["+ ID +"]" + "Entro nel parcheggio..", myColor);
+			g.print("[ "+ ID +" ]" + "Entro nel parcheggio..", myColor);
 			while(yPos <= (375 + new Random().nextInt(300))){
 				myGraphic.getCar().setBounds(xPos, yPos+=2, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos, yPos+=2, dimX, dimY);
@@ -192,7 +188,7 @@ public class Car implements Runnable{
 			while( !roadFree )
 			{
 				try{
-					Thread.sleep(500);
+					Thread.sleep(100);
 				}catch(Exception e){}
 				update();
 			}
@@ -367,38 +363,9 @@ public class Car implements Runnable{
 					myGraphic.getCar().repaint();
 				}
 				restart = false;
-				//				this.car.setIcon(null);
-				//				car.setVisible(false);
-				//				display.setVisible(false);
 				myGraphic.getDisplay().setBounds(0,0,0,0);
 				myGraphic.getCar().setBounds(0,0,0,0);
-				//				myGraphic.getDisplay().setBounds(1000, 1000, 0, 0);
-				//				car.repaint();
 
-			}
-
-			else
-			{
-
-				while(xPos <= 610)
-				{
-					myGraphic.getCar().setBounds(xPos++, yPos-= 2, 176, 88);
-					myGraphic.getDisplay().setBounds(xPos++, yPos-=2, dimX, dimY);
-					try{
-						Thread.sleep(sleep+sleep_curve);
-					}catch(Exception e){}
-
-				}
-
-
-				xPos = 636;
-				yPos = init_yPos;
-				myGraphic.getCar().setBounds(xPos, yPos, 176, 88);
-				myGraphic.getDisplay().setBounds(xPos, yPos, dimX, dimY);
-
-				myGraphic.getCar().setIcon(CarGraphic.newCarImage("car.png"));
-
-				myGraphic.getCar().repaint();
 			}
 		}
 

@@ -4,12 +4,14 @@ import graphics.ScenarioGraphic;
 
 import java.util.Vector;
 
+import node.Node;
+import comunication.ComStation;
 import comunication.Comunication;
 import comunication.Message;
 import comunication.Net;
 import comunication.Packet;
 
-public class Station implements Runnable{
+public class Station extends Node{
 
 	static final String ideal = "IDEAL";
 	static final String decrease = "DECREASE THE SPEED";
@@ -17,7 +19,6 @@ public class Station implements Runnable{
 	
 	private int pps;
 	private int id;
-	private Comunication com;
 	private int from=0;
 	private String mex;
 	private Packet packet;
@@ -32,7 +33,7 @@ public class Station implements Runnable{
 		this.pps = pps;
 		this.net = net;
 		net.setStation(this);
-		this.com = new Comunication(pps, this, net);
+		com = new ComStation(pps, this, net);
 		if( com.join() )
 			id = com.getId();
 		else
@@ -49,7 +50,7 @@ public class Station implements Runnable{
 			if( messages != null )
 			{
 				packet = new Packet(id);
-				
+
 				for(Message me : messages){
 					from=me.getFrom();
 					mex=me.getData();
@@ -58,10 +59,11 @@ public class Station implements Runnable{
 					{
 						newMex = true;
 						String[] s = mex.split(";");
+
 						if ( s[0].compareTo("OK") == 0)
 						{
 							// in s[1] è presente il pps
-							if( s.length > 1 && net.canIJoin(Integer.parseInt(s[1])))
+							if( s.length > 1 && net.canIJoin(from, Integer.parseInt(s[1])))
 							{
 								g.print("Macchina " + from + " si può connettere ");
 								packet.addMessage(from, "OK-JOIN");
@@ -74,7 +76,6 @@ public class Station implements Runnable{
 				if(newMex)
 				{
 					//sends a broadcasting packet to all cars on the road asking them to join it
-					g.print("Invio i pacchetti");
 					com.sendBroadcast(packet);
 					newMex = false;
 				}
@@ -82,37 +83,25 @@ public class Station implements Runnable{
 			try {
 				Thread.sleep(1000/pps);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
-	public int join( Comunication c )
-	{
-		int ret =0;
-		
-		return ret;
-	}
 	public void sendBroadcast( Comunication c){
-		/**
-		 * Registro la stazione tra gli observers della macchina
-		 */
-		c.register(com);
-		/**
-		 * Registro la macchina tra gli observers della stazione
-		 */
-		com.register(c);
-		c.receive(new Packet(0, c.getId(), "JOIN"));
+		com.sendBroadcast(new Packet(0, 0, "JOIN"));
 	}
-	public void sendMessage(){
-
-	}
-
-	public void receiveMessage(){
-
-	}
-
+	@Override
 	public void update(){
-
+		
+	}
+	@Override
+	public void receive() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void send() {
+		// TODO Auto-generated method stub
+		
 	}
 }

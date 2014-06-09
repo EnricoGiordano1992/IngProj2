@@ -2,58 +2,40 @@ package comunication;
 
 import java.util.Vector;
 
-import station.Station;
-import car.Car;
+public abstract class Comunication {
 
-public class Comunication {
-
-	private int pps;
-	private Car car;
-	private Station station;
-	Vector<Comunication> observers;
-	private Net net;
+	protected int pps;
+	
+	protected Vector<Comunication> observers;
+	protected Net net;
+	protected boolean connected = false;
 
 	/**
 	 * Vettore contenente i messaggi in arrivo
 	 */
-	private Vector<Message> dataReceived;
+	protected Vector<Message> dataReceived;
 	/**
 	 * Pacchetto contenente i messsaggi da inviare
 	 */
-	private Packet toSend;
-	private int id = 0;
-	private int channel;
-	private final Object lock = new Object();
-	private final Object lock_observers = new Object();
+	protected Packet toSend;
+	protected int id = 0;
+	protected int channel;
+	protected final Object lock = new Object();
+	protected final Object lock_observers = new Object();
 	
-	public Comunication( int pps, Car car, Net net )
-	{
-		this.pps = pps;
-		this.car = car;
-		this.station = null;
-		this.net = net;
-		dataReceived = new Vector<Message>();
-		observers = new Vector<Comunication>();
-	}
-	public Comunication( int pps, Station s, Net net )
-	{
-		this.pps = pps;
-		this.station = s;
-		this.net = net;
-		this.car = null;
-		dataReceived = new Vector<Message>();
-		observers = new Vector<Comunication>();
-	}
+	public Comunication(){}
+	public abstract void sendBroadcast( Packet p );
+	public abstract void receive( Packet p);
+	
 	public boolean join()
 	{
-		int temp = net.join(this);
-		if ( temp >= 0 )
+		if ( !connected && net.join(this) )
 		{
-			id = temp;
 			toSend = new Packet(id);
+			connected = true;
 			return true;
 		}
-		return false;
+		return connected;
 	}
 	public void leave()
 	{
@@ -73,23 +55,7 @@ public class Comunication {
 						com.receive(toSend);
 			}
 	}
-	/**
-	 * Controlla se nel pacchetto � presente un messaggio per questa macchina
-	 * @param p
-	 */
-	public void receive( Packet p )
-	{
-		if ( p.isForMe(id) )
-		{	
-			synchronized(lock){
-				dataReceived.add(new Message ( p.getFrom(), p.getData(id)));
-			}
-			if ( car != null )
-				car.update();
-			else
-				station.update();
-		}
-	}
+
 	/**
 	 * Leggo il primo messaggio che � stato ricevuto
 	 * @return
@@ -102,6 +68,7 @@ public class Comunication {
 		else
 			return null;
 	}
+
 	/**
 	 * Leggo tutti i messaggi nella coda 
 	 * @return
@@ -148,10 +115,7 @@ public class Comunication {
 	public void setChannel(int channel) {
 		this.channel = channel;
 	}
-	public void sendBroadcast( Packet p ){
-		toSend = p;
-		send();
-	}
+
 	public void setId(int id) {
 		this.id = id;
 	}

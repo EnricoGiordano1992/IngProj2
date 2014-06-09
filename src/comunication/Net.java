@@ -1,28 +1,24 @@
 package comunication;
 
 import graphics.ScenarioGraphic;
-
 import java.util.ArrayList;
-import java.util.Random;
-
+import java.util.concurrent.CopyOnWriteArrayList;
 import station.Station;
 
 public class Net {
 
 	private int capacity;
-	/**
-	 * 
-	 */
-	private ArrayList<Comunication> devices = new ArrayList<Comunication>();
+	private CopyOnWriteArrayList<Comunication> devices = new CopyOnWriteArrayList<Comunication>();
 	private ArrayList<Integer> bandwidth;
-	private final Random ran;
-	private int ids = 0;
-	private final Object lock = new Object();
+	private final Object lock;
 	private Station station;
 	private int maxChannels = 1;
 	private boolean joined = false;
 	private int i=0;
 	private ScenarioGraphic g;
+	
+	private Cqueue park;
+	private Cqueue connected;
 	
 	public Net( int capacity, int maxChannels, ScenarioGraphic g )
 	{
@@ -31,7 +27,9 @@ public class Net {
 		bandwidth  = new ArrayList<Integer>(maxChannels);
 		bandwidth.add(new Integer(0));
 		this.maxChannels = maxChannels;
-		ran = new Random();
+		park = new Cqueue();
+		connected = new Cqueue();
+		lock = new Object();
 	}
 	public void setStation( Station s ){
 		this.station = s;
@@ -42,56 +40,56 @@ public class Net {
 	 */
 	public void joinBroadcast( Comunication c )
 	{
-			station.sendBroadcast( c );
-	}
-	/**
-	 * Funzione per connettersi alla rete, dopo aver ricevuto il pacchetto
-	 * JOIN da parte della stazione
-	 * @return Id univo per l'identificazione sulla rete, se ritorna -1 allora la rete � piena
-	 */
-	public int join( Comunication c )
-	{
-		int ret = -1;
-		g.print("JOIN in NET");
 		synchronized(lock){
-			joined = false;
-			for( i=0 ; i < bandwidth.size() ; i++ )
+			devices.add(c);
+		}
+		park.insert(c);
+		System.out.println("Inserisco " + c.getId() + " ");
+		station.register(c);
+		station.sendBroadcast( c );
+	}
+	public boolean join ( Comunication c )
+	{
+		synchronized(lock){
+		joined = false;
+		for( i=0 ; i < bandwidth.size() ; i++ )
+		{
+			if ( bandwidth.get(i) + c.getPps() <= capacity && !joined )
 			{
-				if ( bandwidth.get(i) + c.getPps() <= capacity && !joined )
-				{
-					g.print("Aggiunta macchina con pps " + c.getPps());
-					bandwidth.set(i, bandwidth.get(i) + c.getPps());
-					devices.add(c);
-					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
-					ret = ids++;
-					joined = true;
-					g.print("banda : " + bandwidth.get(i) + " sul canale " + i);
-				}
-			}
-			if( ! joined )
-			{
-				g.print("Nessuno spazio libero con i " + i);
-				if ( i < maxChannels )
-				{
-					bandwidth.add(new Integer(0));
-					bandwidth.set(i, bandwidth.get(i) + c.getPps());
-					devices.add(c);
-					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
-					ret = ids++;
-					g.print("banda : " + bandwidth.get(i) + " sul canale " + i);
-				}
+				bandwidth.set(i, bandwidth.get(i) + c.getPps());
+				park.remove(c.getId());
+				connected.insert(c);
+				c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
+				joined = true;
+				g.print("banda : " + bandwidth.get(i) + " sul canale " + i);
 			}
 		}
-		return ret;
+		if( ! joined )
+		{
+			g.print("Nessuno spazio libero con i " + i);
+			if ( i < maxChannels )
+			{
+				bandwidth.add(new Integer(0));
+				bandwidth.set(i, bandwidth.get(i) + c.getPps());
+				park.remove(c.getId());
+				c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
+				g.print("banda : " + bandwidth.get(i) + " sul canale " + i);
+			}
+		}
+	}
+		return joined;
 	}
 	/**
 	 * Metodo per verificare se è disponibile un posto dato un pps
 	 */
-	public boolean canIJoin( int pps )
+	public boolean canIJoin( int id, int pps )
 	{
 		boolean res = false;
+
 		synchronized(lock){
-			if( bandwidth.size() < maxChannels && capacity <= pps )
+			if ( connected.contains(id) )
+				res = false;
+			else if( bandwidth.size() < maxChannels && capacity <= pps )
 				res = true;
 			else if( bandwidth.size() <= maxChannels && bandwidth.get(bandwidth.size() - 1) + pps <= capacity )
 				res = true;
@@ -115,9 +113,19 @@ public class Net {
 	{
 		synchronized(lock)
 		{
+
 			bandwidth.set(c.getChannel(), bandwidth.get(c.getChannel()) - c.getPps());
 			g.print("Banda: " + bandwidth.get(c.getChannel()) + " sul canale " + c.getChannel());
 			devices.remove(c);
+			connected.remove(c.getId());
+			if ( park.size() > 0 )
+			{
+				Comunication temp = park.getFirstWithoutRemove();
+				if ( canIJoin(temp.getId(), temp.getPps() ))
+				{
+					temp.receive(new Packet(0, park.getFirstWithoutRemove().getId(), "OK-JOIN"));
+				}
+			}
 		}
 	}
 }

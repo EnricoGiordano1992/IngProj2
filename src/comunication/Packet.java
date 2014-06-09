@@ -49,11 +49,11 @@ public class Packet {
 	/**
 	 * Controlla se ci sono messaggi del il destinatario specificato in id
 	 * @param id Id del destinatario
-	 * @return True se è presente un messaggio, false altrimenti.
+	 * @return True se ï¿½ presente un messaggio, false altrimenti.
 	 */
 	public boolean isForMe( int id )
 	{
-		return message.containsKey(id);
+		return message.containsKey(id) || ( message.containsKey(0) && from == 0);
 	}
 	/**
 	 * Ritorna il mittente del pacchetto
