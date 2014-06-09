@@ -1,5 +1,6 @@
 package graphics;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -41,6 +42,12 @@ public class ScenarioGraphic {
 		debug.setVisible(true);
 	}
 
+	public void print(String s, Color c){
+		debug.print(s, c);
+		debug.setVisible(true);
+	}
+
+	
 	public void setDeadCars() {
 
 		final int constant = 25;

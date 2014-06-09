@@ -31,8 +31,9 @@ public class CarGraphic{
 
 	JLabel car;
 	JLabel display;
-
-	public CarGraphic(int ID){
+	Color myColor;
+	
+	public CarGraphic(int ID, Color myColor){
 
 		car= new JLabel(newCarImage("car.png"));
 
@@ -47,9 +48,9 @@ public class CarGraphic{
 
 		display.setOpaque(true);
 
-		Color c = new Color(new Random().nextFloat(),new Random().nextFloat(),new Random().nextFloat());
+		this.myColor = myColor;
 
-		display.setBackground(c);
+		display.setBackground(myColor);
 		display.setForeground(Color.WHITE);
 		display.setText("ID:" + ID);
 		display.setBorder(BorderFactory.createEtchedBorder());

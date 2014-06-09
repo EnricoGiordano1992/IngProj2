@@ -74,4 +74,17 @@ public class DebugInterface extends JFrame{
 		newString.setVisible(true);
 		panel.repaint();
 	}
+	
+	
+	public void print(String s, Color c){
+
+		JLabel newString = new JLabel();
+		newString.setText(s);
+		newString.setForeground(c);
+		panel.add(newString);
+
+		newString.setVisible(true);
+		panel.repaint();
+	}
+
 }

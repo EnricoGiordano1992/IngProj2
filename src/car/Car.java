@@ -1,5 +1,6 @@
 package car;
 
+import java.awt.Color;
 import java.util.Random;
 
 import comunication.Comunication;
@@ -25,6 +26,8 @@ public class Car implements Runnable{
 	final int init_xPos = 720;
 	final int init_yPos = 235;
 
+	Color myColor;
+	
 	final int dimX = 120;
 	final int dimY = 20;
 
@@ -34,7 +37,8 @@ public class Car implements Runnable{
 		speed_meter = 0;
 		display = "";
 		roadFree = false;
-		myGraphic = new CarGraphic(ID);
+		myColor = new Color(new Random().nextFloat(),new Random().nextFloat(),new Random().nextFloat());
+		myGraphic = new CarGraphic(ID, myColor);
 	}
 	public Car(int p_rate, Net net, int tempID, ScenarioGraphic g){
 		
@@ -47,7 +51,8 @@ public class Car implements Runnable{
 		speed_meter = 0;
 		display = "";
 		roadFree = false;
-		myGraphic = new CarGraphic(ID);
+		myColor = new Color(new Random().nextFloat(),new Random().nextFloat(),new Random().nextFloat());
+		myGraphic = new CarGraphic(ID, myColor);
 		net.joinBroadcast(com);
 	}
 	
@@ -91,10 +96,10 @@ public class Car implements Runnable{
 	
 		if( mex == null )
 		{
-			g.print("NON ci sono messaggi");
+			g.print("NON ci sono messaggi", myColor);
 			return;
 		}
-		g.print("[" + ID +"]Data: " + mex.getData());
+		g.print("[" + ID +"]Data: " + mex.getData(), myColor);
 		if ( mex.getData().compareTo("JOIN") == 0)
 		{
 			com.write(mex.getFrom(), "OK;" + p_rate);
@@ -103,15 +108,15 @@ public class Car implements Runnable{
 		else if ( mex.getData().compareTo("BUSY") == 0)
 		{
 			roadFree = false;
-			g.print("JOIN NON ESEGUITO");
+			g.print("JOIN NON ESEGUITO", myColor);
 		}
 		else if( mex.getData().compareTo("OK-JOIN") == 0 )
 		{
-			g.print("Mi connetto");
+			g.print("Mi connetto", myColor);
 			com.join();
 			this.setID(com.getId());
 			roadFree = true;
-			g.print("[ " + this.ID + " ] JOIN ESEGUITO");
+			g.print("[ " + this.ID + " ] JOIN ESEGUITO", myColor);
 		}
 		else
 		{
@@ -148,9 +153,9 @@ public class Car implements Runnable{
 		/*
 		 * entra nel parcheggio?
 		 */
-		g.print("["+ ID +"]" + "Controllo rete: " + roadFree);
+		g.print("["+ ID +"]" + "Controllo rete: " + roadFree, myColor);
 		if( ! roadFree ){
-			g.print("["+ ID +"]" + "Entro nel parcheggio..");
+			g.print("["+ ID +"]" + "Entro nel parcheggio..", myColor);
 			while(yPos <= (375 + new Random().nextInt(300))){
 				myGraphic.getCar().setBounds(xPos, yPos+=2, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos, yPos+=2, dimX, dimY);
