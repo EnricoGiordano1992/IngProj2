@@ -99,7 +99,8 @@ public class ScenarioGraphic {
 		wall.add(cars.get(cars.size()-1).getCar(), 1);
 		cars.get(cars.size()-1).getCar().setVisible(true);
 
-		wall.repaint();
+//		wall.repaint();
+		//TODO
 
 		/*
 		 * aggiungo il display della macchinina

@@ -50,32 +50,32 @@ public class Net {
 	public boolean join ( Comunication c )
 	{
 		synchronized(lock){
-		joined = false;
-		for( i=0 ; i < bandwidth.size() ; i++ )
-		{
-			if ( bandwidth.get(i) + c.getPps() <= capacity && !joined )
+			joined = false;
+			g.print("[ " + c.getId() + " ] Cerco di fare il join");
+			for( i=0 ; i < bandwidth.size() ; i++ )
 			{
-				bandwidth.set(i, bandwidth.get(i) + c.getPps());
-				park.remove(c.getId());
-				connected.insert(c);
-				c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
-				joined = true;
-				g.print("Banda : " + bandwidth.get(i) + " sul canale " + i);
+				if ( bandwidth.get(i) + c.getPps() <= capacity && !joined )
+				{
+					bandwidth.set(i, bandwidth.get(i) + c.getPps());
+					park.remove(c.getId());
+					connected.insert(c);
+					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
+					joined = true;
+					g.print("[ " + c.getId() + " ] Banda : " + bandwidth.get(i) + " sul canale " + i);
+				}
+			}
+			if( ! joined )
+			{
+				if ( i < maxChannels )
+				{
+					bandwidth.add(new Integer(0));
+					bandwidth.set(i, bandwidth.get(i) + c.getPps());
+					park.remove(c.getId());
+					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
+					g.print("[ " + c.getId() + " ] Banda : " + bandwidth.get(i) + " sul canale " + i);
+				}
 			}
 		}
-		if( ! joined )
-		{
-			g.print("Nessuno spazio libero con i " + i);
-			if ( i < maxChannels )
-			{
-				bandwidth.add(new Integer(0));
-				bandwidth.set(i, bandwidth.get(i) + c.getPps());
-				park.remove(c.getId());
-				c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
-				g.print("banda : " + bandwidth.get(i) + " sul canale " + i);
-			}
-		}
-	}
 		return joined;
 	}
 	/**
@@ -88,14 +88,16 @@ public class Net {
 		synchronized(lock){
 			if ( connected.contains(id) )
 				res = false;
-			else if( bandwidth.size() < maxChannels && capacity <= pps )
+			else if( bandwidth.size() < maxChannels && pps <= capacity )
 				res = true;
-			else if( bandwidth.size() <= maxChannels && bandwidth.get(bandwidth.size() - 1) + pps <= capacity )
-				res = true;
-			else
-				res = false;
+			else if( bandwidth.size() <= maxChannels )
+				{
+					for ( int i = 0 ; i < bandwidth.size() ;i++)
+						if ( bandwidth.get(i) + pps <= capacity )
+							res = true;
+				}
 		}
-		return res;
+		return res; 
 	}
 	/**
 	 * Invia un pacchetto a tutta la rete

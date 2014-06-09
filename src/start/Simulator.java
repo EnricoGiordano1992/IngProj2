@@ -1,5 +1,6 @@
 package start;
 
+import java.awt.EventQueue;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -12,22 +13,30 @@ import graphics.*;
 public class Simulator extends JFrame{
 
 
-	
+	static ScenarioGraphic g;
 	
 	public static void main(String [] args) 
 	{
 		Thread t;
-		ScenarioGraphic g = new ScenarioGraphic();
+		
 		int i = 1;
 		
+        EventQueue.invokeLater(new Runnable() {
+            
+            @Override
+            public void run() {                
+            	g = new ScenarioGraphic();             
+            }
+        });
+
 		try{
-		Thread.sleep(500);
+			Thread.sleep(500);
 		}catch(Exception e){}
 		
 		/**
 		 * Creo la rete
 		 */
-		Net net = new Net(50, 1, g);
+		Net net = new Net(50, 2, g);
 		/**
 		 * Creo la stazione
 		 */
