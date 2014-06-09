@@ -38,15 +38,13 @@ public class ScenarioGraphic {
 	}
 	
 	public void print(String s){
-		System.out.println(s);
-//		debug.print(s);
-//		debug.setVisible(true);
+		debug.print(s);
+		debug.setVisible(true);
 	}
 
 	public void print(String s, Color c){
-		System.out.println(s);
-//		debug.print(s, c);
-//		debug.setVisible(true);
+		debug.print(s, c);
+		debug.setVisible(true);
 	}
 
 	
