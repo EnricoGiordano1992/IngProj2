@@ -30,11 +30,7 @@ public class Simulator extends JFrame{
         });
 
 		try{
-<<<<<<< HEAD
-			Thread.sleep(500);
-=======
 		Thread.sleep(1000);
->>>>>>> branch 'master' of https://github.com/EnricoGiordano1992/IngProj2.git
 		}catch(Exception e){}
 		
 		g.print("SYSTEM: added scenario");
@@ -42,11 +38,7 @@ public class Simulator extends JFrame{
 		/**
 		 * Creo la rete
 		 */
-<<<<<<< HEAD
-		Net net = new Net(50, 2, g);
-=======
 		Net net = new Net(100, 5, g);
->>>>>>> branch 'master' of https://github.com/EnricoGiordano1992/IngProj2.git
 		/**
 		 * Creo la stazione
 		 */
