@@ -7,6 +7,7 @@ import comunication.ComCar;
 import comunication.Comunication;
 import comunication.Message;
 import comunication.Net;
+import comunication.Packet;
 import graphics.CarGraphic;
 import graphics.ScenarioGraphic;
 
@@ -97,7 +98,7 @@ public class Car implements Runnable{
 		p_rate = val;
 	}
 	public void sendMessage(){
-		
+		com.send();
 	}
 	
 	public void receiveMessage(){
@@ -117,14 +118,18 @@ public class Car implements Runnable{
 		else if ( mex.getData().compareTo("BUSY") == 0 && !connected )
 		{
 			roadFree = false;
-			g.print("[ " + this.ID + " ] JOIN NON ESEGUITO", myColor);
+//			g.print("[ " + this.ID + " ] JOIN NON ESEGUITO", myColor);
 		}
 		else if( mex.getData().compareTo("OK-JOIN") == 0 && !connected )
 		{
 			g.print("Mi connetto", myColor);
 			connected = com.join();
 			roadFree = true;
-			g.print("[ " + this.ID + " ] JOIN ESEGUITO", myColor);
+//			g.print("[ " + this.ID + " ] JOIN ESEGUITO", myColor);
+		}
+		else if ( mex.getData().compareTo("DECREASE THE SPEED") == 0 )
+		{
+			System.out.println("Frena");
 		}
 		if( connected )
 			roadFree = true;
@@ -388,6 +393,8 @@ public class Car implements Runnable{
 				 * la macchina invia questo:
 				 */
 				g.print(display + "" + (velocity+conversion), myColor);
+				com.write(0, "SPEED;"+velocity+conversion);
+				
 			}catch(Exception e){}
 		}
 		
@@ -400,7 +407,9 @@ public class Car implements Runnable{
 				 * la macchina invia questo:
 				 */
 				g.print(display + "" + (velocity+conversion), myColor);
+				com.write(0, "SPEED;"+velocity+conversion);
 			}catch(Exception e){}
 		}
+		sendMessage();
 	}
 }

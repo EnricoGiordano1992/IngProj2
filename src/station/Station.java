@@ -71,6 +71,13 @@ public class Station extends Node{
 							else
 								packet.addMessage(from, busy);
 						}
+						else if( s[0].compareTo("SPEED") == 0 )
+						{
+							if( s.length > 1 && Integer.parseInt(s[1]) > 50 )
+							{
+								packet.addMessage(from, decrease);
+							}
+						}
 					}
 				}
 				if(newMex)
