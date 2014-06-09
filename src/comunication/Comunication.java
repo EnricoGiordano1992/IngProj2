@@ -24,6 +24,7 @@ public class Comunication {
 	private int id = 0;
 	private int channel;
 	private final Object lock = new Object();
+	private final Object lock_observers = new Object();
 	
 	public Comunication( int pps, Car car, Net net )
 	{
@@ -67,8 +68,10 @@ public class Comunication {
 	public void send()
 	{
 		if ( toSend != null )
-			for( Comunication com : observers )
-					com.receive(toSend);
+			synchronized (lock_observers) {
+				for( Comunication com : observers )
+						com.receive(toSend);
+			}
 	}
 	/**
 	 * Controlla se nel pacchetto � presente un messaggio per questa macchina
@@ -116,7 +119,10 @@ public class Comunication {
 	}
 	public void register ( Comunication c )
 	{
-		observers.add(c);
+		synchronized (lock_observers) {
+			observers.add(c);
+		}
+		
 	}
 	/**
 	 * Inserisco nel pacchetto i messaggi che voglio inviare
