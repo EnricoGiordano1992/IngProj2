@@ -56,7 +56,6 @@ public class Car implements Runnable{
 		
 		this.g = g;
 		com = new ComCar(p_rate, this, net);
-		System.out.println("ID : " + tempID);
 		com.setId(tempID);
 		ID = tempID;
 		
@@ -93,7 +92,11 @@ public class Car implements Runnable{
 		this.display = display;
 		this.getMyCarGraphic().setDisplay(display);
 	}
-
+	public void updateDisplay( String display )
+	{
+		this.display = display;
+		this.getMyCarGraphic().setDisplay("[ "+ID+" ] "+display);
+	}
 	public void setP_rate(int val){
 		p_rate = val;
 	}
@@ -392,7 +395,8 @@ public class Car implements Runnable{
 				/*
 				 * la macchina invia questo:
 				 */
-				g.print(display + "" + (velocity+conversion), myColor);
+//				g.print(display + "" + (velocity+conversion), myColor);
+				updateDisplay("" + (velocity+conversion));
 				com.write(0, "SPEED;"+velocity+conversion);
 				
 			}catch(Exception e){}
@@ -406,7 +410,8 @@ public class Car implements Runnable{
 				/*
 				 * la macchina invia questo:
 				 */
-				g.print(display + "" + (velocity+conversion), myColor);
+//				g.print(display + "" + (velocity+conversion), myColor);
+				updateDisplay("" + (velocity+conversion));
 				com.write(0, "SPEED;"+velocity+conversion);
 			}catch(Exception e){}
 		}

@@ -44,7 +44,6 @@ public class Net {
 			devices.add(c);
 		}
 		park.insert(c);
-		System.out.println("Inserisco " + c.getId() + " ");
 		station.register(c);
 		station.sendBroadcast( c );
 	}
@@ -61,7 +60,7 @@ public class Net {
 				connected.insert(c);
 				c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
 				joined = true;
-				g.print("banda : " + bandwidth.get(i) + " sul canale " + i);
+				g.print("Banda : " + bandwidth.get(i) + " sul canale " + i);
 			}
 		}
 		if( ! joined )
