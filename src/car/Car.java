@@ -132,7 +132,8 @@ public class Car implements Runnable{
 		}
 		else if ( mex.getData().compareTo("DECREASE THE SPEED") == 0 )
 		{
-			System.out.println("Frena");
+//			System.out.println("Frena");
+			velocity--;
 		}
 		if( connected )
 			roadFree = true;
