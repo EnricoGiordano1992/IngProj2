@@ -39,7 +39,6 @@ public class Car implements Runnable{
 	
 	Random rand = new Random();
 	int velocity;
-	int speed = 0;
 	
 	final int conversion = 40;
 
@@ -90,11 +89,13 @@ public class Car implements Runnable{
 	}
 
 	public void setDisplay(String display) {
-		myGraphic.setDisplay(display);
+		this.display = display;
+		this.getMyCarGraphic().setDisplay(display);
 	}
 	public void updateDisplay( String display )
 	{
-		myGraphic.setDisplay("[ "+ID+" ] " + display);
+		this.display = display;
+		this.getMyCarGraphic().setDisplay("[ "+ID+" ] "+display);
 	}
 	public void setP_rate(int val){
 		p_rate = val;
@@ -124,14 +125,14 @@ public class Car implements Runnable{
 		}
 		else if( mex.getData().compareTo("OK-JOIN") == 0 && !connected )
 		{
-			g.print("[ " + this.ID + " ] Mi connetto", myColor);
+			g.print("Mi connetto", myColor);
 			connected = com.join();
 			roadFree = true;
 //			g.print("[ " + this.ID + " ] JOIN ESEGUITO", myColor);
 		}
 		else if ( mex.getData().compareTo("DECREASE THE SPEED") == 0 )
 		{
-//			System.out.println("[ " + this.ID + " ] Frena - " + (velocity+conversion) );
+//			System.out.println("Frena");
 			velocity--;
 		}
 		if( connected )
@@ -175,7 +176,7 @@ public class Car implements Runnable{
 		 * entra nel parcheggio?
 		 */
 		if( ! roadFree ){
-			g.print("[ "+ ID +" ]" + " Entro nel parcheggio..", myColor);
+			g.print("[ "+ ID +" ]" + "Entro nel parcheggio..", myColor);
 			while(yPos <= (375 + new Random().nextInt(300))){
 				myGraphic.getCar().setBounds(xPos, yPos+=2, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos, yPos+=2, dimX, dimY);
@@ -395,8 +396,9 @@ public class Car implements Runnable{
 				/*
 				 * la macchina invia questo:
 				 */
-				g.print(display + "" + (velocity+conversion), myColor);
-				com.write(0, "SPEED;"+(velocity+conversion));
+//				g.print(display + "" + (velocity+conversion), myColor);
+				updateDisplay("" + (velocity+conversion));
+				com.write(0, "SPEED;"+velocity+conversion);
 				
 			}catch(Exception e){}
 		}
@@ -409,8 +411,9 @@ public class Car implements Runnable{
 				/*
 				 * la macchina invia questo:
 				 */
-				g.print(display + "" + (velocity+conversion), myColor);
-				com.write(0, "SPEED;"+(velocity+conversion));
+//				g.print(display + "" + (velocity+conversion), myColor);
+				updateDisplay("" + (velocity+conversion));
+				com.write(0, "SPEED;"+velocity+conversion);
 			}catch(Exception e){}
 		}
 		sendMessage();
