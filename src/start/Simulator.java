@@ -14,27 +14,21 @@ public class Simulator extends JFrame{
 
 
 	static ScenarioGraphic g;
-	
+
 	public static void main(String [] args) 
 	{
 		Thread t;
-		
+
 		int i = 1;
-		
-        EventQueue.invokeLater(new Runnable() {
-            
-            @Override
-            public void run() {                
-            	g = new ScenarioGraphic();             
-            }
-        });
+
+		g = new ScenarioGraphic();             
 
 		try{
-		Thread.sleep(1000);
+			Thread.sleep(1000);
 		}catch(Exception e){}
-		
+
 		g.print("SYSTEM: added scenario");
-		
+
 		/**
 		 * Creo la rete
 		 */
@@ -54,18 +48,18 @@ public class Simulator extends JFrame{
 		g.addStation();
 
 		try{
-		Thread.sleep(1000);
+			Thread.sleep(1000);
 		}catch(Exception e){}
 		g.print("SYSTEM: added station");
-		
+
 		g.setDeadCars();
 
 		try{
-		Thread.sleep(1000);
+			Thread.sleep(1000);
 		}catch(Exception e){}
 		g.print("SYSTEM: added useless cars");
 
-		
+
 		while(true){
 			g.addCar(new Car(10, net, i++, g));
 

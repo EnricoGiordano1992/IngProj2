@@ -40,7 +40,7 @@ public class Car implements Runnable{
 	Random rand = new Random();
 	int velocity;
 	
-	final int conversion = 40;
+	final int conversion = 50;
 
 
 	public Car(int p_rate){
@@ -121,19 +121,19 @@ public class Car implements Runnable{
 		else if ( mex.getData().compareTo("BUSY") == 0 && !connected )
 		{
 			roadFree = false;
-//			g.print("[ " + this.ID + " ] JOIN NON ESEGUITO", myColor);
+			g.print("[ " + this.ID + " ] JOIN NON ESEGUITO", myColor);
 		}
 		else if( mex.getData().compareTo("OK-JOIN") == 0 && !connected )
 		{
 			g.print("Mi connetto", myColor);
 			connected = com.join();
 			roadFree = true;
-//			g.print("[ " + this.ID + " ] JOIN ESEGUITO", myColor);
+			g.print("[ " + this.ID + " ] JOIN ESEGUITO", myColor);
 		}
 		else if ( mex.getData().compareTo("DECREASE THE SPEED") == 0 )
 		{
-//			System.out.println("Frena");
-			velocity--;
+			g.print("[ " + this.ID + " ] FRENA - VELOCITA' :" + (velocity + conversion), myColor);
+			velocity-=2;
 		}
 		if( connected )
 			roadFree = true;
@@ -383,7 +383,7 @@ public class Car implements Runnable{
 	private void setNewVelocity(){
 		
 		velocity = rand.nextInt(20);
-		
+		g.print(display + "[ " + ID + "] :" + (velocity+conversion), myColor);
 	}
 	
 	private void setMoving(boolean isCurve){
@@ -397,7 +397,7 @@ public class Car implements Runnable{
 				 * la macchina invia questo:
 				 */
 //				g.print(display + "" + (velocity+conversion), myColor);
-				updateDisplay("" + (velocity+conversion));
+//				updateDisplay("" + (velocity+conversion));
 				com.write(0, "SPEED;"+velocity+conversion);
 				
 			}catch(Exception e){}
@@ -412,7 +412,7 @@ public class Car implements Runnable{
 				 * la macchina invia questo:
 				 */
 //				g.print(display + "" + (velocity+conversion), myColor);
-				updateDisplay("" + (velocity+conversion));
+//				updateDisplay("" + (velocity+conversion));
 				com.write(0, "SPEED;"+velocity+conversion);
 			}catch(Exception e){}
 		}
