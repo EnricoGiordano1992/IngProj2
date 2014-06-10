@@ -22,29 +22,29 @@ public class Car implements Runnable{
 	private boolean connected = false;
 	private boolean roadFree;
 	private ScenarioGraphic g;
-	
+
 	int xPos;
 	int yPos;
 	final int init_xPos = 720;
 	final int init_yPos = 235;
 
 	Color myColor;
-	
+
 	final int dimX = 120;
 	final int dimY = 20;
-	
+
 	final int sleep = 20;
 	final int sleep_curve = 10;
 
-	
+
 	Random rand = new Random();
 	int velocity;
-	
+
 	final int conversion = 50;
 
 
 	public Car(int p_rate){
-		
+
 		this.p_rate = p_rate;
 		speed_meter = 0;
 		display = "";
@@ -53,12 +53,12 @@ public class Car implements Runnable{
 		myGraphic = new CarGraphic(ID, myColor);
 	}
 	public Car(int p_rate, Net net, int tempID, ScenarioGraphic g){
-		
+
 		this.g = g;
 		com = new ComCar(p_rate, this, net);
 		com.setId(tempID);
 		ID = tempID;
-		
+
 		this.p_rate = p_rate;
 		speed_meter = 0;
 		display = "";
@@ -67,15 +67,15 @@ public class Car implements Runnable{
 		myGraphic = new CarGraphic(ID, myColor);
 		net.joinBroadcast(com);
 	}
-	
+
 	public void setID(int ID){
 		this.ID = ID;
 	}
-	
+
 	public CarGraphic getMyCarGraphic(){
 		return this.myGraphic;
 	}
-	
+
 	public int getSpeed_meter() {
 		return speed_meter;
 	}
@@ -103,16 +103,16 @@ public class Car implements Runnable{
 	public void sendMessage(){
 		com.send();
 	}
-	
+
 	public void receiveMessage(){
-		
+
 	}
 	public void update(){
 		Message mex = com.readMessages();
-	
+
 		if( mex == null )
 			return;
-		
+
 		if ( mex.getData().compareTo("JOIN") == 0 && !connected )
 		{
 			com.write(mex.getFrom(), "OK;" + p_rate);
@@ -121,18 +121,18 @@ public class Car implements Runnable{
 		else if ( mex.getData().compareTo("BUSY") == 0 && !connected )
 		{
 			roadFree = false;
-			g.print("[ " + this.ID + " ] JOIN NON ESEGUITO", myColor);
+			g.print("[ " + this.ID + " ] JOIN NOT EXECUTED", myColor);
 		}
 		else if( mex.getData().compareTo("OK-JOIN") == 0 && !connected )
 		{
-			g.print("Mi connetto", myColor);
+			g.print("[ " + ID + "] Connection", myColor);
 			connected = com.join();
 			roadFree = true;
-			g.print("[ " + this.ID + " ] JOIN ESEGUITO", myColor);
+			g.print("[ " + this.ID + " ] JOIN SUCCESSFULLY EXECUTED", myColor);
 		}
 		else if ( mex.getData().compareTo("DECREASE THE SPEED") == 0 )
 		{
-			g.print("[ " + this.ID + " ] FRENA - VELOCITA' :" + (velocity + conversion), myColor);
+			g.print("[ " + this.ID + " ] BREAK - VELOCITY :" + (velocity + conversion), myColor);
 			velocity-=2;
 		}
 		if( connected )
@@ -143,28 +143,20 @@ public class Car implements Runnable{
 		move();
 		com.leave();
 	}
-	
+
 	public void move(){
 
-		/*
-		 * velocità = random - sleep
-		 * da inviare = random + sleep
-		 * 
-		 * random compreso tra 0 e 10 (ideale = 5)
-		 * se random > 5 decrementa fino a 5
-		 * altrimenti nextInt()
-		 */
 		boolean restart = true;
 
 		/*
-		 * entra nella pista
+		 * enter into the circuit
 		 */
 		xPos = myGraphic.getXPos();
 		yPos = myGraphic.getYPos();
 
 		while(xPos >= 630)
 		{
-			
+
 			myGraphic.getCar().setBounds(xPos--, yPos, 176, 88);
 			myGraphic.getDisplay().setBounds(xPos--, yPos, dimX, dimY);			
 			try{
@@ -173,10 +165,10 @@ public class Car implements Runnable{
 
 		}
 		/*
-		 * entra nel parcheggio?
+		 * do I enter into the park? station is busy?
 		 */
 		if( ! roadFree ){
-			g.print("[ "+ ID +" ]" + "Entro nel parcheggio..", myColor);
+			g.print("[ "+ ID +" ]" + "Enter into the park...", myColor);
 			while(yPos <= (375 + new Random().nextInt(300))){
 				myGraphic.getCar().setBounds(xPos, yPos+=2, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos, yPos+=2, dimX, dimY);
@@ -190,9 +182,7 @@ public class Car implements Runnable{
 			}catch(Exception e){}
 
 			/**
-			 * Aspetta di ricevere un messaggio di JOIN da parte della stazione 
-			 * per poter entrare in strada( quando � in questo stato pu� ricevere il messaggio?
-			 * Si pu� chiamare il metodo update() su un oggetto in questo stato o fallisce? )
+			 * waiting for join message 
 			 */
 			while( !roadFree )
 			{
@@ -209,27 +199,27 @@ public class Car implements Runnable{
 					Thread.sleep(sleep+sleep_curve);
 				}catch(Exception e){}
 			}
-				xPos = 636;
-				yPos = init_yPos;
-				myGraphic.getCar().setBounds(xPos, yPos, 176, 88);
-				myGraphic.getDisplay().setBounds(xPos, yPos, dimX, dimY);
+			xPos = 636;
+			yPos = init_yPos;
+			myGraphic.getCar().setBounds(xPos, yPos, 176, 88);
+			myGraphic.getDisplay().setBounds(xPos, yPos, dimX, dimY);
 
 
 		}
 
-		
+
 		/*
-		 * comincia a girare
+		 * let's go!
 		 * 
 		 */
 		while(restart)
 		{
 
 			setNewVelocity();
-			
+
 			while(xPos >= 590)
 			{
-				
+
 				myGraphic.getCar().setBounds(xPos--, yPos-= 2, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos--, yPos-=2, dimX, dimY);
 
@@ -239,7 +229,7 @@ public class Car implements Runnable{
 			}
 
 			setNewVelocity();
-			
+
 			while(xPos >= 410){
 				if(xPos % 2 == 0)
 					yPos--;
@@ -249,9 +239,9 @@ public class Car implements Runnable{
 				setMoving(false);
 
 			}
-			
+
 			setNewVelocity();
-			
+
 			while(xPos >= 150)
 			{
 				myGraphic.getCar().setBounds(xPos--, yPos, 176, 88);
@@ -284,8 +274,7 @@ public class Car implements Runnable{
 			}
 
 			/*
-			 * 
-			 * ora torna indietro
+			 * go back!
 			 */
 			myGraphic.getCar().setIcon(CarGraphic.newCarImage("car2.png"));
 
@@ -313,7 +302,7 @@ public class Car implements Runnable{
 			}
 
 			setNewVelocity();
-			
+
 			while(xPos <= 400 )
 			{
 				myGraphic.getCar().setBounds(xPos++, yPos, 176, 88);
@@ -349,13 +338,13 @@ public class Car implements Runnable{
 
 
 			/*
-			 * decido a random se deve uscire dal circuito o no
+			 * random decision: I will exit?
 			 */
 
-			if(true)
+			if(new Random().nextBoolean())
 			{
 				/*
-				 * esce dal circuito
+				 * yes, now I'm exiting from the circuit
 				 */
 				xPos = 636;
 				yPos = 260;
@@ -376,18 +365,43 @@ public class Car implements Runnable{
 				myGraphic.getCar().setBounds(0,0,0,0);
 
 			}
+
+
+			else
+			{
+
+				while(xPos <= 610)
+				{
+					myGraphic.getCar().setBounds(xPos++, yPos-= 2, 176, 88);
+					myGraphic.getDisplay().setBounds(xPos++, yPos-=2, dimX, dimY);
+					try{
+						Thread.sleep(sleep+sleep_curve);
+					}catch(Exception e){}
+
+				}
+
+
+				xPos = 636;
+				yPos = init_yPos;
+				myGraphic.getCar().setBounds(xPos, yPos, 176, 88);
+				myGraphic.getDisplay().setBounds(xPos, yPos, dimX, dimY);
+
+				myGraphic.getCar().setIcon(CarGraphic.newCarImage("car.png"));
+
+				myGraphic.getCar().repaint();
+			}
 		}
 
 	}
-	
+
 	private void setNewVelocity(){
-		
+
 		velocity = rand.nextInt(20);
-		g.print(display + "[ " + ID + "] :" + (velocity+conversion), myColor);
+		g.print(display + "[ " + ID + "] my velocity:" + (velocity+conversion), myColor);
 	}
-	
+
 	private void setMoving(boolean isCurve){
-		
+
 		if(isCurve)
 		{
 			try{
@@ -396,23 +410,19 @@ public class Car implements Runnable{
 				/*
 				 * la macchina invia questo:
 				 */
-//				g.print(display + "" + (velocity+conversion), myColor);
-//				updateDisplay("" + (velocity+conversion));
 				com.write(0, "SPEED;"+velocity+conversion);
-				
+
 			}catch(Exception e){}
 		}
-		
+
 		else{
-			
+
 			try{
 
 				Thread.sleep(sleep-velocity);
 				/*
 				 * la macchina invia questo:
 				 */
-//				g.print(display + "" + (velocity+conversion), myColor);
-//				updateDisplay("" + (velocity+conversion));
 				com.write(0, "SPEED;"+velocity+conversion);
 			}catch(Exception e){}
 		}

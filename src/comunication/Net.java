@@ -51,7 +51,7 @@ public class Net {
 	{
 		synchronized(lock){
 			joined = false;
-			g.print("[ " + c.getId() + " ] Cerco di fare il join");
+			g.print("[ " + c.getId() + " ] trying join...");
 			for( i=0 ; i < bandwidth.size() ; i++ )
 			{
 				if ( bandwidth.get(i) + c.getPps() <= capacity && !joined )
@@ -61,7 +61,7 @@ public class Net {
 					connected.insert(c);
 					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
 					joined = true;
-					g.print("[ " + c.getId() + " ] Banda : " + bandwidth.get(i) + " sul canale " + i);
+					g.print("[ " + c.getId() + " ] Capacity : " + bandwidth.get(i) + " on channel " + i);
 				}
 			}
 			if( ! joined )
@@ -72,7 +72,7 @@ public class Net {
 					bandwidth.set(i, bandwidth.get(i) + c.getPps());
 					park.remove(c.getId());
 					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
-					g.print("[ " + c.getId() + " ] Banda : " + bandwidth.get(i) + " sul canale " + i);
+					g.print("[ " + c.getId() + " ] Capacity : " + bandwidth.get(i) + " on channel " + i);
 				}
 			}
 		}
@@ -116,7 +116,7 @@ public class Net {
 		{
 
 			bandwidth.set(c.getChannel(), bandwidth.get(c.getChannel()) - c.getPps());
-			g.print("Banda: " + bandwidth.get(c.getChannel()) + " sul canale " + c.getChannel());
+			g.print("Capacity: " + bandwidth.get(c.getChannel()) + " on channel " + c.getChannel());
 			devices.remove(c);
 			connected.remove(c.getId());
 			if ( park.size() > 0 )

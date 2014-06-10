@@ -57,14 +57,14 @@ public class Simulator extends JFrame{
 		try{
 			Thread.sleep(1000);
 		}catch(Exception e){}
-		g.print("SYSTEM: added useless cars");
+		g.print("SYSTEM: added useless cars in the park");
 
-
-		while(true){
+int j = 500;
+		while(j-- > -1){
 			g.addCar(new Car(10, net, i++, g));
 
 			try{
-				Thread.sleep(new Random().nextInt(3000));
+				Thread.sleep(new Random().nextInt(2000));
 			}catch(Exception p){}
 		}
 	} 

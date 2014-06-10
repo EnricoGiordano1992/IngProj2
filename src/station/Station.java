@@ -37,7 +37,7 @@ public class Station extends Node{
 		if( com.join() )
 			id = com.getId();
 		else
-			g.print("Errore fatale nella creazione della rete!");
+			g.print("Fatal error in network creation!");
 	}
 	@Override
 	public void run()
@@ -65,7 +65,7 @@ public class Station extends Node{
 							// in s[1] è presente il pps
 							if( s.length > 1 && net.canIJoin(from, Integer.parseInt(s[1])))
 							{
-								g.print("Macchina " + from + " si può connettere ");
+								g.print("Car [" + from + "] can join ");
 								packet.addMessage(from, "OK-JOIN");
 							}
 							else
