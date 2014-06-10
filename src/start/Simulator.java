@@ -59,8 +59,7 @@ public class Simulator extends JFrame{
 		}catch(Exception e){}
 		g.print("SYSTEM: added useless cars in the park");
 
-int j = 500;
-		while(j-- > -1){
+		while(true){
 			g.addCar(new Car(10, net, i++, g));
 
 			try{

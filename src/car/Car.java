@@ -152,7 +152,7 @@ public class Car implements Runnable{
 		 * enter into the circuit
 		 */
 		xPos = myGraphic.getXPos();
-		yPos = myGraphic.getYPos();
+		yPos = myGraphic.getYPos() + new Random().nextInt(5);
 
 		while(xPos >= 630)
 		{
