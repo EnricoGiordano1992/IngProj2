@@ -2,13 +2,9 @@ package graphics;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Vector;
-
 import javax.swing.JLabel;
-
-import car.AdapterAutoToManual;
 import car.AutoCar;
-import car.ManCar;
+
 
 public class ScenarioGraphic {
 
@@ -85,9 +81,7 @@ public class ScenarioGraphic {
 			wall.add(c.get(c.size()-1), 1);
 			
 			
-		}
-
-		
+		}	
 	}
 
 
@@ -100,35 +94,6 @@ public class ScenarioGraphic {
 		wall.repaint();
 
 	}
-
-	public void addCar(AdapterAutoToManual adapterAutoToManual){
-
-
-		cars.add(adapterAutoToManual.getMyCarGraphic());
-
-		/*
-		 * aggiungo la macchinina
-		 */
-		wall.add(cars.get(cars.size()-1).getCar(), 1);
-		cars.get(cars.size()-1).getCar().setVisible(true);
-
-//		wall.repaint();
-		//TODO
-
-		/*
-		 * aggiungo il display della macchinina
-		 */
-		wall.add(cars.get(cars.size()-1).getDisplay(), 1);
-		cars.get(cars.size()-1).getDisplay().setVisible(true);
-		wall.repaint();
-
-
-		Thread t;
-		t = new Thread(adapterAutoToManual);
-		t.start();
-
-	}
-
 	
 	public void addCar(AutoCar autocar){
 
@@ -140,9 +105,6 @@ public class ScenarioGraphic {
 		 */
 		wall.add(cars.get(cars.size()-1).getCar(), 1);
 		cars.get(cars.size()-1).getCar().setVisible(true);
-
-//		wall.repaint();
-		//TODO
 
 		/*
 		 * aggiungo il display della macchinina

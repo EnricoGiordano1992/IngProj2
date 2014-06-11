@@ -12,10 +12,6 @@ import javax.swing.JLabel;
 
 public class CarGraphic{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	int ID;
 	int xPos;
 	int yPos;
@@ -29,7 +25,7 @@ public class CarGraphic{
 	JLabel display;
 	Color myColor;
 	
-	public CarGraphic(int ID, Color myColor){
+	public CarGraphic(int ID, Color myColor, String type){
 
 		car= new JLabel(newCarImage("car.png"));
 
@@ -48,7 +44,7 @@ public class CarGraphic{
 
 		display.setBackground(myColor);
 		display.setForeground(Color.WHITE);
-		display.setText("ID:" + ID);
+		display.setText("[ "+ID+" - "+type+" ] ");
 		display.setBorder(BorderFactory.createEtchedBorder());
 
 		display.setBounds(xPos, yPos, dimX, dimY);

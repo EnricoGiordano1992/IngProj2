@@ -27,7 +27,6 @@ public class ComStation extends Comunication{
 			synchronized(lock){
 				dataReceived.add(new Message ( p.getFrom(), p.getData(id)));
 			}
-			station.update();
 		}
 	}
 	public void sendBroadcast( Packet p ){

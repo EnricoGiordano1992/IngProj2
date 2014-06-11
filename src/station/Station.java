@@ -1,17 +1,14 @@
 package station;
 
 import graphics.ScenarioGraphic;
-
 import java.util.Vector;
-
-import node.Node;
 import comunication.ComStation;
 import comunication.Comunication;
 import comunication.Message;
 import comunication.Net;
 import comunication.Packet;
 
-public class Station extends Node{
+public class Station implements Runnable{
 
 	static final String ideal = "IDEAL";
 	static final String decrease = "DECREASE THE SPEED";
@@ -27,6 +24,8 @@ public class Station extends Node{
 	private boolean newMex = false;
 	private ScenarioGraphic g;
 	
+	private Comunication com;
+	
 	public Station( int pps, Net net, ScenarioGraphic g )
 	{
 		this.g = g;
@@ -38,6 +37,11 @@ public class Station extends Node{
 			id = com.getId();
 		else
 			g.print("Fatal error in network creation!");
+	}
+	public void register( Comunication com )
+	{
+		this.com.register(com);
+		com.register(this.com);
 	}
 	@Override
 	public void run()
@@ -65,7 +69,6 @@ public class Station extends Node{
 							// in s[1] è presente il pps
 							if( s.length > 1 && net.canIJoin(from, Integer.parseInt(s[1])))
 							{
-								g.print("Car [" + from + "] can join ");
 								packet.addMessage(from, "OK-JOIN");
 							}
 							else
@@ -77,6 +80,8 @@ public class Station extends Node{
 							{
 								packet.addMessage(from, decrease);
 							}
+							else
+								packet.addMessage(from, ideal);
 						}
 					}
 				}
@@ -97,18 +102,9 @@ public class Station extends Node{
 	public void sendBroadcast( Comunication c){
 		com.sendBroadcast(new Packet(0, 0, "JOIN"));
 	}
-	@Override
-	public void update(){
-		
-	}
-	@Override
-	public void receive() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void send() {
-		// TODO Auto-generated method stub
+	public void updateDisplay( String display )
+	{
+		g.print("[ STAZIONE ] " + display);
 		
 	}
 }

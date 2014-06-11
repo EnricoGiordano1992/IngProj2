@@ -12,9 +12,6 @@ import comunication.Net;
 
 public class AutoCar implements InterfaceAutoCar,Runnable {
 
-
-
-	private int speed_meter;
 	private String display;
 	private int p_rate;
 	private Comunication com;
@@ -50,11 +47,10 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 		com.setId(tempID);
 		ID = tempID;
 		this.p_rate = p_rate;
-		speed_meter = 0;
 		display = "";
 		roadFree = false;
 		myColor = new Color(new Random().nextFloat(),new Random().nextFloat(),new Random().nextFloat());
-		myGraphic = new CarGraphic(ID, myColor);
+		myGraphic = new CarGraphic(ID, myColor,"A");
 		net.joinBroadcast(com);
 	}
 	public AutoCar(){}
@@ -68,13 +64,12 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 	private void updateDisplay( String display )
 	{
 		this.display = display;
-		this.getMyCarGraphic().setDisplay("[ "+ID+" ] "+display);
+		g.print("[ " + ID + " - A ] " + display , myColor);
 	}
 	private void sendMessage(){
 		com.send();
 	}
 	public void doBreak() {
-		// TODO Auto-generated method stub
 		velocity-=5;
 	}
 	public void update(){
@@ -91,17 +86,18 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 		else if ( mex.getData().compareTo("BUSY") == 0 && !connected )
 		{
 			roadFree = false;
-			g.print("[ " + this.ID + " ] JOIN NOT EXECUTED", myColor);
+			updateDisplay("JOIN NOT EXECUTED");
 		}
 		else if( mex.getData().compareTo("OK-JOIN") == 0 && !connected )
 		{
-			g.print("[ " + ID + "] Connection", myColor);
 			connected = com.join();
 			roadFree = true;
-			g.print("[ " + this.ID + " ] JOIN SUCCESSFULLY EXECUTED", myColor);
+			updateDisplay("JOIN SUCCESSFULLY EXECUTED");
 		}
 		else if ( mex.getData().compareTo("DECREASE THE SPEED") == 0 )
 			doBreak();
+		else if( mex.getData().compareTo("IDEAL") == 0)
+			updateDisplay("IDEAL");
 		
 		if( connected )
 			roadFree = true;
@@ -143,7 +139,7 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 		 * do I enter into the park? station is busy?
 		 */
 		if( ! roadFree ){
-			g.print("[ "+ ID +" ]" + "Enter into the park...", myColor);
+			updateDisplay("Enter into the park...");
 			while(yPos <= (375 + new Random().nextInt(300))){
 				myGraphic.getCar().setBounds(xPos, yPos+=2, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos, yPos+=2, dimX, dimY);
@@ -372,7 +368,7 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 	private void setNewVelocity(){
 
 		velocity = rand.nextInt(20);
-		g.print(display + "[ " + ID + "] my velocity:" + (velocity+conversion), myColor);
+		updateDisplay( "Vel : " + (velocity+conversion));
 	}
 
 	private void setMoving(boolean isCurve){

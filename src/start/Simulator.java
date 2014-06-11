@@ -32,7 +32,7 @@ public class Simulator extends JFrame{
 		/**
 		 * Creo la rete
 		 */
-		Net net = new Net(100, 5, g);
+		Net net = new Net(100, 5);
 		/**
 		 * Creo la stazione
 		 */
@@ -61,7 +61,7 @@ public class Simulator extends JFrame{
 
 			for( int i = 1 ; i <= 90 ; i++ )
 			{
-				if ( new Random().nextBoolean() && contAuto < 50 )
+				if ( contAuto <= 40 )
 					{
 						g.addCar( new AutoCar(10, net, i, g));
 						contAuto++;

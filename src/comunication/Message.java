@@ -16,7 +16,6 @@ public class Message {
 	{
 		this.from = from;
 		this.data = data;
-		this.to = to;
 	}
 	public Message(){}
 	
