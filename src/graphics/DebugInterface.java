@@ -23,7 +23,7 @@ public class DebugInterface extends JFrame implements ActionListener, Runnable {
 	private static final long serialVersionUID = 1L;
 	JPanel panel;
 	boolean pause;
-	boolean watch;
+	boolean watch = true;
 	JMenuBar menuBar;
 	JMenu menu;
 	JScrollPane scrollpane;
@@ -41,7 +41,7 @@ public class DebugInterface extends JFrame implements ActionListener, Runnable {
 	public void run(){
 
 		while(true){
-
+			
 			if(!oldDisplay.equals(display))
 				text.setText("<html>" + display + "</html>");
 
@@ -55,7 +55,7 @@ public class DebugInterface extends JFrame implements ActionListener, Runnable {
 			}catch(Exception e){}
 
 			oldDisplay = display;
-
+			repaint();
 		}
 	}
 

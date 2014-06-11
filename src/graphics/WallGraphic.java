@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import java.awt.*; 
 
-public class WallGraphic extends JFrame 
+public class WallGraphic extends JFrame
 {
 	/**
 	 * 
@@ -18,7 +18,7 @@ public class WallGraphic extends JFrame
 		getContentPane().setSize(1000, 1000);
 		icon = new ImageIcon("wall.png"); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JPanel panel = new JPanel() 
 		{ 
 			/**
@@ -31,18 +31,16 @@ public class WallGraphic extends JFrame
 				g.drawImage(icon.getImage(), 0, 0, null); 
 
 				// Scale image to size of component 
-					 Dimension d = getSize(); 
-					 g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null); 
+				Dimension d = getSize(); 
+				g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null); 
 
 				super.paintComponent(g); 
 			} 
 		};
-		
+
 		panel.setOpaque( false ); 
 		panel.setSize( new Dimension(1000, 1000) ); 
 		getContentPane().add( panel ); 
 		setResizable(false);
 	} 
-
-
 }

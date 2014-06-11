@@ -18,9 +18,10 @@ public class Simulator extends JFrame{
 
 	public static void main(String [] args) 
 	{
-		Thread t;
 		int contAuto = 0;
+		
 
+		
 		g = new ScenarioGraphic();             
 
 		try{
@@ -40,8 +41,8 @@ public class Simulator extends JFrame{
 		/**
 		 * Avvio la stazione
 		 */
-		t = new Thread(station);
-		t.start();
+		Thread t1 = new Thread(station);
+		t1.start();
 		/**
 		 * Disegno la stazione
 		 */

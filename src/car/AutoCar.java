@@ -1,7 +1,10 @@
 package car;
 
 import java.awt.Color;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
+
+import javax.swing.SwingUtilities;
 
 import graphics.CarGraphic;
 import graphics.ScenarioGraphic;
@@ -64,6 +67,7 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 	private void updateDisplay( String display )
 	{
 		this.display = display;
+//		this.myGraphic.setDisplay("[ " + ID + " - A ] " + display);
 		g.print("[ " + ID + " - A ] " + display , myColor);
 	}
 	private void sendMessage(){
@@ -397,9 +401,24 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 				com.write(0, "SPEED;"+velocity+conversion);
 			}catch(Exception e){}
 		}
+//   	 synchronized (this) {
+//		  try {
+//			SwingUtilities.invokeAndWait(doNextGen);
+//		} catch (InvocationTargetException e) {
+//			e.printStackTrace();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//	}
 		sendMessage();
 	}
-
+//	
+//	final Runnable doNextGen = new Runnable() {
+//	     public void run() {
+//	    	  myGraphic.getCar().repaint();
+//	     }
+//	 };
+	 
 	public int getID() {
 		return ID;
 	}

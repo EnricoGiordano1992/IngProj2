@@ -2,7 +2,9 @@ package graphics;
 
 import java.awt.Color;
 import java.util.ArrayList;
+
 import javax.swing.JLabel;
+
 import car.AutoCar;
 
 
@@ -16,24 +18,24 @@ public class ScenarioGraphic {
 
 	StationGraphic station;
 
-	public ScenarioGraphic(){
-
-		wall = new WallGraphic();
-
+	public ScenarioGraphic( ){
+		
 		debug = new DebugInterface();
 		debug.setSize(500,500);
+		debug.setLocationRelativeTo( null ); 
+		
+		Thread t1 = new Thread(debug);
+		t1.start();
 		
 		try{
 		Thread.sleep(1000);
 		}catch(Exception e){}
-		Thread t = new Thread(debug);
-		t.start();
 		
 		cars = new ArrayList<CarGraphic>();
-
+		
+		wall = new WallGraphic();
 		wall.setSize(800, 600);
 		wall.setLocationRelativeTo( null ); 
-
 		wall.setVisible(true);
 
 	}
@@ -48,12 +50,10 @@ public class ScenarioGraphic {
 	
 	public void print(String s){
 		debug.print(s);
-		debug.setVisible(true);
 	}
 
 	public void print(String s, Color c){
 		debug.print(s, c);
-		debug.setVisible(true);
 	}
 
 	
