@@ -35,6 +35,7 @@ public class DebugInterface extends JFrame implements ActionListener, Runnable {
 	String oldDisplay = "";
 	int maxDisplay = 0;
 	private final Object lock;
+	private final Object refreshLock;
 
 	@Override
 	public void run(){
@@ -49,10 +50,6 @@ public class DebugInterface extends JFrame implements ActionListener, Runnable {
 				vertical.setValue( vertical.getMaximum() );
 			}
 
-			try{
-				Thread.sleep(100);
-			}catch(Exception e){}
-			
 			oldDisplay = display;
 
 		}
@@ -122,11 +119,12 @@ public class DebugInterface extends JFrame implements ActionListener, Runnable {
 		text.setForeground(Color.green);
 
 		lock = new Object();
+		refreshLock = new Object();
 
 		print("**********************************************");
-		print("*                                                                  *");
-		print("*           SYSTEM DEBUG INTERFACE          *");
-		print("*                                                                  *");
+		print("**********************************************");
+		print("*********** SYSTEM DEBUG INTERFACE ***********");
+		print("**********************************************");
 		print("**********************************************");
 
 		print(" ");
@@ -141,14 +139,16 @@ public class DebugInterface extends JFrame implements ActionListener, Runnable {
 		if(!pause){
 			synchronized (lock) {
 
-				if(maxDisplay % 200 != 0)
-					display += "<br>" + s;
+				synchronized (refreshLock){
 
-				else
-					display = "<br>" + s;
+					if(maxDisplay % 200 != 0)
+						display += "<br>" + s;
 
-				maxDisplay++;
+					else
+						display = "<br>" + s;
 
+					maxDisplay++;
+				}
 			}
 		}
 	}
@@ -159,15 +159,17 @@ public class DebugInterface extends JFrame implements ActionListener, Runnable {
 
 			synchronized (lock) {
 
-				if(maxDisplay % 200 != 0)
-					display += "<br>" + "<font color=\""+ Integer.toHexString(c.getRGB() & 0xffffff) + "\">" + s + "</font>";
+				synchronized (refreshLock){
+					if(maxDisplay % 200 != 0)
+						display += "<br>" + "<font color=\""+ Integer.toHexString(c.getRGB() & 0xffffff) + "\">" + s + "</font>";
 
-				else
-					display = "<br>" + "<font color=\""+ Integer.toHexString(c.getRGB() & 0xffffff) + "\">" + s + "</font>";
+					else
+						display = "<br>" + "<font color=\""+ Integer.toHexString(c.getRGB() & 0xffffff) + "\">" + s + "</font>";
 
-				text.setText("<html>" + display + "</html>");
+					text.setText("<html>" + display + "</html>");
 
-				maxDisplay++;
+					maxDisplay++;
+				}
 			}
 		}
 	}

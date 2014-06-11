@@ -24,6 +24,9 @@ public class ScenarioGraphic {
 		debug = new DebugInterface();
 		debug.setSize(500,500);
 		
+		try{
+		Thread.sleep(1000);
+		}catch(Exception e){}
 		Thread t = new Thread(debug);
 		t.start();
 		
