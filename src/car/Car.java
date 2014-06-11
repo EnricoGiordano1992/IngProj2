@@ -160,7 +160,7 @@ public class Car implements Runnable{
 			myGraphic.getCar().setBounds(xPos--, yPos, 176, 88);
 			myGraphic.getDisplay().setBounds(xPos--, yPos, dimX, dimY);			
 			try{
-				Thread.sleep(sleep+50);
+				Thread.sleep(sleep+30);
 			}catch(Exception e){}
 
 		}

@@ -18,7 +18,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
-public class DebugInterface extends JFrame implements ActionListener {
+public class DebugInterface extends JFrame implements ActionListener, Runnable {
 
 	private static final long serialVersionUID = 1L;
 	JPanel panel;
@@ -32,7 +32,31 @@ public class DebugInterface extends JFrame implements ActionListener {
 	JLabel text;
 
 	String display = "";
+	String oldDisplay = "";
 	int maxDisplay = 0;
+	private final Object lock;
+
+	@Override
+	public void run(){
+
+		while(true){
+
+			if(!oldDisplay.equals(display))
+				text.setText("<html>" + display + "</html>");
+
+			if(!watch){
+				vertical = scrollpane.getVerticalScrollBar();
+				vertical.setValue( vertical.getMaximum() );
+			}
+
+			try{
+				Thread.sleep(100);
+			}catch(Exception e){}
+			
+			oldDisplay = display;
+
+		}
+	}
 
 	public DebugInterface(){
 
@@ -97,6 +121,8 @@ public class DebugInterface extends JFrame implements ActionListener {
 		panel.add(text);
 		text.setForeground(Color.green);
 
+		lock = new Object();
+
 		print("**********************************************");
 		print("*                                                                  *");
 		print("*           SYSTEM DEBUG INTERFACE          *");
@@ -110,13 +136,10 @@ public class DebugInterface extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 
-	/*
-	 * farle sincronizzate?
-	 */
 	public void print(String s){
 
-		try{
-			if(!pause){
+		if(!pause){
+			synchronized (lock) {
 
 				if(maxDisplay % 200 != 0)
 					display += "<br>" + s;
@@ -124,40 +147,28 @@ public class DebugInterface extends JFrame implements ActionListener {
 				else
 					display = "<br>" + s;
 
-				text.setText("<html>" + display + "</html>");
-
-				if(!watch){
-					vertical = scrollpane.getVerticalScrollBar();
-					vertical.setValue( vertical.getMaximum() );
-				}
-
 				maxDisplay++;
 
 			}
-		}catch(Exception e){}
+		}
 	}
 
-	/*
-	 * farle sincronizzate?
-	 */
 	public void print(String s, Color c){
 
 		if(!pause){
 
-			if(maxDisplay % 200 != 0)
-				display += "<br>" + "<font color=\""+ Integer.toHexString(c.getRGB() & 0xffffff) + "\">" + s + "</font>";
+			synchronized (lock) {
 
-			else
-				display = "<br>" + "<font color=\""+ Integer.toHexString(c.getRGB() & 0xffffff) + "\">" + s + "</font>";
+				if(maxDisplay % 200 != 0)
+					display += "<br>" + "<font color=\""+ Integer.toHexString(c.getRGB() & 0xffffff) + "\">" + s + "</font>";
 
-			text.setText("<html>" + display + "</html>");
+				else
+					display = "<br>" + "<font color=\""+ Integer.toHexString(c.getRGB() & 0xffffff) + "\">" + s + "</font>";
 
-			if(!watch){
-				vertical = scrollpane.getVerticalScrollBar();
-				vertical.setValue( vertical.getMaximum() );
+				text.setText("<html>" + display + "</html>");
+
+				maxDisplay++;
 			}
-
-			maxDisplay++;
 		}
 	}
 

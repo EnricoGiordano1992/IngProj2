@@ -63,7 +63,7 @@ public class Simulator extends JFrame{
 			g.addCar(new Car(10, net, i++, g));
 
 			try{
-				Thread.sleep(new Random().nextInt(2000));
+				Thread.sleep(new Random().nextInt(250));
 			}catch(Exception p){}
 		}
 	} 

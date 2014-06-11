@@ -24,6 +24,9 @@ public class ScenarioGraphic {
 		debug = new DebugInterface();
 		debug.setSize(500,500);
 		
+		Thread t = new Thread(debug);
+		t.start();
+		
 		cars = new ArrayList<CarGraphic>();
 
 		wall.setSize(800, 600);
