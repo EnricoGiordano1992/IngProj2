@@ -2,16 +2,16 @@ package comunication;
 
 import java.util.Vector;
 
-import car.Car;
+import car.AutoCar;
 
-public class ComCar extends Comunication {
+public class ComAutoCar extends Comunication{
 
-	private Car car;
+	private AutoCar car;
 	
-	public ComCar( int pps, Car car, Net net )
+	public ComAutoCar( int pps, AutoCar autoCar, Net net )
 	{
 		this.pps = pps;
-		this.car = car;
+		this.car = autoCar;
 		this.net = net;
 		dataReceived = new Vector<Message>();
 		observers = new Vector<Comunication>();

@@ -1,11 +1,12 @@
 package start;
 
-import java.awt.EventQueue;
 import java.util.Random;
 
 import javax.swing.JFrame;
 
-import car.Car;
+import car.AdapterAutoToManual;
+import car.AutoCar;
+import car.ManCar;
 import comunication.Net;
 import station.Station;
 import graphics.*;
@@ -18,8 +19,7 @@ public class Simulator extends JFrame{
 	public static void main(String [] args) 
 	{
 		Thread t;
-
-		int i = 1;
+		int contAuto = 0;
 
 		g = new ScenarioGraphic();             
 
@@ -59,12 +59,20 @@ public class Simulator extends JFrame{
 		}catch(Exception e){}
 		g.print("SYSTEM: added useless cars in the park");
 
-		while(true){
-			g.addCar(new Car(10, net, i++, g));
-
-			try{
-				Thread.sleep(new Random().nextInt(2000));
-			}catch(Exception p){}
-		}
+			for( int i = 1 ; i <= 90 ; i++ )
+			{
+//				if ( new Random().nextBoolean() && contAuto < 50 )
+//					{
+//						g.addCar(new AutoCar(10, net, i, g));
+//						contAuto++;
+//					}
+//				else
+//					g.addCar(new AdapterAutoToManual(new ManCar(5, net, i, g)));
+					g.addCar(new ManCar(5, net, i, g));
+					
+					try{
+						Thread.sleep(new Random().nextInt(2000));
+					}catch(Exception p){}
+			}
 	} 
 }

@@ -1,23 +1,56 @@
 package car;
-import car.*;
 
-public class AdapterAutoToManual extends ManCar{
+import graphics.CarGraphic;
+import graphics.ScenarioGraphic;
+import comunication.Net;
 
-	AutoCar a_car = null;
+public class AdapterAutoToManual extends AutoCar implements InterfaceAutoCar,InterfaceManCar{
+
+	ManCar mancar = null;
 	
-	public AdapterAutoToManual(AutoCar a_car){
-		
-		this.a_car = a_car;
-		this.setP_rate(5);
-		
+	public AdapterAutoToManual(int p_rate, Net net, int tempID,
+			ScenarioGraphic g) {
+		super(p_rate, net, tempID, g);
 	}
 	
-	//poi override di tutti i metodi come se non ci fosse un domani!
-	//tipo return a_car.suometodo()
-	
-	public void setBreakAdapter(boolean val){
-		
-		a_car.setBreak_signal(val);
+	public AdapterAutoToManual( ManCar car )
+	{
+		this.mancar = car;
 	}
 	
+	@Override
+	public void doBreak()
+	{
+		mancar.doBreak();
+	}
+	
+	@Override
+	public CarGraphic getMyCarGraphic()
+	{
+		return mancar.getMyCarGraphic();
+	}
+	
+	@Override
+	public String getDisplay()
+	{
+		return mancar.getDisplay();
+	}
+	
+	@Override
+	public void update()
+	{
+		mancar.update();
+	}
+	
+	@Override
+	public int getID()
+	{
+		return mancar.getID();
+	}
+	
+	@Override
+	public int getP_rate()
+	{
+		return mancar.getP_rate();
+	}
 }

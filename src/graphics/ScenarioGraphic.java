@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JLabel;
-import car.Car;
+
+import car.AutoCar;
+import car.ManCar;
 
 public class ScenarioGraphic {
 
@@ -98,7 +100,7 @@ public class ScenarioGraphic {
 
 	}
 
-	public void addCar(Car newCar){
+	public void addCar(ManCar newCar){
 
 
 		cars.add(newCar.getMyCarGraphic());
