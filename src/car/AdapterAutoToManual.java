@@ -53,4 +53,15 @@ public class AdapterAutoToManual extends AutoCar implements InterfaceAutoCar,Int
 	{
 		return mancar.getP_rate();
 	}
+	
+	@Override
+	public void move()
+	{
+		mancar.move();
+	}
+	
+	@Override
+	public void leaveComunication(){
+		mancar.leaveComunication();
+	}
 }

@@ -50,6 +50,10 @@ public class DebugInterface extends JFrame implements ActionListener, Runnable {
 				vertical.setValue( vertical.getMaximum() );
 			}
 
+			try{
+				Thread.sleep(10);
+			}catch(Exception e){}
+
 			oldDisplay = display;
 
 		}

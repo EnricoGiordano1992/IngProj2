@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import javax.swing.JLabel;
 
+import car.AdapterAutoToManual;
 import car.AutoCar;
 import car.ManCar;
 
@@ -100,10 +101,10 @@ public class ScenarioGraphic {
 
 	}
 
-	public void addCar(ManCar newCar){
+	public void addCar(AdapterAutoToManual adapterAutoToManual){
 
 
-		cars.add(newCar.getMyCarGraphic());
+		cars.add(adapterAutoToManual.getMyCarGraphic());
 
 		/*
 		 * aggiungo la macchinina
@@ -123,9 +124,39 @@ public class ScenarioGraphic {
 
 
 		Thread t;
-		t = new Thread(newCar);
+		t = new Thread(adapterAutoToManual);
 		t.start();
 
 	}
 
+	
+	public void addCar(AutoCar autocar){
+
+
+		cars.add(autocar.getMyCarGraphic());
+
+		/*
+		 * aggiungo la macchinina
+		 */
+		wall.add(cars.get(cars.size()-1).getCar(), 1);
+		cars.get(cars.size()-1).getCar().setVisible(true);
+
+//		wall.repaint();
+		//TODO
+
+		/*
+		 * aggiungo il display della macchinina
+		 */
+		wall.add(cars.get(cars.size()-1).getDisplay(), 1);
+		cars.get(cars.size()-1).getDisplay().setVisible(true);
+		wall.repaint();
+
+
+		Thread t;
+		t = new Thread(autocar);
+		t.start();
+
+	}
+
+	
 }

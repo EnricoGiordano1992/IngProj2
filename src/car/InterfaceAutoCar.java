@@ -10,4 +10,6 @@ public interface InterfaceAutoCar {
 	public void update();
 	public int getID();
 	public int getP_rate();
+	public void move();
+	void leaveComunication();
 }

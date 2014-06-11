@@ -10,4 +10,5 @@ public interface InterfaceManCar {
 	public void update();
 	public int getID();
 	public int getP_rate();
+	public void move();
 }

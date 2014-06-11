@@ -101,10 +101,14 @@ public class ManCar implements InterfaceManCar,Runnable{
 	@Override
 	public void run() {
 		move();
+		leaveComunication();
+	}
+	
+	public void leaveComunication(){
 		com.leave();
 	}
 
-	private void move(){
+	public void move(){
 
 		boolean restart = true;
 

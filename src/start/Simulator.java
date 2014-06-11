@@ -61,14 +61,13 @@ public class Simulator extends JFrame{
 
 			for( int i = 1 ; i <= 90 ; i++ )
 			{
-//				if ( new Random().nextBoolean() && contAuto < 50 )
-//					{
-//						g.addCar(new AutoCar(10, net, i, g));
-//						contAuto++;
-//					}
-//				else
-//					g.addCar(new AdapterAutoToManual(new ManCar(5, net, i, g)));
-					g.addCar(new ManCar(5, net, i, g));
+				if ( new Random().nextBoolean() && contAuto < 50 )
+					{
+						g.addCar( new AutoCar(10, net, i, g));
+						contAuto++;
+					}
+				else
+					g.addCar(new AdapterAutoToManual(new ManCar(5, net, i, g)));
 					
 					try{
 						Thread.sleep(new Random().nextInt(2000));

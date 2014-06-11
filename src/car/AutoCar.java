@@ -109,10 +109,17 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 	@Override
 	public void run() {
 		move();
-		com.leave();
+		leaveComunication();
+	}
+	
+	@Override
+	public void leaveComunication() {
+		com.leave();		
 	}
 
-	private void move(){
+	
+
+	public void move(){
 
 		boolean restart = true;
 
