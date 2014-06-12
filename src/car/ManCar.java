@@ -372,28 +372,16 @@ public class ManCar implements InterfaceManCar,Runnable{
 		if(isCurve)
 		{
 			try{
-
 				Thread.sleep(sleep-velocity+sleep_curve);
-				/*
-				 * la macchina invia questo:
-				 */
-				com.write(0, "SPEED;"+velocity+conversion);
-
 			}catch(Exception e){}
 		}
 
 		else{
 
 			try{
-
 				Thread.sleep(sleep-velocity);
-				/*
-				 * la macchina invia questo:
-				 */
-				com.write(0, "SPEED;"+velocity+conversion);
 			}catch(Exception e){}
 		}
-		sendMessage();
 	}
 
 	public int getID() {
@@ -402,5 +390,11 @@ public class ManCar implements InterfaceManCar,Runnable{
 
 	public int getP_rate() {
 		return p_rate;
+	}
+	public String getVelocity() {
+		/*
+		 * la macchina invia questo:
+		 */
+		return "" + (velocity+conversion);
 	}
 }

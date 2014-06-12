@@ -2,7 +2,8 @@ package comunication;
 
 import java.util.Vector;
 
-public abstract class Comunication {
+//TODO
+public abstract class Comunication implements Runnable{
 
 	protected int pps;
 	

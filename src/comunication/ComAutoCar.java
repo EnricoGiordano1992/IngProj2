@@ -4,10 +4,22 @@ import java.util.Vector;
 
 import car.AutoCar;
 
-public class ComAutoCar extends Comunication{
+//TODO
+public class ComAutoCar extends Comunication implements Runnable{
 
 	private AutoCar car;
-	
+
+	public void run(){
+		while(true){
+			try{
+				Thread.sleep(1000/car.getP_rate());
+			}catch(Exception e){}
+
+			write(0, "SPEED;"+car.getVelocity());
+			send();
+		}
+	}
+
 	public ComAutoCar( int pps, AutoCar autoCar, Net net )
 	{
 		this.pps = pps;
@@ -37,6 +49,6 @@ public class ComAutoCar extends Comunication{
 	@Override
 	public void sendBroadcast(Packet p) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -16,48 +17,28 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 
-public class DebugInterface extends JFrame implements ActionListener, Runnable {
+public class DebugInterface extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	JPanel panel;
 	boolean pause;
-	boolean watch = true;
+	boolean watch;
 	JMenuBar menuBar;
 	JMenu menu;
 	JScrollPane scrollpane;
 	JScrollBar vertical;
 
-	JLabel text;
+	JTextArea text;
 
 	String display = "";
 	String oldDisplay = "";
 	int maxDisplay = 0;
-	private final Object lock;
-	private final Object refreshLock;
 
-	@Override
-	public void run(){
-
-		while(true){
-			
-			if(!oldDisplay.equals(display))
-				text.setText("<html>" + display + "</html>");
-
-			if(!watch){
-				vertical = scrollpane.getVerticalScrollBar();
-				vertical.setValue( vertical.getMaximum() );
-			}
-
-			try{
-				Thread.sleep(10);
-			}catch(Exception e){}
-
-			oldDisplay = display;
-			repaint();
-		}
-	}
 
 	public DebugInterface(){
 
@@ -105,11 +86,21 @@ public class DebugInterface extends JFrame implements ActionListener, Runnable {
 
 		panel = new JPanel();
 		panel.setSize(600, 400);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		//		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setLayout(null);
 		panel.setOpaque(true);
 		panel.setBackground(Color.black);
 
-		scrollpane = new JScrollPane(panel);
+
+		text = new JTextArea();
+		//		text.setContentType("text/html");
+		text.setOpaque(true);
+		text.setBackground(Color.black);
+		text.setForeground(Color.green);
+
+		panel.add(text);
+
+		scrollpane = new JScrollPane(text);
 		scrollpane.setBackground(Color.gray);
 		scrollpane.setBorder(BorderFactory.createLineBorder(Color.gray, 2));
 
@@ -118,12 +109,8 @@ public class DebugInterface extends JFrame implements ActionListener, Runnable {
 
 		getContentPane().add(scrollpane, BorderLayout.CENTER);
 
-		text = new JLabel();
-		panel.add(text);
-		text.setForeground(Color.green);
 
-		lock = new Object();
-		refreshLock = new Object();
+		pack();
 
 		print("**********************************************");
 		print("**********************************************");
@@ -141,19 +128,7 @@ public class DebugInterface extends JFrame implements ActionListener, Runnable {
 	public void print(String s){
 
 		if(!pause){
-			synchronized (lock) {
-
-				synchronized (refreshLock){
-
-					if(maxDisplay % 200 != 0)
-						display += "<br>" + s;
-
-					else
-						display = "<br>" + s;
-
-					maxDisplay++;
-				}
-			}
+			text.append("\n" + s);
 		}
 	}
 
@@ -161,19 +136,10 @@ public class DebugInterface extends JFrame implements ActionListener, Runnable {
 
 		if(!pause){
 
-			synchronized (lock) {
-
-				synchronized (refreshLock){
-					if(maxDisplay % 200 != 0)
-						display += "<br>" + "<font color=\""+ Integer.toHexString(c.getRGB() & 0xffffff) + "\">" + s + "</font>";
-
-					else
-						display = "<br>" + "<font color=\""+ Integer.toHexString(c.getRGB() & 0xffffff) + "\">" + s + "</font>";
-
-					text.setText("<html>" + display + "</html>");
-
-					maxDisplay++;
-				}
+			print(s);
+			if(!watch){
+				vertical = scrollpane.getVerticalScrollBar();
+				vertical.setValue( vertical.getMaximum() );
 			}
 		}
 	}

@@ -3,7 +3,7 @@ package comunication;
 import java.util.Vector;
 
 import station.Station;
-
+//TODO
 public class ComStation extends Comunication{
 	private Station station;
 
@@ -31,5 +31,10 @@ public class ComStation extends Comunication{
 	}
 	public void sendBroadcast( Packet p ){
 		net.sendBroadcast(p);
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 }

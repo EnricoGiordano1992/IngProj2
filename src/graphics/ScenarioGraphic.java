@@ -22,10 +22,6 @@ public class ScenarioGraphic {
 		
 		debug = new DebugInterface();
 		debug.setSize(500,500);
-		debug.setLocationRelativeTo( null ); 
-		
-		Thread t1 = new Thread(debug);
-		t1.start();
 		
 		try{
 		Thread.sleep(1000);
@@ -35,7 +31,7 @@ public class ScenarioGraphic {
 		
 		wall = new WallGraphic();
 		wall.setSize(800, 600);
-		wall.setLocationRelativeTo( null ); 
+		wall.setLocationRelativeTo( null); 
 		wall.setVisible(true);
 
 	}

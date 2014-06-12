@@ -3,9 +3,22 @@ package comunication;
 import java.util.Vector;
 import car.ManCar;
 
-public class ComManCar extends Comunication {
+//TODO
+public class ComManCar extends Comunication implements Runnable{
 
 	private ManCar car;
+	
+	public void run(){
+		while(true){
+			try{
+				Thread.sleep(1000/car.getP_rate());
+			}catch(Exception e){}
+
+			write(0, "SPEED;"+car.getVelocity());
+			send();
+		}
+	}
+
 	
 	public ComManCar( int pps, ManCar autoCar, Net net )
 	{

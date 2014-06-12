@@ -54,10 +54,14 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 		roadFree = false;
 		myColor = new Color(new Random().nextFloat(),new Random().nextFloat(),new Random().nextFloat());
 		myGraphic = new CarGraphic(ID, myColor,"A");
+		
+		Thread t = new Thread(com);
+		t.start();
+		
 		net.joinBroadcast(com);
 	}
 	public AutoCar(){}
-	
+
 	public CarGraphic getMyCarGraphic(){
 		return this.myGraphic;
 	}
@@ -67,7 +71,7 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 	private void updateDisplay( String display )
 	{
 		this.display = display;
-//		this.myGraphic.setDisplay("[ " + ID + " - A ] " + display);
+		//		this.myGraphic.setDisplay("[ " + ID + " - A ] " + display);
 		g.print("[ " + ID + " - A ] " + display , myColor);
 	}
 	private void sendMessage(){
@@ -102,7 +106,7 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 			doBreak();
 		else if( mex.getData().compareTo("IDEAL") == 0)
 			updateDisplay("IDEAL");
-		
+
 		if( connected )
 			roadFree = true;
 	}
@@ -111,13 +115,13 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 		move();
 		leaveComunication();
 	}
-	
+
 	@Override
 	public void leaveComunication() {
 		com.leave();		
 	}
 
-	
+
 
 	public void move(){
 
@@ -401,29 +405,18 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 				com.write(0, "SPEED;"+velocity+conversion);
 			}catch(Exception e){}
 		}
-//   	 synchronized (this) {
-//		  try {
-//			SwingUtilities.invokeAndWait(doNextGen);
-//		} catch (InvocationTargetException e) {
-//			e.printStackTrace();
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//	}
 		sendMessage();
 	}
-//	
-//	final Runnable doNextGen = new Runnable() {
-//	     public void run() {
-//	    	  myGraphic.getCar().repaint();
-//	     }
-//	 };
-	 
+
 	public int getID() {
 		return ID;
 	}
 
 	public int getP_rate() {
 		return p_rate;
+	}
+	public String getVelocity() {
+
+		return "" + (velocity+conversion);
 	}
 }
