@@ -47,6 +47,7 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 
 		this.g = g;
 		com = new ComAutoCar(p_rate, this, net);
+		
 		com.setId(tempID);
 		ID = tempID;
 		this.p_rate = p_rate;
@@ -55,10 +56,12 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 		myColor = new Color(new Random().nextFloat(),new Random().nextFloat(),new Random().nextFloat());
 		myGraphic = new CarGraphic(ID, myColor,"A");
 		
-		Thread t = new Thread(com);
-		t.start();
 		
 		net.joinBroadcast(com);
+		
+		Thread t = new Thread(com);
+		t.start();
+
 	}
 	public AutoCar(){}
 
@@ -102,11 +105,16 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 			roadFree = true;
 			updateDisplay("JOIN SUCCESSFULLY EXECUTED");
 		}
-		else if ( mex.getData().compareTo("DECREASE THE SPEED") == 0 )
+		else if ( mex.getData().compareTo("DECREASE THE SPEED") == 0 ){
+			updateDisplay("BREAK");
 			doBreak();
+		}
 		else if( mex.getData().compareTo("IDEAL") == 0)
 			updateDisplay("IDEAL");
 
+		else
+			updateDisplay("my velocity: " + getVelocity());
+		
 		if( connected )
 			roadFree = true;
 	}
@@ -389,7 +397,7 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 				/*
 				 * la macchina invia questo:
 				 */
-				com.write(0, "SPEED;"+velocity+conversion);
+//				com.write(0, "SPEED;"+velocity+conversion);
 
 			}catch(Exception e){}
 		}
@@ -402,7 +410,7 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 				/*
 				 * la macchina invia questo:
 				 */
-				com.write(0, "SPEED;"+velocity+conversion);
+//				com.write(0, "SPEED;"+velocity+conversion);
 			}catch(Exception e){}
 		}
 		sendMessage();

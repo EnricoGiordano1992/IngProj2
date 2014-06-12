@@ -46,6 +46,8 @@ public class DebugInterface extends JFrame implements ActionListener{
 
 		menuBar  = new JMenuBar();
 
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		//Build the first menu.
 		menu = new JMenu("Options");
 		menu.setMnemonic(KeyEvent.VK_A);
@@ -113,9 +115,9 @@ public class DebugInterface extends JFrame implements ActionListener{
 		pack();
 
 		print("**********************************************");
-		print("**********************************************");
-		print("*********** SYSTEM DEBUG INTERFACE ***********");
-		print("**********************************************");
+		print("*                                                                  *");
+		print("*        SYSTEM DEBUG INTERFACE                 *");
+		print("*                                                                  *");
 		print("**********************************************");
 
 		print(" ");

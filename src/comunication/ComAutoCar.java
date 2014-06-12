@@ -27,6 +27,7 @@ public class ComAutoCar extends Comunication implements Runnable{
 		this.net = net;
 		dataReceived = new Vector<Message>();
 		observers = new Vector<Comunication>();
+		
 	}
 	/**
 	 * Controlla se nel pacchetto � presente un messaggio per questa macchina

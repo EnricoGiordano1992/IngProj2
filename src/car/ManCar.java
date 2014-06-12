@@ -48,6 +48,9 @@ public class ManCar implements InterfaceManCar,Runnable{
 		myColor = new Color(new Random().nextFloat(),new Random().nextFloat(),new Random().nextFloat());
 		myGraphic = new CarGraphic(ID, myColor,"M");
 		net.joinBroadcast(com);
+		
+		Thread t = new Thread(com);
+		t.start();
 	}
 	public void doBreak() {
 		updateDisplay("BREAK");
@@ -92,10 +95,17 @@ public class ManCar implements InterfaceManCar,Runnable{
 			roadFree = true;
 			updateDisplay("JOIN SUCCESSFULLY EXECUTED");
 		}
-		else if ( mex.getData().compareTo("DECREASE THE SPEED") == 0 )
+		else if ( mex.getData().compareTo("DECREASE THE SPEED") == 0 ){
+
+			updateDisplay("BREAK");
 			doBreak();
+		}
 		else if( mex.getData().compareTo("IDEAL") == 0)
 			updateDisplay("IDEAL");
+		
+		else
+			updateDisplay("my velocity: " + getVelocity());
+
 		
 		if( connected )
 			roadFree = true;

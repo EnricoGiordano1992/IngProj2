@@ -34,7 +34,5 @@ public class ComStation extends Comunication{
 	}
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
 	}
 }
