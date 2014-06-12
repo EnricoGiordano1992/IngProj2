@@ -106,7 +106,6 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 			updateDisplay("JOIN SUCCESSFULLY EXECUTED");
 		}
 		else if ( mex.getData().compareTo("DECREASE THE SPEED") == 0 ){
-			updateDisplay("BREAK");
 			doBreak();
 		}
 		else if( mex.getData().compareTo("IDEAL") == 0)
@@ -186,7 +185,7 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 					Thread.sleep(sleep+sleep_curve);
 				}catch(Exception e){}
 			}
-			xPos = 636;
+			xPos = 630;
 			yPos = init_yPos;
 			myGraphic.getCar().setBounds(xPos, yPos, 176, 88);
 			myGraphic.getDisplay().setBounds(xPos, yPos, dimX, dimY);
@@ -368,7 +367,7 @@ public class AutoCar implements InterfaceAutoCar,Runnable {
 				}
 
 
-				xPos = 636;
+				xPos = 630;
 				yPos = init_yPos;
 				myGraphic.getCar().setBounds(xPos, yPos, 176, 88);
 				myGraphic.getDisplay().setBounds(xPos, yPos, dimX, dimY);

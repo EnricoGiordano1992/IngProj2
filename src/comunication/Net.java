@@ -57,7 +57,7 @@ public class Net {
 					connected.insert(c);
 					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
 					joined = true;
-					station.updateDisplay("Capacity : " + bandwidth.get(i) + " on channel " + i);
+					station.updateDisplay("Occupation : " + bandwidth.get(i) + " on channel " + i);
 				}
 			}
 			if( ! joined )
@@ -68,7 +68,7 @@ public class Net {
 					bandwidth.set(i, bandwidth.get(i) + c.getPps());
 					park.remove(c.getId());
 					c.setChannel(bandwidth.indexOf(bandwidth.get(i)));
-					station.updateDisplay("Capacity : " + bandwidth.get(i) + " on channel " + i);
+					station.updateDisplay("Occupation : " + bandwidth.get(i) + " on channel " + i);
 				}
 			}
 		}
