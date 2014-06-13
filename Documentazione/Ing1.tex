@@ -91,7 +91,7 @@ The car label have a superior JLabel that contains its id and the car type: the 
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.5]{../radio.png}
-\caption{car label}
+\caption{station label}
 \end{figure}
 
 
@@ -118,6 +118,10 @@ This is the Z order of the JLabel:
 In this way, the cars will pass graphically behind the station and on the background image.
 
 
+In the park, there is a lot of ``dead car'' that simply occupies the park. This was made because is a graphical strategy to fill a space that may seem empty or messy.
+
+~
+
 The graphical class are contained in the \textit{``graphics''} package.
 
 \section{Design pattern for graphical interface}
@@ -134,23 +138,15 @@ Every class of this project must use theese graphical interface, so it was imple
 
 \section{Swing bug}
 
+The Swing graphical library is a simple and usefull library for java application, but in this project it was used at the limit of its potential. So, every car has two graphic threads that work asynchronously with a fast refresh (20 milliseconds). So, during the execution the GUI may be throws this exception: 
+
 \begin{verbatim}
 Exception in thread "Thread-1" java.lang.NullPointerException
-	at javax.swing.BufferStrategyPaintManager.flushAccumulatedRegion(BufferStrategyPaintManager.java:427)
-	at javax.swing.BufferStrategyPaintManager.copyArea(BufferStrategyPaintManager.java:351)
-	at javax.swing.RepaintManager.copyArea(RepaintManager.java:1232)
-	at javax.swing.JViewport.blitDoubleBuffered(JViewport.java:1621)
-	at javax.swing.JViewport.windowBlitPaint(JViewport.java:1590)
-	at javax.swing.JViewport.setViewPosition(JViewport.java:1135)
-	at javax.swing.plaf.basic.BasicScrollPaneUI$Handler.vsbStateChanged(BasicScrollPaneUI.java:1044)
-	at javax.swing.plaf.basic.BasicScrollPaneUI$Handler.stateChanged(BasicScrollPaneUI.java:1033)
-	at javax.swing.DefaultBoundedRangeModel.fireStateChanged(DefaultBoundedRangeModel.java:365)
-	at javax.swing.DefaultBoundedRangeModel.setRangeProperties(DefaultBoundedRangeModel.java:302)
-	at javax.swing.DefaultBoundedRangeModel.setValue(DefaultBoundedRangeModel.java:168)
-	at javax.swing.JScrollBar.setValue(JScrollBar.java:463)
-	at graphics.DebugInterface.run(DebugInterface.java:50)
-	at java.lang.Thread.run(Thread.java:701)
+	at javax.swing.BufferStrategyPaintManager.flushAccumulatedRegion
+	...
 \end{verbatim}
+
+This is a bug of Swing library of the management of asynchronous threads that have a very high refresh. But is not important for the program execution, simply is rarely thrown this exception.
 
 \end{document}
 

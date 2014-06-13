@@ -2,4 +2,4 @@
 \contentsline {part}{I\hspace {1em}Introduction}{2}
 \contentsline {part}{II\hspace {1em}Graphical interface}{3}
 \contentsline {section}{\numberline {1}Design pattern for graphical interface}{4}
-\contentsline {section}{\numberline {2}Swing bug}{5}
+\contentsline {section}{\numberline {2}Swing bug}{4}
