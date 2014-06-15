@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.3.26)  13 JUN 2014 12:43
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.3.26)  15 JUN 2014 17:01
 entering extended mode
  %&-line parsing enabled.
 **Ing1.tex
@@ -419,84 +419,44 @@ File: ../car.png Graphic file (type png)
 <../car2.png, id=44, 171.64125pt x 72.27pt>
 File: ../car2.png Graphic file (type png)
  <use ../car2.png>
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
 <../radio.png, id=45, 72.27pt x 171.64125pt>
 File: ../radio.png Graphic file (type png)
- <use ../radio.png>
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[3 <./screen.png (PNG copy)> <../car.png>]
-<facade.png, id=51, 642.4pt x 401.5pt>
+ <use ../radio.png> [3 <./screen.png (PNG copy)> <../car.png>] [4 <../car2.png>
+ <../radio.png (PNG copy)>]
+<facade.png, id=56, 928.46875pt x 846.16125pt>
 File: facade.png Graphic file (type png)
- <use facade.png>
+ <use facade.png> [5 <./facade.png>] [6]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 159.
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+ (/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 159.
 
-
-Overfull \hbox (96.62538pt too wide) in paragraph at lines 157--157
-[]\OT1/cmtt/m/n/10 at javax.swing.BufferStrategyPaintManager.flushAccumulatedRe
-gion(BufferStrategyPaintManager.java:427)[] 
- []
-
-
-Overfull \hbox (23.12602pt too wide) in paragraph at lines 157--157
-[]\OT1/cmtt/m/n/10 at javax.swing.BufferStrategyPaintManager.copyArea(BufferStr
-ategyPaintManager.java:351)[] 
- []
-
-
-Overfull \hbox (70.37561pt too wide) in paragraph at lines 157--157
-[]\OT1/cmtt/m/n/10 at javax.swing.plaf.basic.BasicScrollPaneUI$Handler.vsbState
-Changed(BasicScrollPaneUI.java:1044)[] 
- []
-
-
-Overfull \hbox (54.62575pt too wide) in paragraph at lines 157--157
-[]\OT1/cmtt/m/n/10 at javax.swing.plaf.basic.BasicScrollPaneUI$Handler.stateCha
-nged(BasicScrollPaneUI.java:1033)[] 
- []
-
-
-Overfull \hbox (44.12584pt too wide) in paragraph at lines 157--157
-[]\OT1/cmtt/m/n/10 at javax.swing.DefaultBoundedRangeModel.fireStateChanged(Def
-aultBoundedRangeModel.java:365)[] 
- []
-
-
-Overfull \hbox (54.62575pt too wide) in paragraph at lines 157--157
-[]\OT1/cmtt/m/n/10 at javax.swing.DefaultBoundedRangeModel.setRangeProperties(D
-efaultBoundedRangeModel.java:302)[] 
- []
-
-
-Overfull \hbox (2.1262pt too wide) in paragraph at lines 157--157
-[]\OT1/cmtt/m/n/10 at javax.swing.DefaultBoundedRangeModel.setValue(DefaultBoun
-dedRangeModel.java:168)[] 
- []
-
-[4 <../car2.png> <../radio.png (PNG copy)>] [5 <./facade.png>] (./Ing1.aux) ) 
+<adapter.png, id=66, 677.53125pt x 623.32875pt>
+File: adapter.png Graphic file (type png)
+ <use adapter.png> [7 <./adapter.png>] [8] (./Ing1.aux) ) 
 Here is how much of TeX's memory you used:
- 2082 strings out of 495061
- 26448 string characters out of 1182621
+ 2107 strings out of 495061
+ 26828 string characters out of 1182621
  86209 words of memory out of 3000000
- 5244 multiletter control sequences out of 15000+50000
+ 5265 multiletter control sequences out of 15000+50000
  5979 words of font info for 22 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 32i,8n,31p,465b,259s stack positions out of 5000i,500n,10000p,200000b,50000s
-</
-usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/t
-exmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texliv
-e/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-texlive/fonts/type
-1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/public/a
-msfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
-mr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></
-usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Ing1.pdf (6 pages, 597707 bytes).
+ 32i,8n,31p,583b,216s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texl
+ive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/t
+ype1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public
+/amsfonts/cm/cmbx9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm
+/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb
+></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share
+/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texl
+ive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/t
+ype1/public/amsfonts/cm/cmtt10.pfb>
+Output written on Ing1.pdf (9 pages, 667976 bytes).
 PDF statistics:
- 79 PDF objects out of 1000 (max. 8388607)
+ 96 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

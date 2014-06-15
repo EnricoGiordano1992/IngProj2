@@ -75,20 +75,20 @@ WallGraphic is composed by a JFrame that contains a JPanel with a ``wallpaper'' 
 
 The car label have a superior JLabel that contains its id and the car type: the ``M'' letter represent the ``Manual car'' and the ``A'' letter represent the ``Automatic car''. When a car change its direction (X orientation), it changes its image.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.2]{../car.png}
 \caption{car label}
 \end{figure}
 
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.2]{../car2.png}
 \caption{car label (different orientation)}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.5]{../radio.png}
 \caption{station label}
@@ -127,14 +127,14 @@ The graphical class are contained in the \textit{``graphics''} package.
 \section{Design pattern for graphical interface}
 
 Every class of this project must use theese graphical interface, so it was implement a \textbf{Façade pattern}. In fact there is a general class, ``ScenarioGraphic'', that include in itself every graphical istance; in this way, when a class must use a graphical istante, simply call the ScenarioGraphic methods and ScenarioGraphic can modify the graphical istances. 
-
-\begin{figure}[!h]
+\newpage
+\begin{figure}[!ht]
 \centering
-\includegraphics[scale=0.5]{facade.png}
+\includegraphics[scale=0.4]{facade.png}
 \caption{Façade pattern}
 \end{figure}
 
-
+\newpage
 
 \section{Swing bug}
 
@@ -148,12 +148,40 @@ Exception in thread "Thread-1" java.lang.NullPointerException
 
 This is a bug of Swing library of the management of asynchronous threads that have a very high refresh. But is not important for the program execution, simply is rarely thrown this exception.
 
+\newpage
 
 \part{AutoCar and ManCar Class}
 
+Queste classi sono delle implementazioni delle interfacce di tipo Runnable e InterfaceAutoCar (e il rispettivo InterfaceManCar) per questi motivi:
 
-Theese classes are a Runnable and InterfaceAutoCar (InterfaceManCar) implementation; theese are Runnable implementation because they generate a thread that moves car label and ID label. 
+\begin {itemize}
+
+\item contengono un metodo \begin{verbatim} public void run() \end{verbatim} che rappresenta ciò che ogni macchina deve fare dal punto di vista del movimento (cioè eseguire il tragitto nel circuito);
+
+\item implementano le corrispettive classi della loro interfaccia.
+
+\end {itemize}
+
+Il fatto di implementare due interfacce differenti è stato utile per rappresentare un comportamento diverso come da specifiche per il messaggio di ``break'' ricevuto dalla stazione e in particolar modo per utilizzare il design pattern di tipo \textbf{Adapter}. Infatti avendo due implementazioni differenti, per utilizzare diversamente un metodo non è possibile fare un Override e quindi bisogna appoggiarsi ad una classe intermedia (AdapterAutoToManual) che estende la classe chiamante ma implementa la classe da cui si vuole ereditare il comportamento.   
+
+Quindi di fatto esistono due interfacce distinte di AutoCar e ManCar che vengono implementate dalle rispettive classi e che hanno comportamenti differenti; se si vuole utilizzare la AutoCar come ManCar bisogna istanziare la classe AdapterAutoToManual e utilizzare tramite essa i metodi della classe ManCar. 
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.4]{adapter.png}
+\caption{Adapter pattern}
+\end{figure}
+
+
+\newpage
+
+Per rendere possibile l'utilizzo della propria parte grafica da parte della classe AutoCar e ManCar, è stato fatto in modo che questa classe istanziasse dentro di essa l' istanza grafica ``CarGraphic'', in modo da avere pieno controllo sulla propria parte grafica. 
+
+Questo è stato utile per gestire il movimento delle macchine in maniera asincrona rispetto alle altre macchine ma anche all'esecuzione del programma. Inoltre in questo modo anche alla classe ScenarioGraphic è permesso di avere controllo del comportamento e della parte grafica sia delle AutoCar sia delle ManCar; istanziando infatti la classe AutoCar o ManCar, si crea in automatico l'istanza grafica, quindi è possibile gestirla facendo accesso alle singole istanze delle loro classi. 
+
+~
+
+Questo rende inoltre utile l'utilizzo del \textbf{Façade Pattern}, perché si vuole utilizzare una singola classe per controllare tutte le istanze grafiche (dove è permesso).
 
 \end{document}
-
 
