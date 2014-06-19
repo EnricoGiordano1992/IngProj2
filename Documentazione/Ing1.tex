@@ -4,7 +4,7 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage[a4paper, total={6in, 9in}]{geometry}
-
+\usepackage{rotating}
 
 
 \begin{document}
@@ -193,7 +193,7 @@ This make useful to use \textbf{Façade Pattern}, because you want to use a sing
 
 \newpage
 
-\part{The Communication}
+\part{Communication}
 
 The communication is based on two main components: the network (called Net) and the communication module (called Comunication). The network stores the machines within the range of action and within the circuit. The communication menages the exchange of messages, in reception and in transmission, and notify to the upper component the reception of a message.
 
@@ -217,6 +217,14 @@ The station menages the received packets from the cars and for each message into
 It also menages the JOIN request by the cars, by checking if is possible to add them into the network, and, if so, by sending an OK message. In the event that there was no place, the station sends a BUSY message, denying access to the circuit.
 The speed of message reception is simulated by a sleep, calibrated to receive packets 20 times per second. Every time reads the messages from the Comunication module, moves all messages in a internal vector and menages them all at once.
 
+\newpage
+\part{UML Class Diagram}
+
+
+\begin{sidewaysfigure}[!ht]
+\centering
+\includegraphics[scale=0.2]{classDiagram.png}
+\end{sidewaysfigure}
+
 
 \end{document}
-

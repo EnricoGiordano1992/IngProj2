@@ -4,4 +4,5 @@
 \contentsline {section}{\numberline {1}Design pattern for graphical interface}{4}
 \contentsline {section}{\numberline {2}Swing bug}{6}
 \contentsline {part}{III\hspace {1em}AutoCar and ManCar Classes}{7}
-\contentsline {part}{IV\hspace {1em}The Communication}{9}
+\contentsline {part}{IV\hspace {1em}Communication}{9}
+\contentsline {part}{V\hspace {1em}UML Class Diagram}{10}

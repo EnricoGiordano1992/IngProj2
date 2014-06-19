@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.3.26)  19 JUN 2014 11:26
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.3.26)  19 JUN 2014 19:08
 entering extended mode
  %&-line parsing enabled.
 **Ing1.tex
@@ -322,6 +322,18 @@ Package ifvtex Info: VTeX not detected.
 \Gm@odd@mp=\dimen108
 \Gm@even@mp=\dimen109
 \Gm@dimlist=\toks18
+)
+(/usr/share/texmf-texlive/tex/latex/rotating/rotating.sty
+Package: rotating 2009/03/28 v2.16a rotated objects in LaTeX
+
+(/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@r@tfl@t=\count92
+\rotFPtop=\skip43
+\rotFPbot=\skip44
+\rot@float@box=\box28
+\rot@mess@toks=\toks19
 ) (./Ing1.aux)
 \openout1 = `Ing1.aux'.
 
@@ -340,16 +352,16 @@ LaTeX Font Info:    ... okay on input line 10.
 
 (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count92
+\scratchcounter=\count93
 \scratchdimen=\dimen110
-\scratchbox=\box28
-\nofMPsegments=\count93
-\nofMParguments=\count94
-\everyMPshowfont=\toks19
-\MPscratchCnt=\count95
+\scratchbox=\box29
+\nofMPsegments=\count94
+\nofMParguments=\count95
+\everyMPshowfont=\toks20
+\MPscratchCnt=\count96
 \MPscratchDim=\dimen111
-\MPnumerator=\count96
-\everyMPtoPDFconversion=\toks20
+\MPnumerator=\count97
+\everyMPtoPDFconversion=\toks21
 ) ABD: EveryShipout initializing macros
 (/usr/share/texmf-texlive/tex/latex/graphics/color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
@@ -436,27 +448,36 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 
 <adapter.png, id=66, 677.53125pt x 623.32875pt>
 File: adapter.png Graphic file (type png)
- <use adapter.png> [7 <./adapter.png>] [8] [9] (./Ing1.aux) ) 
+ <use adapter.png> [7 <./adapter.png>] [8] [9] <classDiagram.png, id=78, 2791.4
+2876pt x 2777.37625pt>
+File: classDiagram.png Graphic file (type png)
+
+<use classDiagram.png>
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 227.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 227.
+ [10] [11 <./classDiagram.png (PNG copy)>] (./Ing1.aux) ) 
 Here is how much of TeX's memory you used:
- 2104 strings out of 495061
- 26804 string characters out of 1182621
- 87209 words of memory out of 3000000
- 5262 multiletter control sequences out of 15000+50000
+ 2220 strings out of 495061
+ 28328 string characters out of 1182621
+ 88984 words of memory out of 3000000
+ 5370 multiletter control sequences out of 15000+50000
  5979 words of font info for 22 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 32i,8n,31p,571b,216s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-
-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fon
-ts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/pu
-blic/amsfonts/cm/cmbx9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
-s/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10
-.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/s
-hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-
-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fon
-ts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Ing1.pdf (10 pages, 671777 bytes).
+ 32i,9n,31p,571b,283s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texl
+ive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/t
+ype1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public
+/amsfonts/cm/cmbx9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm
+/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb
+></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share
+/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texl
+ive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/t
+ype1/public/amsfonts/cm/cmtt10.pfb>
+Output written on Ing1.pdf (12 pages, 1330600 bytes).
 PDF statistics:
- 99 PDF objects out of 1000 (max. 8388607)
+ 106 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
