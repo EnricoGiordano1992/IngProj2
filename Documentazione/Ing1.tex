@@ -191,5 +191,32 @@ This was useful for managing the asynchronously machine movements compared the o
 %Questo rende inoltre utile l'utilizzo del \textbf{Façade Pattern}, perché si vuole utilizzare una singola classe per controllare tutte le istanze grafiche (dove è permesso).
 This make useful to use \textbf{Façade Pattern}, because you want to use a single class to control all graphics instances (where permitted).
 
+\newpage
+
+\part{The Communication}
+
+The communication is based on two main components: the network (called Net) and the communication module (called Comunication). The network stores the machines within the range of action and within the circuit. The communication menages the exchange of messages, in reception and in transmission, and notify to the upper component the reception of a message.
+
+The project specified a limitation of the available band of a station to receive and a limitation of number of car to send. This problem has been simulated using the sleep() method, so we send and receive only the predetermined number of times.
+During the sleep period, the machine can receive messages, thanks to a tail that serves as a buffer. When the machine receive a message, the module notify to the machine the received message using the update method.
+
+The station receive the messages, stores them into a vector, that serves as a buffer, and then, when the principal thread wakes up, download the vector. So, the received packets are passed to the station to be processed.
+The station use a broadcast method to send to all the machines into the circuit the same packet.
+A package is composed by two objects: the sender ID and the messages. Every message is composed of the data and the recipient. In thhis way, you minimize the number of packets sent from the station and you can send more simultaneously broadcast messages, so as to get faster feedback by machines.
+
+The communication part has been specialized depending on whether the component was a station or a car. The car module will send messages at a rate defined by its pps, as opposed, the station not have this limitation. 
+The network operation can be grouped into stages: entry into the field of action of the network by a car, the join request from the station, the station response, the entry in the circuit and the exit from the circuit.
+
+When a car enter into the field of action of the station and its network, the station sends a broadcast message to all machines with a JOIN message. This message will be ignored by the cars already in the circuit and will be menaged by the cars into the parking and the cars just entered in the field. When a car receives a station ok to get in, it enters into the circuit and starts sending its speed at the station. When the car must leave the circuit, the car is removed from the machines inside the circuit and inside the range of network.
+
+If the machine does not receive the station OK, go into the parking and waiting a free place into the network.
+The parking is managed with a FIFO queue, to comply the order of entry into the field.
+The station sends a broadcast message when a car enters into the field or if there are cars into the parking.
+
+The station menages the received packets from the cars and for each message into the packet responds with an IDEAL message, if the car is going at the right speed, otherwise responds with a BREAK message, if the car is going too fast.
+It also menages the JOIN request by the cars, by checking if is possible to add them into the network, and, if so, by sending an OK message. In the event that there was no place, the station sends a BUSY message, denying access to the circuit.
+The speed of message reception is simulated by a sleep, calibrated to receive packets 20 times per second. Every time reads the messages from the Comunication module, moves all messages in a internal vector and menages them all at once.
+
+
 \end{document}
 
