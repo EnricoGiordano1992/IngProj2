@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.3.26)  19 JUN 2014 19:08
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.3.26)  20 JUN 2014 01:59
 entering extended mode
  %&-line parsing enabled.
 **Ing1.tex
@@ -438,13 +438,13 @@ File: ../radio.png Graphic file (type png)
 <facade.png, id=56, 928.46875pt x 846.16125pt>
 File: facade.png Graphic file (type png)
  <use facade.png> [5 <./facade.png>] [6]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 160.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 159.
 
  (/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 160.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 159.
 
 <adapter.png, id=66, 677.53125pt x 623.32875pt>
 File: adapter.png Graphic file (type png)
@@ -454,9 +454,9 @@ File: classDiagram.png Graphic file (type png)
 
 <use classDiagram.png>
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 227.
+(Font)              <7> on input line 239.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 227.
+(Font)              <5> on input line 239.
  [10] [11 <./classDiagram.png (PNG copy)>] (./Ing1.aux) ) 
 Here is how much of TeX's memory you used:
  2220 strings out of 495061
@@ -475,7 +475,7 @@ ype1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public
 /texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texl
 ive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/t
 ype1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Ing1.pdf (12 pages, 1330600 bytes).
+Output written on Ing1.pdf (12 pages, 1330532 bytes).
 PDF statistics:
  106 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
