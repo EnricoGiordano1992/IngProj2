@@ -229,6 +229,12 @@ The station manages the received packets from the cars and for each message into
 It also manages the JOIN request by the cars, by checking if is possible to add them into the network, and, if so, by sending an OK message. In the event that there was no place available, the station sends a BUSY message, denying access to the circuit.
 The speed of message receiving is simulated by a sleep, calibrated to receive packets 20 times per second. Every time the station reads the messages from the Comunication module, moves all messages in a internal vector and manages them all at once.
 
+~
+
+The communication module has been implemented using the \textbf{observer pattern}: it is a software design pattern in which an object, the subject,
+maintains a list of its dependents, called observers, and notifies them automatically of any state
+changes, usually by calling one of their methods.
+
 \newpage
 \part{UML Class Diagram}
 
