@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.3.26)  20 JUN 2014 01:59
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.3.26)  21 JUN 2014 11:02
 entering extended mode
  %&-line parsing enabled.
 **Ing1.tex
@@ -454,9 +454,9 @@ File: classDiagram.png Graphic file (type png)
 
 <use classDiagram.png>
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 239.
+(Font)              <7> on input line 245.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 239.
+(Font)              <5> on input line 245.
  [10] [11 <./classDiagram.png (PNG copy)>] (./Ing1.aux) ) 
 Here is how much of TeX's memory you used:
  2220 strings out of 495061
@@ -475,7 +475,7 @@ ype1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public
 /texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texl
 ive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/t
 ype1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Ing1.pdf (12 pages, 1330532 bytes).
+Output written on Ing1.pdf (12 pages, 1331002 bytes).
 PDF statistics:
  106 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
